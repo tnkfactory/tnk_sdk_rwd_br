@@ -31,10 +31,12 @@ include ':app'
 ```gradle
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://s01.oss.sonatype.org/service/local/repositories/comtnkfactory-1151/content/' }
 }
 ```
 
-아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
+tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
     implementation 'com.tnkfactory:rwd:8.01.11'
@@ -46,11 +48,11 @@ dependencies {
 
 아래와 같이 권한 사용을 추가합니다.
 ```xml
-// 인터넷
+<!-- 인터넷 -->
 <uses-permission android:name="android.permission.INTERNET" />
-// 동영상 광고 재생을 위한 wifi접근
+<!-- 동영상 광고 재생을 위한 wifi접근 -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-// 광고 아이디 획득
+<!-- 광고 아이디 획득 -->
 <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 ```
 
@@ -76,11 +78,7 @@ Tnk 사이트에서 앱 등록하면 상단에 App ID 가 나타납니다. 이�
 
 
 ```xml
-<activity android:name="com.tnkfactory.ad.AdWallActivity" android:exported="true"/>
-<activity android:name="com.tnkfactory.ad.AdMediaActivity" android:screenOrientation="portrait" android:exported="true"/>
-
-<!-- 또는 아래와 같이 설정-->
-<activity android:name="com.tnkfactory.ad.AdMediaActivity" android:screenOrientation="sensorLandscape" android:exported="true"/>
+<activity android:name="com.tnkfactory.ad.AdWallActivity" android:exported="true" android:screenOrientation="portrait"/>
 ```
 
 AndroidManifest.xml의 내용 예시 
@@ -110,8 +108,7 @@ AndroidManifest.xml의 내용 예시
 
         ...
         ...
-        <activity android:name="com.tnkfactory.ad.AdWallActivity" android:exported="true"/>
-        <activity android:name="com.tnkfactory.ad.AdMediaActivity" android:screenOrientation="fullSensor" android:exported="true"/>
+        <activity android:name="com.tnkfactory.ad.AdWallActivity" android:exported="true" android:screenOrientation="portrait"/>
         ...
         ...
         <!-- App ID -->
@@ -153,37 +150,38 @@ Proguard를 사용하실 경우 Proguard 설정내에 아래 내용을 반드시
 
 광고 목록을 출력하는 Activity의 예제 소스
 
-```java
+```kotlin
 public class MainActivity extends AppCompatActivity {
 
 
-    lateinit var offerwall:TnkOfferwall 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    lateinit var offerwall: TnkOfferwall
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        TnkOfferwall(this).apply {
-
+        // 1) TNK SDK 초기화
+        offerwall = TnkOfferwall(this).apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                // google adid가져오기 (백그라운드 스래드에서 처리해야한다.)
-                val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity)
+                // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
+                // 이 예제에서는 google adid를 사용 합니다.
+                val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity) // backgroud thread 처리 필요
 
-                // 유저 고유 식별값 설정
+                getEarnPoint() { point ->
+                    binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
+                }
+
+                // 2) 유저 식별값 설정
                 setUserName(adid.id)
-                // COPPA 설정(https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
+                // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
                 setCOPPA(false)
             }
         }
 
-        btnShowAd.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 새 액티비티로 호출
-                AdWallActivity.start(this@MainActivity)
-            }
-        });
-
+        // 오퍼월 액티비티를 출력합니다.
+        binding.btnOfferwall.setOnClickListener {
+            offerwall.startOfferwallActivity(this@MainActivity)
+        }
     }
 }
 ```
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
 ##### Method
 
-- void TnkSession.setUserName(Context context, String userName)
+- void TnkOfferwall.setUserName(Context context, String userName)
 
 ##### Parameters
 
@@ -217,14 +215,11 @@ public class MainActivity extends AppCompatActivity {
 
 #### 광고 목록 띄우기 (Activity)
 
-자신의 앱에서 광고 목록을 띄우기 위하여 TnkSession.showAdListByType() 함수를 사용합니다. 멀티탭 광고목록을 보여주기 위하여 새로운 Activity를 띄웁니다.
+자신의 앱에서 광고 목록을 띄우기 위하여 TnkOfferwall.startOfferwallActivity() 함수를 사용합니다. 멀티탭 광고목록을 보여주기 위하여 새로운 Activity를 띄웁니다.
 
 ##### Method
 
-- void TnkSession.showAdListByType(Activity activity, AdListType... adListType)
-- void TnkSession.showAdListByType(Activity activity, String title, AdListType... adListType)
-- void TnkSession.showAdListByType(Activity activity, String title, TnkLayout userLayout, AdListType... adListType)
-- void TnkSession.showAdListByType(Activity activity, TnkLayout userLayout, AdListType... adListType)
+- TnkOfferwall.startOfferwallActivity(Activity activity)
 
 ##### Description
 
@@ -237,34 +232,65 @@ public class MainActivity extends AppCompatActivity {
 | 파라메터 명칭 | 내용                                                         |
 | ------------- | ------------------------------------------------------------ |
 | activity      | 현재 Activity 객체                                           |
-| title         | 광고 리스트의 타이틀을 지정함  (기본값 : 무료 포인트 받기)   |
-|adListType | 광고 리스트의 타입 (ALL : 보상형과 구매형 모두 표시, PPI : 보상형, CPS : 구매형) |
-| userLayout    | 원하는 Layout을 지정할 수 있습니다. 자세한 내용은  [[디자인 변경하기](#라-디자인-변경하기)] 내용을 참고해주세요. |
 
 ##### 적용예시
 
-```java
-@Override
+```kotlin
 
-public void onCreate(Bundle savedInstanceState) {
+override fun onCreate(savedInstanceState: Bundle?) {
 
-    ...
+    val offerwall = TnkOfferwall(this)
+    val button:Button = findViewById(R.id.btn_offerwall)
+    
+    button.setOnClickListener {
+        offerwall.startOfferwallActivity(this@MainActivity)
+    }
+}
+```
 
-    final Button button = (Button)findViewById(R.id.main_ad);
+#### 광고 목록 띄우기 (Activity)
 
-    button.setOnClickListener(new OnClickListener() {
+Activity나 Fragment내 특정 레이아웃에 광고 목록을 출력 할 경우 
 
-        @Override
+getAdListView() 메소드를 호출하면 오퍼월 ViewGroup를 반환합니다.
 
-        public void onClick(View v) {
-            TnkSession.showAdListByType(MainActivity.this,
-                                  "Your title here",
-                                  AdListType.ALL,
-                                  AdListType.PPI,
-                                  AdListType.CPS      
-                                 );
+##### Method
+
+- TnkOfferwall.getAdListView()
+- TnkOfferwall.getAdListView(long:appId)
+
+##### Description
+
+ViewGroup를 원하시는 곳에 addView메소드를 사용하여 화면을 구성 하실 수 있습니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용 |
+|---------|--|
+| appid   | 광고 목록 출력과 동시에 특정 광고를 출력 할 경우 appid를 전달합니다. |
+
+##### 적용예시
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+
+    val offerwall = TnkOfferwall(this)
+    val framelayout:FrameLayout = findViewById(R.id.layout_offerwall)
+    
+    showProgress()
+    offerwall.load(object : TnkResultListener {
+        override fun onSuccess() {
+            dismissProgress()
+            framelayout.addView(offerwall.getAdListView())
         }
 
-    });
+        override fun onFail(error: TnkError) {
+            MaterialAlertDialogBuilder(this@EmbedActivityB)
+                .setMessage(error.message)
+                .create()
+                .show()
+        }
+
+    })
 }
 ```

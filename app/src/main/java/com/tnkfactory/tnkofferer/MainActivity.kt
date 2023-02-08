@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
                 // 이 예제에서는 google adid를 사용 합니다.
                 val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity) // backgroud thread 처리 필요
 
-                getEarnPoint() { point ->
-                    binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
-                }
-
                 // 2) 유저 식별값 설정
                 setUserName(adid.id)
                 // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
                 setCOPPA(false)
+
+                getEarnPoint() { point ->
+                    binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
+                }
             }
         }
     }
