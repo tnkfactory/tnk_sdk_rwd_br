@@ -27,7 +27,7 @@ class EmbedActivityB : AppCompatActivity() {
         offerwall.load(object : TnkResultListener {
             override fun onSuccess() {
                 offerwall.navi.showLoading(false)
-                binding.contents.addView(offerwall.getTnkAdList())
+                binding.contents.addView(offerwall.getAdListView())
             }
 
             override fun onFail(error: TnkError) {

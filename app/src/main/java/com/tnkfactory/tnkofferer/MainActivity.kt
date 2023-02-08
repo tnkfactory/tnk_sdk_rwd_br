@@ -31,13 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         // 1) TNK SDK 초기화
         offerwall = TnkOfferwall(this).apply {
-
             lifecycleScope.launch(Dispatchers.IO) {
                 // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
                 // 이 예제에서는 google adid를 사용 합니다.
                 val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity) // backgroud thread 처리 필요
 
-                getEarnPoint { point ->
+                getEarnPoint() { point ->
                     binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
                 }
 

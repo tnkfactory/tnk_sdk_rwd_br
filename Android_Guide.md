@@ -18,9 +18,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         
-        // 정식 출시 이전이기 때문에 아래와 같이 경로를 추가해 주시기 바랍니다.
+        // 경로를 추가해 주시기 바랍니다.
         maven { url "https://jitpack.io" }
-        maven { url 'https://s01.oss.sonatype.org/service/local/repositories/comtnkfactory-1139/content/' }
+        maven { url 'https://s01.oss.sonatype.org/service/local/repositories/comtnkfactory-1151/content/' }
     }
 }
 rootProject.name = "project_name"
@@ -37,7 +37,7 @@ repositories {
 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.00.3'
+    implementation 'com.tnkfactory:rwd:8.01.11'
 }
 ```
 ### Manifest 설정하기
