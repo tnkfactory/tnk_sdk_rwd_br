@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.tnkfactory.tnkofferer'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.tnkfactory.tnkofferer"
@@ -55,7 +55,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-    implementation "com.tnkfactory:rwd:8.01.11"
+    implementation "com.tnkfactory:rwd:8.01.40"
 
 
     testImplementation 'junit:junit:4.13.2'

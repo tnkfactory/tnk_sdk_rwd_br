@@ -14,7 +14,6 @@
 ![offerwall_ui_cps2](https://github.com/tnkfactory/ios-sdk-rwd2/blob/main/img/offerwall_ui_cps2.jpg)
 
 
-
 ### 목차
 
 ---
@@ -42,21 +41,44 @@ AdListItemViewLayout 은 AdListItemView 내의 구성요소들의 크기, 색상
 #### status : 광고의 특정 진행 상태입니다.
  - 설치형 광고 설치 확인 대기 중 
  - 구매형 상품 일일 구매 한도 초과
-
+ - 광고 종료, 적립 완료 등 참여 불가능한 상태
 
 
 ---
 
-UI를 커스텀 하는 방법은 2가지 방법이 제공됩니다.
 
-## 1. xml파일 수정
+## 1. 샘플프로젝트의 xml파일 수정
 
 ---
-xml파일을 수정하는 방법을 설명합니다.
 
-아래와 같이 광고 타입별 레이아웃이 존하고 해당하는 이름의 xml파일이 존재합니다.
+**샘플코드의 EmbedActivityC.kt 파일을 참고 하시기 바랍니다.**
 
-예) com_tnk_off_ad_list_normal.xml
+샘플 프로젝트에는 각 타입별 레이아웃 샘플 파일이 있습니다.
+
+TnkAdListCpsCard.kt
+TnkAdListCpsGrid.kt
+TnkAdListCpsNormal.kt
+TnkAdListMultiJoin.kt
+TnkAdListNew.kt
+TnkAdListNormal.kt
+TnkAdListPromotion.kt
+TnkAdListSuggest.kt
+com_tnk_off_ad_list_normal.xml
+com_tnk_off_ad_list_promotion.xml
+com_tnk_off_ad_list_suggest.xml
+com_tnk_off_ad_list_new.xml
+com_tnk_off_ad_list_multi.xml
+com_tnk_off_ad_list_cps_favorite.xml
+com_tnk_off_ad_list_cps_new.xml
+com_tnk_off_ad_list_cps_normal.xml
+com_tnk_off_ad_list_cps_popular.xml
+com_tnk_off_ad_list_cps_recommend.xml
+com_tnk_off_ad_list_cps_reward.xml
+com_tnk_off_ad_list_cps_search.xml
+com_tnk_off_ad_list_news.xml
+
+각 타입별 xml파일과 해당 view에 컨텐츠를 출력하는 코드를 수정하여 원하는 레이아웃을 구성 하실 수 있습니다.
+
 
 ```kotlin
 class LayoutType {
@@ -65,8 +87,8 @@ class LayoutType {
     const val promotion = 1  // 소진 큐레이션
     const val new = 2    // 신규 큐레이션
     const val suggest = 3    // 운영자 등록 큐레이션
-    const val multi = 4      // 참여중인 멀티리워드 캠페인
-    const val noAd = 9     // 광고 없을때 SDK가 생성하는 추천 광고 큐레이션
+    const val multi = 9      // 참여중인 멀티리워드 캠페인
+    const val noAd = 99     // 광고 없을때 SDK가 생성하는 추천 광고 큐레이션
     
     // 구매형
     const val cpsNormal = 10       // CPS 기본 목록
@@ -78,31 +100,13 @@ class LayoutType {
     const val cpsSearch = 16        // 검색 + CPS My메뉴 아이템
     const val cpsNoAd = 19         // CPS 상품 없을때 SDK가 생성하는 추천 광고 큐레이션
     
-    // 배너
-    const val topBanner = 21     // 상단 배너
-    const val listBanner = 22    // 목록 배너
-    const val bottomBanner = 23  // 하단 배너
-    
     // 컨텐츠
     const val newsList = 31      // 뉴스(컨텐츠) 기본 목록
 }
 ```
 
 
-해당 xml을 열어서 기존에 존재하는 id값은 유지하고 원하시는 항목들을 수정하신 후 아래의 함수를 호출 하시면 됩니다.
-
-```kotlin
-/**
- * 광고 레이아웃을 지정한 xml파일로 교체
- * 
- * @param layoutType 변경할 광고 레이아웃 타입
- * @param layoutResourceId 사용 할 광고 레이아웃 아이디
- * return null
- */
-AdConfig.setAdLayout(LayoutType.normal, R.layout.customAdNormal)
-```
-
-## 2. ViewHolder 직접 구현
+## 2. TnkAdListBasicItem 클래스 구현
 
 ---
 viewHolder를 직접 구현하는 방법을 설명합니다.
@@ -129,16 +133,14 @@ fun bind(viewHolder: GroupieViewHolder, position: Int)
 ```kotlin
 // 12 사이즈의 GrideView로 구성되어 있으며 12를 리턴하면 1행에 1개의 아이템이 출력되며
 // 6을 리턴하면 한행에 2개씩 4를 리턴하면 한 행에 3개씩 아이템이 출력됩니다.
-// HorizontalScrollView를 사용 할 경우 12를 리턴하도록 구현해 주시기 바랍니다.
+// HorizontalScrollView를 사용 할 경우에는 설정하지 않습니다.
 fun getSpanSize(spanCount: Int, position: Int): Int
 ```
-
-
 
 ### 광고 정보 조회 함수
 
 ---
-함수에 아래의 항목들을 제공된 함수를 사용하여 직접 출력 하실 수 있습니다.
+그 외에 아래 제공된 함수를 사용하여 원하시는 항목을 출력 하실 수 있습니다.
 
 #### iconImage : 광고의 아이콘 이미지
  - fun getIconUrl():String 
@@ -162,16 +164,17 @@ fun getSpanSize(spanCount: Int, position: Int): Int
 - fun getUnit():String
 #### status : 광고의 특정 진행 상태입니다.
 - fun getStatus():Int
-
-
+- 0 : 이상 없음
 - 1 : 설치형 광고 설치 확인 대기 중
 - 2 : 구매형 상품 일일 구매 한도 초과
+- 3 : 광고 종료, 적립 완료 등 참여 불가능한 상태(해당 광고는 목록에서 제외됩니다.) 
 
+#### direction : 해당 광고가 좌(LEFT),우(RIGHT), 해당 섹션의 최 하단(BOTTOM)에 있는지 확인 할 수 있습니다.
 
 ### sample
 ```kotlin
 
-open class TnkAdListItemIcon : TnkAdListBasicItem() {
+open class TnkAdListNormal : TnkAdListBasicItem() {
     
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         super.bind(viewHolder, position)
@@ -191,7 +194,7 @@ open class TnkAdListItemIcon : TnkAdListBasicItem() {
         return 12
     }
     override fun getLayout(): Int {
-        return R.layout.com_tnk_off_curation_2
+        return R.layout.com_tnk_off_ad_list_normal
     }
 }
 ```

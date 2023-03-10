@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    val adapter: CustomAdapter = CustomAdapter(arrayOf("activity", "inflaterA", "inflaterB"))
+    val adapter: CustomAdapter = CustomAdapter(arrayOf("activity", "inflaterA", "inflaterB", "customLayout"))
 
     inner class CustomAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                     0 -> showOfferwallActivity()
                     1 -> startActivity(Intent(this@MainActivity, EmbedActivityA::class.java))
                     2 -> startActivity(Intent(this@MainActivity, EmbedActivityB::class.java))
+                    3 -> startActivity(Intent(this@MainActivity, EmbedActivityC::class.java))
                     else -> {}
                 }
             }

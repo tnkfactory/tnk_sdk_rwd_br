@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff5f5f5">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/com_tnk_shape_rt_fff_r8"
+        android:paddingLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/com_tnk_offerwall_item_icon_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/com_tnk_curation_1_icon_bg"
+            android:padding="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/com_tnk_offerwall_item_icon_cv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/com_tnk_off_item_icon"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:scaleType="fitXY"
+                    tools:background="#ffffffff" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/com_tnk_off_item_title"
+            style="@style/text_style_list_curation_1_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/com_tnk_offerwall_item_icon_bg"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title" />
+
+        <LinearLayout
+            app:layout_constraintBottom_toTopOf="@id/com_tnk_off_detail_ll_reward"
+            android:id="@+id/com_tnk_off_curation_ll_campaign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_campaign"
+                style="@style/text_style_list_curation_1_campaign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:maxLines="1"
+                android:textSize="13dp"
+                tools:text="액션형" />
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_org_pnt_amt"
+                style="@style/text_style_list_curation_1_org_pnt_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:maxLines="1"
+                android:textSize="13dp"
+                tools:text="10억 10만" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:id="@+id/com_tnk_off_detail_ll_reward"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/com_tnk_off_item_unit_icon"
+                style="@style/img_style_list_curation_1_point_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3dp" />
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_multi_reward_text"
+                style="@style/text_style_list_curation_1_multi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="최대" />
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_point"
+                style="@style/text_style_list_curation_1_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="7777777" />
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_complete"
+                style="@style/text_style_list_curation_1_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="7777777" />
+
+            <TextView
+                android:id="@+id/com_tnk_off_item_unit"
+                style="@style/text_style_list_curation_1_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                tools:text="코인받기" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/com_tnk_off_guide"
+            android:layout_width="10dp"
+            android:layout_height="1px"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_offerwall_item_icon_bg"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <View
+            android:id="@+id/com_tnk_off_guide_m"
+            android:layout_width="10dp"
+            android:layout_height="1px"
+            android:layout_marginBottom="31dp"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_offerwall_item_icon_bg"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

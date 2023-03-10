@@ -7,7 +7,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tnkfactory.ad.TnkError
 import com.tnkfactory.ad.TnkOfferwall
 import com.tnkfactory.ad.TnkResultListener
-import com.tnkfactory.ad.basic.TnkBasicHeaderNoTitle
 import com.tnkfactory.tnkofferer.databinding.ActivityEmbedBBinding
 
 class EmbedActivityB : AppCompatActivity() {
@@ -19,10 +18,6 @@ class EmbedActivityB : AppCompatActivity() {
 
         val offerwall = TnkOfferwall(this)
         offerwall.navi.showLoading(true)
-
-        offerwall.getConfig().apply {
-            adListConfig.listHeader = TnkBasicHeaderNoTitle()
-        }
 
         offerwall.load(object : TnkResultListener {
             override fun onSuccess() {

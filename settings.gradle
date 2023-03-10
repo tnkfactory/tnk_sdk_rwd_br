@@ -11,7 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url 'https://s01.oss.sonatype.org/service/local/repositories/comtnkfactory-1151/content/' }
+        maven { url 'https://repository.tnkad.net:8443/repository/maven-releases/' }
     }
 }
 rootProject.name = "tnkofferer"
