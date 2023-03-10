@@ -15,8 +15,15 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 [안드로이드 가이드 문서](./Android_Guide.md)
 
-### Update Notice
-* 2023.01.30
+[UI 커스터마이징 가이드](./ui_customizing.md)
 
-신규 보상형 sdk 업데이트
+### Update Notice
+
+* 2023.03.10
+v8.01.42
+UI 커스텀 기능 추가
+
+* 2023.01.30
 v8.01.11
+신규 보상형 sdk 업데이트
+
