@@ -12,11 +12,26 @@
     * [Proguard 사용](#proguard-사용)
 
 2. [광고 목록 띄우기](#2-광고-목록-띄우기)
-    * [커스텀 디자인 적용](#커스텀-디자인-적용)
+   * [유저 식별 값 설정](#유저-식별-값-설정)
+   * [광고 목록 띄우기 (Activity)](#광고-목록-띄우기-activity)
+   * [디자인 변경하기](#디자인-변경하기)
 
-3. [Publisher API](#3-publisher-api)
+3. [Publisher API](#3-publisher-api) 
 
-4. [그밖의 기능들](#4-그밖의-기능들)
+   [포인트 조회 및 인출](#포인트-조회-및-인출)
+   * [TnkSession.queryPoint()](#tnksessionquerypoint)
+   * [TnkSession.purchaseItem()](#tnksessionpurchaseitem)
+   * [TnkSession.withdrawPoints()](#tnksessionwithdrawpoints)
+   * [TnkSession.getEarnPoints()](#tnksessiongetearnpoints)
+
+   [그밖의 기능들](#그밖의-기능들)
+   * [TnkSession.queryPublishState()](#tnksessionquerypublishstate)
+   * [TnkSession.queryAdvertiseCount()](#tnksessionqueryadvertisecount)
+   * [TnkSession.enableLogging()](#tnksessionenablelogging)
+   * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
+   
+5. [Analytics Report](#4-analytics-report)
+
 
 ## 1. SDK 설정하기
 
@@ -204,13 +219,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-## 3. Publisher API
-
-게시앱(Publisher)을 위한 가이드입니다.
-
-### 가. 광고 목록 출력
-
-#### 유저 식별 값 설정
+### 유저 식별 값 설정
 
 앱이 실행되면 우선 앱 내에서 사용자를 식별하는 고유한 ID를 아래의 API를 사용하시어 Tnk SDK에 설정하시기 바랍니다. 
 
@@ -231,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 | context       | 현재 Activity 또는 Context 객체                              |
 | userName      | 앱에서 사용자를 식별하기 위하여 사용하는 고유 ID 값 (로그인 ID 등)  길이는 256 bytes 이하입니다. |
 
-#### 광고 목록 띄우기 (Activity)
+### 광고 목록 띄우기 (Activity)
 
 자신의 앱에서 광고 목록을 띄우기 위하여 TnkOfferwall.startOfferwallActivity() 함수를 사용합니다. 멀티탭 광고목록을 보여주기 위하여 새로운 Activity를 띄웁니다.
 
@@ -266,7 +275,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-#### 광고 목록 띄우기 (ViewGroup)
+### 광고 목록 띄우기 (ViewGroup)
 
 Activity나 Fragment내 특정 레이아웃에 광고 목록을 출력 할 경우 
 
@@ -313,14 +322,16 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-### 커스텀 디자인 적용
+### 디자인 변경하기
 
-커스텀 디자인을 사용하실 경우 다음 링크를 참고 하시기 바랍니다.
+광고 리스트 화면(AdListView)는 기본 스타일을 그대로 사용하셔도 충분하지만, 원하시는 경우 매체앱과 통일감 있도록 UI를 변경하실 수 있습니다.
+
+디자인 변경을 원하실 경우 다음 링크를 참고 하시기 바랍니다.
 
 [디자인 커스텀 가이드](https://github.com/tnkfactory/tnk_sdk_rwd_br/blob/main/ui_customizing.md)
 
 
-## 4. 그밖의 기능들 
+## 3. Publisher API
 
 ### 포인트 조회 및 인출
 
@@ -591,6 +602,8 @@ static public void getEarnPoint() {
 }
 ```
 
+### 그밖의 기능들
+
 #### TnkSession.queryPublishState()
 
 Tnk 사이트의 [게시정보]에서 광고 게시 중지를 하게 되면 이후에는 사용자가 광고 목록 창을 띄워도 광고들이 나타나지 않습니다.
@@ -661,7 +674,7 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 
 
-### 마. Callback URL
+### Callback URL
 
 사용자가 광고참여를 통하여 획득한 포인트를 개발사의 서버에서 관리하실 경우 다음과 같이 진행합니다.
 
