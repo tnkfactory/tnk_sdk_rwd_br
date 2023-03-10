@@ -20,7 +20,14 @@
 
 
 ### DefaultAdListItemView
-아래의 이미지와 같은 형태의 배치를 가지고 있으며 기본 광고 목록을 표시하기 위하여 사용됩니다.
+
+기본으로 제공되는 목록형 이외에 소재 이미지를 출력하여 피드형으로 구현 하실 수 있습니다.
+
+피드형으로 출력을 원하실 경우 com_tnk_off_ad_list_normal_feed.xml 파일을 참고 하시기 바랍니다.
+
+광고 항목은 아래의 이미지와 같은 형태의 배치를 가지고 있으며 기본 광고 목록을 표시하기 위하여 사용됩니다.
+
+![itme](./img/ui_item.png)
 
 #### iconImage : 광고의 아이콘 이미지
 #### image : 광고 소재 이미지
@@ -112,7 +119,7 @@ class LayoutType {
 ## 2. TnkAdListBasicItem 클래스 구현
 
 
-viewHolder를 직접 구현하는 방법을 설명합니다.
+viewHolder를 구현하는 방법을 설명합니다.
 
 TnkAdListBasicItem 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
 
@@ -183,6 +190,12 @@ open class TnkAdListNormal : TnkAdListBasicItem() {
         super.bind(viewHolder, position)
 
         viewHolder.itemView.let { v ->
+        
+            val tvText = v.findViewById(R.id.tv_test) as TextView
+            if(getPoint() > 1000){
+              tvText.text = "추천!!"
+            }
+            
             if (direction == TnkDirection.BOTTOM) {
                 getDivider()?.visibility = View.GONE
             } else {
