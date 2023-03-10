@@ -1,6 +1,6 @@
 ## 신규 오퍼월 UI 커스터마이징 가이드
 
----
+
 
 새로운 보상형 SDK는 사용자에게 적절한 광고를 보다 효과적으로 제공하기 위하여 기본 광고 목록외에 추가로 다양한 큐레이션 UI 를 제공합니다. 큐레이션은 사용자가 참여 중인 멀티리워드 광고, 새로 등록된 광고, 운영자 추천 광고 등을 페이징 방식, 횡스크롤 방식 등으로 기본 광고 목록과 구별되는 방식으로 제공함으로써 사용자의 주목도를 높일 수 있습니다.
 
@@ -14,16 +14,9 @@
 ![offerwall_ui_cps2](https://github.com/tnkfactory/ios-sdk-rwd2/blob/main/img/offerwall_ui_cps2.jpg)
 
 
-### 목차
+## 광고 UI 구성
 
----
-
-
-광고 목록 표시를 위하여 AdListItemView와 AdListItemViewLayout가 사용됩니다.
-
-광고 목록 표시를 위하여 AdListItemView 와 AdListItemViewLayout 이 사용됩니다. AdListItemView는 하나의 광고 아이템이 표시되는 View 이며 내부에 아이콘 이미지, 타이틀 , 포인트 등의 구성 요소들이 배치되어 있습니다.
-
-AdListItemViewLayout 은 AdListItemView 내의 구성요소들의 크기, 색상, 폰트, 간격 등을 정의하고 있으며 추가로 해당 광고 아이템이 표시되는 섹션(또는 큐레이션)의 컬럼 수, 스크롤 방식, 헤더, 푸터 등의 추가적인 요소를 표현하기 위한 설정 값을 제공하고 있습니다.
+광고 목록 표시를 위하여 AdListItemView 와 AdListItemViewLayout 이 사용됩니다. AdListItemView는 하나의 광고 아이템이 표시되는 View 이며 내부에 아이콘 이미지, 타이틀, 포인트 등의 구성 요소들이 배치되어 있습니다.
 
 
 ### DefaultAdListItemView
@@ -44,41 +37,51 @@ AdListItemViewLayout 은 AdListItemView 내의 구성요소들의 크기, 색상
  - 광고 종료, 적립 완료 등 참여 불가능한 상태
 
 
----
-
-
-## 1. 샘플프로젝트의 xml파일 수정
-
----
+## 1. UI 커스텀 샘플 이용
 
 **샘플코드의 EmbedActivityC.kt 파일을 참고 하시기 바랍니다.**
 
 샘플 프로젝트에는 각 타입별 레이아웃 샘플 파일이 있습니다.
 
-TnkAdListCpsCard.kt
-TnkAdListCpsGrid.kt
-TnkAdListCpsNormal.kt
-TnkAdListMultiJoin.kt
-TnkAdListNew.kt
-TnkAdListNormal.kt
-TnkAdListPromotion.kt
-TnkAdListSuggest.kt
-com_tnk_off_ad_list_normal.xml
-com_tnk_off_ad_list_promotion.xml
-com_tnk_off_ad_list_suggest.xml
-com_tnk_off_ad_list_new.xml
-com_tnk_off_ad_list_multi.xml
-com_tnk_off_ad_list_cps_favorite.xml
-com_tnk_off_ad_list_cps_new.xml
-com_tnk_off_ad_list_cps_normal.xml
-com_tnk_off_ad_list_cps_popular.xml
-com_tnk_off_ad_list_cps_recommend.xml
-com_tnk_off_ad_list_cps_reward.xml
-com_tnk_off_ad_list_cps_search.xml
-com_tnk_off_ad_list_news.xml
+- TnkAdListMultiJoin.kt
+- TnkAdListNew.kt
+- TnkAdListNormal.kt
+- TnkAdListPromotion.kt
+- TnkAdListSuggest.kt
+
+- com_tnk_off_ad_list_normal.xml
+- com_tnk_off_ad_list_promotion.xml
+- com_tnk_off_ad_list_suggest.xml
+- com_tnk_off_ad_list_new.xml
+- com_tnk_off_ad_list_multi.xml
+- com_tnk_off_ad_list_cps_favorite.xml
+- com_tnk_off_ad_list_cps_new.xml
+- com_tnk_off_ad_list_cps_normal.xml
+- com_tnk_off_ad_list_cps_popular.xml
+- com_tnk_off_ad_list_cps_recommend.xml
+- com_tnk_off_ad_list_cps_reward.xml
+- com_tnk_off_ad_list_cps_search.xml
+- com_tnk_off_ad_list_news.xml
 
 각 타입별 xml파일과 해당 view에 컨텐츠를 출력하는 코드를 수정하여 원하는 레이아웃을 구성 하실 수 있습니다.
 
+```kotlin
+fun setAdLayoutConfig() {
+
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NORMAL, TnkAdListNormal::class, TnkAdLayoutNone::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_PROMOTION, TnkAdListPromotion::class, TnkAdListItemLayout::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NEW, TnkAdListNew::class, TnkBasicCurationTypeNew::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_SUGGEST, TnkAdListSuggest::class, TnkBasicCurationTypeSuggest::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_MULTI, TnkAdListMultiJoin::class, TnkSectionHorizontalSingle::class)
+
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NORMAL, TnkAdListCpsNormal::class, TnkAdListLayoutCpsNone::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_FAVORITE, TnkAdListCpsCard::class, TnkSectionHorizontalSingle::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_POPULAR, TnkAdListCpsGrid::class, TnkAdListLayoutCpsF::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_REWARD, TnkAdListCpsGrid::class, TnkAdListLayoutCpsF::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NEW, TnkAdListCpsNormal::class, TnkAdListItemLayout::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_RECOMMEND, TnkAdListCpsCard::class, TnkSectionHorizontalSingle::class)
+}
+```
 
 ```kotlin
 class LayoutType {
@@ -108,7 +111,7 @@ class LayoutType {
 
 ## 2. TnkAdListBasicItem 클래스 구현
 
----
+
 viewHolder를 직접 구현하는 방법을 설명합니다.
 
 TnkAdListBasicItem 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
@@ -139,7 +142,7 @@ fun getSpanSize(spanCount: Int, position: Int): Int
 
 ### 광고 정보 조회 함수
 
----
+
 그 외에 아래 제공된 함수를 사용하여 원하시는 항목을 출력 하실 수 있습니다.
 
 #### iconImage : 광고의 아이콘 이미지
@@ -199,7 +202,7 @@ open class TnkAdListNormal : TnkAdListBasicItem() {
 }
 ```
 
-### 광고의 상태값은 다음과 같이 정의되어있으며 상태에 따라 항목별 출력 여부가 변경됩니다.
+### 광고의 상태에 따른 UI 항목 출력 여부
 
 | /          |    포인트     | 원래의 포인트  | 멀티리워드 여부 | 광고 타입 | 포인트 단위 | 포인트 아이콘 | 광고 상태 |
 |------------|:----------:|:--------:|:--------:|:-----:|:------:|:-------:|:-----:|
@@ -211,7 +214,7 @@ open class TnkAdListNormal : TnkAdListBasicItem() {
 | 적립 완료      |     X      |    X     |    X     |   X   |   X    |    X    |   O   |
 
 
-### 광고 타입은 기본적으로 아래와 같이 정의되어있습니다.
+### 광고 타입 정의
 
 | 번호 | 광고 타입        | 출력 명칭  |
 |--------|--------------|--------|
