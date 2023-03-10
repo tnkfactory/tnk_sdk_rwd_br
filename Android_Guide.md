@@ -12,9 +12,11 @@
     * [Proguard 사용](#proguard-사용)
 
 2. [광고 목록 띄우기](#2-광고-목록-띄우기)
+    * [커스텀 디자인 적용](#커스텀-디자인-적용)
 
 3. [Publisher API](#3-publisher-api)
 
+4. [그밖의 기능들](#4-그밖의-기능들)
 
 ## 1. SDK 설정하기
 
@@ -57,7 +59,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.01.40'
+    implementation 'com.tnkfactory:rwd:8.01.42'
 }
 ```
 ### Manifest 설정하기
@@ -264,7 +266,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-#### 광고 목록 띄우기 (Activity)
+#### 광고 목록 띄우기 (ViewGroup)
 
 Activity나 Fragment내 특정 레이아웃에 광고 목록을 출력 할 경우 
 
@@ -310,6 +312,15 @@ override fun onCreate(savedInstanceState: Bundle?) {
     })
 }
 ```
+
+### 커스텀 디자인 적용
+
+커스텀 디자인을 사용하실 경우 다음 링크를 참고 하시기 바랍니다.
+
+[디자인 커스텀 가이드](https://github.com/tnkfactory/tnk_sdk_rwd_br/blob/main/ui_customizing.md)
+
+
+## 4. 그밖의 기능들 
 
 ### 포인트 조회 및 인출
 
@@ -579,8 +590,6 @@ static public void getEarnPoint() {
     }.start();
 }
 ```
-
-### 그밖의 기능들
 
 #### TnkSession.queryPublishState()
 
