@@ -17,11 +17,9 @@ class EmbedActivityA : AppCompatActivity() {
         val binding: ActivityEmbedABinding = DataBindingUtil.setContentView(this, R.layout.activity_embed_a)
 
         val offerwall = TnkOfferwall(this)
-        offerwall.navi.showLoading(true)
 
         offerwall.load(object : TnkResultListener {
             override fun onSuccess() {
-                offerwall.navi.showLoading(false)
                 binding.contents.addView(offerwall.getAdListView())
             }
 
