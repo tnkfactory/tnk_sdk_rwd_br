@@ -50,12 +50,15 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
 
+    implementation "androidx.emoji2:emoji2:1.1.0"
+    implementation "androidx.emoji2:emoji2-views:1.1.0"
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.multidex:multidex:2.0.1"
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-    implementation "com.tnkfactory:rwd:8.01.40"
+    implementation "com.tnkfactory:rwd:8.01.45"
 
 
     testImplementation 'junit:junit:4.13.2'

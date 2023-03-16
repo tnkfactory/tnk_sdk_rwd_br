@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="com_tnk_off_primary_color">#4572ef</color>
+    <color name="com_tnk_off_color_header_title">#505050</color>
+    <color name="com_tnk_custom_item_title_text_color">#666666</color>
+
 </resources>
