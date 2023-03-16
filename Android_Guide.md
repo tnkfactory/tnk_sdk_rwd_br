@@ -55,7 +55,7 @@ dependencyResolutionManagement {
         
         // 경로를 추가해 주시기 바랍니다.
         maven { url "https://jitpack.io" }
-        maven { url "https://repository.tnkad.net:8443/repository/maven-releases/" }
+        maven { url "https://repository.tnkad.net:8443/repository/public/" }
     }
 }
 rootProject.name = "project_name"
@@ -67,14 +67,14 @@ include ':app'
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
-    maven { url "https://repository.tnkad.net:8443/repository/maven-releases/" }
+    maven { url "https://repository.tnkad.net:8443/repository/public/" }
 }
 ```
 
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.01.43'
+    implementation 'com.tnkfactory:rwd:8.01.45'
 }
 ```
 ### Manifest 설정하기
