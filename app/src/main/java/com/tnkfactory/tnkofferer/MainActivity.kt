@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
                     0 -> showOfferwallActivity()
                     1 -> startActivity(Intent(this@MainActivity, EmbedActivityA::class.java))
                     2 -> startActivity(Intent(this@MainActivity, EmbedActivityB::class.java))
-                    3 -> startActivity(Intent(this@MainActivity, CustomLayoutActivity::class.java))
                     else -> {}
                 }
             }

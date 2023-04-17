@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "tnkofferer"
 include ':app'
+include ':tnkofferer_java'
