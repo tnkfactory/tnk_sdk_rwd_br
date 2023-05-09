@@ -7,14 +7,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tnkfactory.ad.TnkError
 import com.tnkfactory.ad.TnkOfferwall
 import com.tnkfactory.ad.TnkResultListener
-import com.tnkfactory.tnkofferer.databinding.ActivityEmbedABinding
+import com.tnkfactory.tnkofferer.databinding.ActivityEmbedBinding
 
-class EmbedActivityA : AppCompatActivity() {
+class EmbedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityEmbedABinding = DataBindingUtil.setContentView(this, R.layout.activity_embed_a)
+        val binding: ActivityEmbedBinding = DataBindingUtil.setContentView(this, R.layout.activity_embed)
 
         val offerwall = TnkOfferwall(this)
 
@@ -24,7 +24,7 @@ class EmbedActivityA : AppCompatActivity() {
             }
 
             override fun onFail(error: TnkError) {
-                MaterialAlertDialogBuilder(this@EmbedActivityA)
+                MaterialAlertDialogBuilder(this@EmbedActivity)
                     .setMessage(error.message)
                     .create()
                     .show()

@@ -15,7 +15,7 @@
             android:layout_height="50dp"
             android:background="#Ff666666"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/rv_content"
+            app:layout_constraintBottom_toTopOf="@id/ll_contents"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -40,12 +40,45 @@
                 android:textSize="14dp" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_content"
+
+        <LinearLayout
+            android:id="@+id/ll_contents"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_header" />
+            app:layout_constraintTop_toBottomOf="@id/ll_header">
 
+            <Button
+                android:id="@+id/btn_default"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="Default"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/btn_addview"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="AdView"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/btn_custom_default"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="User Custom"
+                android:textColor="#000" />
+            <Button
+                android:id="@+id/btn_custom_addview"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="User Custom"
+                android:textColor="#000" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

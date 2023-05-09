@@ -31,19 +31,19 @@
                 android:value="" />
         </activity>
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:name="com.tnkfactory.ad.AdWallActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".EmbedActivityA"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:name=".EmbedActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".EmbedActivityB"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:name="com.tnkfactory.offerrer.scene.TnkEmbedActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"/>
         <meta-data

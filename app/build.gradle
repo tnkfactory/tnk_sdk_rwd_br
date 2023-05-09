@@ -37,14 +37,13 @@ android {
         viewBinding true
         dataBinding true
     }
-//    android {
-//        lint {
-//            baseline = file("lint-baseline.xml")
-//        }
-//    }
 }
 
 dependencies {
+
+//    implementation project(':custom_1')
+    implementation project(':custom_2')
+//    implementation project(':custom_3')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -58,7 +57,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-    implementation "com.tnkfactory:rwd:8.01.84"
+    implementation "com.tnkfactory:rwd:8.01.93"
 
 
     testImplementation 'junit:junit:4.13.2'
