@@ -41,8 +41,8 @@ android {
 
 dependencies {
 
-//    implementation project(':custom_1')
-    implementation project(':custom_2')
+    implementation project(':custom_1')
+//    implementation project(':custom_2')
 //    implementation project(':custom_3')
 
     implementation 'androidx.core:core-ktx:1.7.0'

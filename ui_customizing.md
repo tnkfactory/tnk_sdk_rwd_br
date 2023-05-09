@@ -44,17 +44,47 @@
  - 광고 종료, 적립 완료 등 참여 불가능한 상태
 
 
-## 1. UI 커스텀 샘플 이용
 
-**샘플코드의 EmbedActivityC.kt 파일을 참고 하시기 바랍니다.**
+## 샘플 프로젝트의 모듈 가져오기
+아래의 링크를 참조하여 샘플 프로젝트의 모듈 3가지중 1가지를 프로젝트로 가져옵니다.
+https://developer.android.com/studio/projects/add-app-module?hl=ko#ImportAModule
 
-샘플 프로젝트에는 각 타입별 레이아웃 샘플 파일이 있습니다.
+각 샘플 모듈은 아래와 같은 경우 사용 할 수 있습니다.
 
-- TnkAdListMultiJoin.kt
-- TnkAdListNew.kt
-- TnkAdListNormal.kt
-- TnkAdListPromotion.kt
-- TnkAdListSuggest.kt
+## 1. 간단한 테마 컬러 변경
+primarycolor 배경, 텍스트, 등의 색상을 변경 할 경우의 예시 입니다.
+
+샘플코드의 custom_1 모듈을 import하신 후 themes.xml에 있는 컬러값을 변경 하시면 됩니다.
+포인트 아이콘을 사용 할 경우 아이콘 파일을 교체하시기 바랍니다.
+
+## 2. 커스텀 디자인 레이아웃 적용
+
+광고 목록 레이아웃을 직접 수정하여 사용 하실 경우 사용하는 예시 입니다.
+
+샘플코드의 custom_2 모듈을 import하신 후 res->layout 폴더에 있는 레이아웃 파일들을 수정 하시기 바랍니다.
+
+## 3. 커스텀 클래스를 이용한 레이아웃과 클래스 직접 구현
+
+레이아웃 뿐만 아니라 광고 아이템을 출력하는 커스텀 클래스를 사용하는 예제입니다.
+
+**샘플코드의 custom_3 모듈의 TnkAdManager.kt 파일과 /scene/layout 패키지의 클래스 파일들을 참고 하시기 바랍니다.**
+
+샘플 프로젝트에는 각 타입별 클래스 파일과 레이아웃 샘플 파일이 있습니다.
+
+- CustomCpsFavorite
+- CustomCpsMyLike
+- CustomCpsNew
+- CustomCpsNor
+- CustomCpsRecommend
+- CustomCpsSearch
+- CustomJoinMultiItem
+- CustomNew
+- CustomNews
+- CustomNor
+- CustomPopular
+- CustomPromotion
+- CustomReward
+- CustomSuggest
 
 - com_tnk_off_ad_list_normal.xml
 - com_tnk_off_ad_list_promotion.xml
@@ -75,18 +105,22 @@
 ```kotlin
 fun setAdLayoutConfig() {
 
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NORMAL, TnkAdListNormal::class, TnkAdLayoutNone::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_PROMOTION, TnkAdListPromotion::class, TnkAdListItemLayout::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NEW, TnkAdListNew::class, TnkBasicCurationTypeNew::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_SUGGEST, TnkAdListSuggest::class, TnkBasicCurationTypeSuggest::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_MULTI, TnkAdListMultiJoin::class, TnkSectionHorizontalSingle::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NORMAL, CustomNor::class, TnkAdLayoutNone::class)                       // normal
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_PROMOTION, CustomPromotion::class, TnkAdListItemLayout::class)          // 소진 큐레이션
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NEW, CustomNew::class, TnkBasicCurationTypeNew::class)                  // 신규
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_SUGGEST, CustomSuggest::class, TnkBasicCurationTypeSuggest::class)      // 운영자
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NORMAL, CustomCpsNor::class, TnkAdListLayoutCpsNone::class)         // 구매형 일반
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_FAVORITE, CustomCpsFavorite::class, TnkSectionHorizontalSingle::class)    // 구매형 관심
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_POPULAR, CustomPopular::class, TnkAdListLayoutCpsF::class)          // 구매형 인기
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_REWARD, CustomReward::class, TnkAdListLayoutCpsF::class)            // 구매형 리워드 가성비
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NEW, CustomCpsNew::class, TnkAdListLayoutCpsF::class)               // 구매형 신규
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_RECOMMEND, CustomCpsRecommend::class, TnkSectionHorizontalSingle::class)   // 구매형 운영자 등록
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_SEARCH, CustomCpsSearch::class, TnkAdListLayoutCpsNone::class)      // 검색 결과
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_MY_FAVORITE, CustomCpsMyLike::class, TnkAdListLayoutCpsNone::class)   // my메뉴 관심상품
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.LAYOUT_TYPE_NOAD, CustomNor::class, TnkAdListLayoutCpsNone::class)              // 광고 없을때 SDK 생성 추천
 
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NORMAL, TnkAdListCpsNormal::class, TnkAdListLayoutCpsNone::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_FAVORITE, TnkAdListCpsCard::class, TnkSectionHorizontalSingle::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_POPULAR, TnkAdListCpsGrid::class, TnkAdListLayoutCpsF::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_REWARD, TnkAdListCpsGrid::class, TnkAdListLayoutCpsF::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_NEW, TnkAdListCpsNormal::class, TnkAdListItemLayout::class)
-    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_CPS_RECOMMEND, TnkAdListCpsCard::class, TnkSectionHorizontalSingle::class)
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NEWS, CustomNews::class, TnkAdListItemLayout::class)                    // 뉴스 컨텐츠 기본
+    TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_MULTI, CustomJoinMultiItem::class, TnkSectionHorizontalSingle::class)   // 진행중인 멀티액션 광고
 }
 ```
 
@@ -116,12 +150,11 @@ class LayoutType {
 ```
 
 
-## 2. TnkAdListBasicItem 클래스 구현
-
+## 4. TnkAdListBasicItem 클래스 구현
 
 viewHolder를 구현하는 방법을 설명합니다.
 
-TnkAdListBasicItem 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
+TnkAdListBasicItem 또는 TnkAdListCpsBasic 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
 
 ### 레이아웃 지정
 ```kotlin
@@ -134,7 +167,7 @@ fun getLayout():Int
 
 ### onBind 함수 직접 구현
 ```kotlin
-// 해당 아이템의 onBind 시점에 호출되는 UI출력 내용 구성 구현 
+// 해당 아이템의 onBind 시점에 호출되는 UI출력 내용 구성 구현
 fun bind(viewHolder: GroupieViewHolder, position: Int)
 ```
 
@@ -148,7 +181,6 @@ fun getSpanSize(spanCount: Int, position: Int): Int
 ```
 
 ### 광고 정보 조회 함수
-
 
 그 외에 아래 제공된 함수를 사용하여 원하시는 항목을 출력 하실 수 있습니다.
 

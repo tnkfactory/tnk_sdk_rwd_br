@@ -11,7 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url 'https://repository.tnkad.net:8443/repository/tnk_test/' }
+        maven { url 'https://repository.tnkad.net:8443/repository/public/' }
     }
 }
 rootProject.name = "tnkofferer"
