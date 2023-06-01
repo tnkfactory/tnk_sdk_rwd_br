@@ -29,7 +29,14 @@
             android:layout_centerVertical="true"
             card_view:cardCornerRadius="8dp"
             card_view:cardElevation="0dp">
-
+            <ImageView
+                android:src="@drawable/com_tnk_offerwall_ad_list_icon_bg_adjust"
+                android:id="@+id/com_tnk_off_item_icon_new"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                tools:background="#ffffffff" />
             <ImageView
                 android:id="@+id/com_tnk_off_item_icon"
                 android:layout_width="match_parent"

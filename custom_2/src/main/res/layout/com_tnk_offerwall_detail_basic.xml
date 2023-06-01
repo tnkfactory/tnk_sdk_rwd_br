@@ -471,6 +471,7 @@
             android:id="@+id/com_tnk_off_detail_tv_confirm_icon"
             style="@style/tnk_point_icon_3_inverse"
             android:layout_marginRight="3dp"
+            android:src="@drawable/com_tnk_offerwall_unit_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/com_tnk_off_detail_tv_confirm_campaign"
             app:layout_constraintRight_toLeftOf="@id/com_tnk_off_detail_tv_confirm_multi"
