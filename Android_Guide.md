@@ -31,6 +31,7 @@
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
    
 5. [Analytics Report](#4-analytics-report)
+6. [플레이스먼트 뷰](#플레이스먼트-뷰)
 
 
 ## 1. SDK 설정하기
@@ -74,7 +75,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.02.10'
+    implementation 'com.tnkfactory:rwd:8.02.12'
 }
 ```
 ### Manifest 설정하기
@@ -946,3 +947,7 @@ TnkSession.setUserGender(this,TnkCode.MALE);
 // 성별 설정 (여) 
 TnkSession.setUserGender(this,TnkCode.FEMALE); 
 ```
+
+## 6. 플레이스먼트 뷰
+
+[플레이스먼트 뷰 가이드](./AdPlacementView.md)
