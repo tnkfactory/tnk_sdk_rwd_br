@@ -142,21 +142,21 @@ SDK 에서는 플레이스먼트뷰에 적합한 몇가지 레이아웃을 제�
 #### 피드
 ```kotlin
 
-// TnkLayout 메소드
+// TnkAdPlacementFeedItem + PlacementFeedViewLayout
 TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementFeedItem::class, PlacementFeedViewLayout::class)
 
 ```
 #### 피드 (이미지만 표시)
 ```kotlin
 
-// TnkLayout 메소드
+// TnkAdPlacementFeedImageItem + PlacementFeedViewLayout
 TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementFeedImageItem::class, PlacementFeedViewLayout::class)
 
 ```
 #### 아이콘
 ```kotlin
 
-// TnkLayout 메소드
+// TnkAdPlacementIconItem + PlacementScrollViewLayout
 TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, PlacementScrollViewLayout::class)
 
 ```
@@ -164,7 +164,7 @@ TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, Placeme
 #### 리스트
 ```kotlin
 
-// TnkLayout 메소드
+// TnkAdPlacementListItem + PlacementFeedViewLayout
 TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementFeedViewLayout::class)
 
 ```
