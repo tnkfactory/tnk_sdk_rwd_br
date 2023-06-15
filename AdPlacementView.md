@@ -2,7 +2,7 @@
 
 유저들의 오퍼월 진입을 보다 자연스럽게 유도하기 위하여 매체 내에 전면이나 바텀시트 또는 피드 형태로 오퍼월 광고를 제공할 수 있습니다. 
 
-![adplacementview_sample](./img/adplacementview_sample.jpg)
+![adplacementview_sample](https://github.com/tnkfactory/ios-sdk-rwd2/raw/main/img/adplacementview_sample.jpg)
 
 플레이스먼트뷰는 원하는 유형의 광고, 쇼핑, 이벤트 등을 노출할 수 있으며 노출되는 광고의 갯수나 UI 등도 모두 원하는 형태로 커스터마이징이 가능합니다. 오퍼월에서 제공하는 큐레이션 기능을 별도의 뷰 형태로 제공한다고 보시면 됩니다.
 
