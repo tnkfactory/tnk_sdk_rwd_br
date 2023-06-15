@@ -166,8 +166,12 @@ TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, Placeme
 
 // TnkAdPlacementListItem + PlacementFeedViewLayout
 TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementFeedViewLayout::class)
+// 한줄에 1개의 아이템이 3개 노출됩니다.
+adPlacementView.spanCount = 1     // 한줄에 출력 할 아이탬 수
+adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
 
 ```
+
 ## 이벤트 기능
 
 매체의 사용자 유입 및 리텐션을 높이기 위하여 플레이스먼트에서는 몇가지 이벤트를 기본제공하고 있습니다.
