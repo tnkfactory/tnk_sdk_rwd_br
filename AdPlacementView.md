@@ -126,7 +126,7 @@ fun didAdDataLoaded(placementId: String, customData:String?) {
 
 ### AdPlacementView 의 UI 커스터마이징
 
-플레이스먼트뷰의 UI 커스터마이징 방법은 기본적으로 오퍼월의 UI 커스터마이징과 동일합니다. 오퍼월의 UI 커스터마이징은 여기를 참고하세요. &rightarrow; [UI 커스터마이징 가이드](./UI_Customizing.md)
+플레이스먼트뷰의 UI 커스터마이징 방법은 기본적으로 오퍼월의 UI 커스터마이징과 동일합니다. 오퍼월의 UI 커스터마이징은 여기를 참고하세요. &rightarrow; [UI 커스터마이징 가이드](./ui_customizing.md)
 
 아래의 TnkLayout 함수를 사용하여 플레이스먼트 ID에 사용할 AdListItemView 와 AdListItemViewLayout 을 TnkLayout 에 등록합니다. 
 
