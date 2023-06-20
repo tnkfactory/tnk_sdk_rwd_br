@@ -67,6 +67,9 @@ object TnkAdManager {
 
 
     fun setCustomClass() {
+        useTerms(true)
+        usePointUnit(false)
+        //useCuration(true)
         TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NORMAL, CustomNor::class, TnkAdLayoutNone::class)                       // normal
         TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_PROMOTION, CustomPromotion::class, TnkAdListItemLayout::class)          // 소진 큐레이션
         TnkAdConfig.setLayoutInfo(TnkLayoutType.AD_LIST_NEW, CustomNew::class, TnkBasicCurationTypeNew::class)                  // 신규

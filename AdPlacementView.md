@@ -165,7 +165,7 @@ TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, Placeme
 ```kotlin
 
 // TnkAdPlacementListItem + PlacementFeedViewLayout
-TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementFeedViewLayout::class)
+TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementViewPagerLayout::class)
 
 ```
 ## 이벤트 기능

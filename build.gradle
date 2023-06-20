@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        tnkSdkVersion = '8.02.12'
+        tnkSdkVersion = '8.02.14'
     }
 }
 plugins {

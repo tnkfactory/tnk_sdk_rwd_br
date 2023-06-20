@@ -42,5 +42,9 @@ object TnkAdManager {
         TnkAdConfig.useCuration = flag
     }
 
-    fun setCustomClass() {}
+    fun setCustomClass() {
+        useTerms(true)
+        usePointUnit(false)
+        //useCuration(true)
+    }
 }

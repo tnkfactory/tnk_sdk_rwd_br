@@ -2,11 +2,16 @@ package com.tnkfactory.tnkofferer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.tnkfactory.ad.PlacementEventListener
 import com.tnkfactory.ad.TnkAdConfig
 import com.tnkfactory.ad.TnkOfferwall
+import com.tnkfactory.ad.basic.*
 import com.tnkfactory.ad.rwd.AdvertisingIdInfo
 import com.tnkfactory.offerrer.TnkAdManager
 import com.tnkfactory.tnkofferer.databinding.ActivityMainBinding
@@ -59,28 +64,69 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnCustomDefault.setOnClickListener {
             TnkAdManager.setUserInfo(this@MainActivity, false, userName)
-
-            TnkAdManager.useTerms(true)
-            TnkAdManager.usePointUnit(true)
-            TnkAdManager.useCuration(true)
-
             TnkAdManager.setCustomClass()
-
             TnkAdManager.startDefaultActivity(this@MainActivity)
         }
 
         binding.btnCustomAddview.setOnClickListener {
             TnkAdManager.setUserInfo(this@MainActivity, false, userName)
-
-            TnkAdManager.useTerms(true)
-            TnkAdManager.usePointUnit(true)
-            TnkAdManager.useCuration(true)
-
             TnkAdManager.setCustomClass()
-
             TnkAdManager.startEmbedActivity(this@MainActivity)
         }
 
+        binding.tvPlacement1.setOnClickListener {
+            TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementFeedItem::class, PlacementFeedViewLayout::class)
+            setupPlacementView()
+        }
+        binding.tvPlacement2.setOnClickListener {
+            TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementFeedImageItem::class, PlacementFeedViewLayout::class)
+            setupPlacementView()
+        }
+        binding.tvPlacement3.setOnClickListener {
+            TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, PlacementScrollViewLayout::class)
+            setupPlacementView()
+        }
+        binding.tvPlacement4.setOnClickListener {
+            TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementViewPagerLayout::class)
+            setupPlacementView()
+            adPlacementView.spanCount = 1
+            adPlacementView.pageRowCount = 3
+        }
+    }
+
+
+    val placementContainerView: ViewGroup by lazy { binding.flPlacementAd }
+
+
+    lateinit var adPlacementView : AdPlacementView
+    fun setupPlacementView() {
+        adPlacementView = offerwall.getAdPlacementView(this)
+        placementContainerView.removeAllViews()
+        placementContainerView.addView(adPlacementView)
+        loadPlacementView()
+
+
+        adPlacementView.placementEventListener = object : PlacementEventListener {
+            override fun didAdDataLoaded(placementId: String, customData: String?) {
+                adPlacementView.showAdList()
+            }
+
+            override fun didFailedToLoad(placementId: String) {
+                Toast.makeText(this@MainActivity, "광고 로딩 실패", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun didAdItemClicked(appId: String, appName: String) {
+                Log.d("didAdItemClicked", "appId : $appId, appName : $appName")
+            }
+
+            override fun didMoreLinkClicked() {
+                offerwall.startOfferwallActivity(this@MainActivity)
+            }
+        }
+    }
+
+    fun loadPlacementView() {
+        adPlacementView.loadAdList("open_ad")
     }
 
 }
