@@ -1,0 +1,372 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="tnk_full_screen_dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="tnk_rwd_style">
+        <item name="android:textStyle">normal</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">-0.02</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="com_tnk_offerwall_message_1" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_04</item>
+    </style>
+
+    <style name="com_tnk_offerwall_message_2" parent="tnk_rwd_style">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+    </style>
+
+    <style name="com_tnk_offerwall_message_3" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_05</item>
+    </style>
+
+    <!-- ==================== 광고 목록 ========================== -->
+    <!-- 광고 목록 제목 1 -->
+    <style name="tnk_ad_list_title_1" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_06</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+    <!-- 광고 목록 제목 2 -->
+    <style name="tnk_ad_list_title_2" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_06</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+
+    <!-- 멀티액션 "최대" -->
+    <style name="tnk_ad_list_text_1" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <!-- 포인트, 완료 상태 등 -->
+    <style name="tnk_ad_list_text_1_bold" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <!-- 광고 타입 -->
+    <style name="tnk_ad_list_text_1_alpha" parent="tnk_rwd_style">
+        <item name="android:alpha">0.8</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <!-- 포인트 할인 이벤트 금액 -->
+    <style name="tnk_ad_list_text_1_gray" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_06</item>
+    </style>
+
+    <!-- 포인트 단위 -->
+    <style name="tnk_ad_list_text_1_small" parent="tnk_rwd_style">
+        <item name="android:alpha">0.7</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">1.5dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <!-- CPS 가격 -->
+    <style name="tnk_ad_list_text_cps_amount" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_02</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+    </style>
+
+    <style name="tnk_ad_list_text_cps_complete" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textColor">@color/tnk_color_text_01</item>
+    </style>
+
+    <!-- cps 큐레이션 번호 -->
+    <style name="tnk_ad_list_curation_idx" parent="tnk_rwd_style">
+        <item name="android:textSize">19dp</item>
+        <item name="android:textColor">@color/tnk_color_text_02</item>
+        <item name="android:textStyle">italic|bold</item>
+    </style>
+
+    <!-- ==================== 상세 페이지 ========================== -->
+
+    <!-- 상세 페이지 최상단 헤더 -->
+    <style name="tnk_detail_header_1" parent="tnk_rwd_style">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+    </style>
+
+    <style name="tnk_detail_header_2" parent="tnk_rwd_style">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+    </style>
+
+
+    <!-- 상세 페이지 설명 1-->
+    <style name="tnk_ad_detail_contents_1" parent="tnk_rwd_style">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/tnk_color_text_04</item>
+    </style>
+
+    <!-- 상세 페이지 설명 1-->
+    <style name="tnk_ad_detail_contents_2" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_05</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="tnk_ad_detail_text_1" parent="tnk_rwd_style">
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">1.5dp</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <style name="tnk_ad_detail_text_1_bold" parent="tnk_rwd_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <style name="tnk_ad_detail_text_1_alpha" parent="tnk_rwd_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:alpha">0.6</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_primary</item>
+    </style>
+
+    <style name="tnk_ad_detail_text_1_gray" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_06</item>
+    </style>
+
+
+    <!-- detail action item -->
+    <style name="tnk_action_icon" parent="tnk_rwd_style">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_selector_detail_action_item_check_icon</item>
+    </style>
+
+    <style name="tnk_action_name" parent="tnk_rwd_style">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/com_tnk_tc_detail_action_item_desc</item>
+    </style>
+
+    <style name="tnk_action_point" parent="tnk_rwd_style">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/com_tnk_tc_detail_action_item_point</item>
+    </style>
+
+    <style name="tnk_action_complete" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+    </style>
+
+    <style name="tnk_action_count" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_05</item>
+    </style>
+
+    <style name="tnk_action_count_script" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_06</item>
+    </style>
+
+    <style name="tnk_action_arrow" parent="tnk_rwd_style">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">@drawable/down_arrow_lighter</item>
+    </style>
+
+
+    <!-- detail confirm -->
+    <style name="tnk_ad_detail_confirm_campaign" parent="tnk_rwd_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:alpha">0.7</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_primary_inverse</item>
+    </style>
+
+    <style name="tnk_ad_detail_confirm_bold" parent="tnk_rwd_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tnk_color_primary_inverse</item>
+    </style>
+
+    <style name="tnk_ad_detail_confirm_unit" parent="tnk_ad_detail_confirm_bold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:alpha">0.7</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_primary_inverse</item>
+    </style>
+
+
+    <!-- name // value -->
+    <!-- 멀티 액션 개수, 진행도-->
+    <style name="tnk_join_list_script_name" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_04</item>
+    </style>
+
+    <style name="tnk_join_list_script_value" parent="tnk_rwd_style">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+    </style>
+
+
+    <!-- action -->
+    <!-- 닫기, 등의 버튼기능을 하는 텍스트 -->
+    <style name="tnk_clickable_1" parent="tnk_rwd_style">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/tnk_color_accessibility</item>
+    </style>
+
+    <style name="tnk_clickable_2" parent="tnk_rwd_style">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/tnk_color_text_04</item>
+    </style>
+
+
+    <!-- ad list header -->
+    <style name="tnk_header_style" parent="tnk_rwd_style">
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="tnk_header_title" parent="tnk_rwd_style">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="tnk_header_tooltip" parent="tnk_rwd_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_multi_join_text_box_left</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+    <style name="tnk_header_tooltip_right" parent="tnk_rwd_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_multi_join_text_box_right</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">25dp</item>
+    </style>
+
+    <style name="tnk_header_category" parent="tnk_rwd_style">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/com_tnk_tc_selector_category</item>
+        <item name="android:background">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
+    <style name="tnk_header_filter" parent="tnk_rwd_style">
+        <item name="android:background">@drawable/com_tnk_offerwall_bg_selector_type</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/com_tnk_tc_selector_type</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
+
+    <!-- ad list my -->
+    <style name="tnk_my_tab" parent="tnk_rwd_style">
+        <item name="android:textSize">15.5dp</item>
+        <item name="android:textColor">@drawable/com_tnk_offerwall_my_menu_tab_tc</item>
+        <item name="android:background">@color/tnk_color_background</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
+
+    <!-- dialog -->
+    <style name="TnkRwdLoadingDialog" parent="android:Theme.Holo.Dialog.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="CustomAlertDialog">
+        <!-- 꽉 채운 화면에 배경 없이 (custom view 영역만 보일 것이다.) -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+
+        <!-- Dim 처리 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackground">?attr/colorBackgroundFloating</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
+        <!-- Dialog 가 센터에 나오도록 하자. -->
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="com_tnk_off_event_disable_today_check_icon" parent="tnk_rwd_style">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_selector_event_disable_today_icon</item>
+    </style>
+
+    <style name="com_tnk_off_dialog_content_text" parent="tnk_rwd_style">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/tnk_color_text_03</item>
+        <item name="android:lineHeight" tools:targetApi="p">21dp</item>
+    </style>
+
+    <style name="TnkRwdAlertDialog" parent="android:Theme.Holo.Dialog.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+
+</resources>
