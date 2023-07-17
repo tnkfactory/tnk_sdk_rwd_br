@@ -10,6 +10,7 @@
         * [권한 설정](#권한-설정)
         * [Activity tag 추가하기](#activity-tag-추가하기)
     * [Proguard 사용](#proguard-사용)
+    * [COPPA 설정](#coppa-설정)
 
 2. [광고 목록 띄우기](#2-광고-목록-띄우기)
    * [유저 식별 값 설정](#유저-식별-값-설정)
@@ -163,6 +164,15 @@ Proguard를 사용하실 경우 Proguard 설정내에 아래 내용을 반드시
 
 ```
 -keep class com.tnkfactory.** { *;}
+```
+
+### COPPA 설정
+
+COPPA는 [미국 어린이 온라인 개인정보 보호법](https://www.ftc.gov/tips-advice/business-center/privacy-and-security/children's-privacy) 및 관련 법규입니다. 구글 에서는 앱이 13세 미만의 아동을 대상으로 서비스한다면 관련 법률을 준수하도록 하고 있습니다. 연령에 맞는 광고가 보일 수 있도록 아래의 옵션을 설정하시기 바랍니다.
+
+```java
+TnkOfferwall.setCOPPA(true); // ON - 13세 미만 아동을 대상으로 한 서비스 일경우 사용
+TnkOfferwall.setCOPPA(false); // OFF
 ```
 
 ## 2. 광고 목록 띄우기
