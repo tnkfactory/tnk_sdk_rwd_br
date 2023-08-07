@@ -55,6 +55,46 @@ fun loadPlacementView() {
 }
 ```
 
+```java
+
+AdPlacementView adPlacementView;
+
+void setupPlacementView() {
+    adPlacementView = offerwall.getAdPlacementView(this);
+    placementContainerView.removeAllViews();
+    placementContainerView.addView(adPlacementView);
+    loadPlacementView();
+
+
+    adPlacementView.setPlacementEventListener(new PlacementEventListener() {
+
+        @Override
+        public void didAdDataLoaded(@NonNull String placementId, @Nullable String customData) {
+            adPlacementView.showAdList();
+        }
+
+        @Override
+        public void didFailedToLoad(@NonNull String placementId) {
+            Toast.makeText(MainActivityJava.this, "광고 로딩 실패", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void didAdItemClicked(@NonNull String appId, @NonNull String appName) {
+            Log.d("didAdItemClicked", "appId : $appId, appName : $appName");
+        }
+
+        @Override
+        public void didMoreLinkClicked() {
+            offerwall.startOfferwallActivity(MainActivityJava.this);
+        }
+    });
+}
+
+void loadPlacementView() {
+    adPlacementView.loadAdList("open_ad");
+}
+```
+
 ### 플레이스먼트 광고 표시
 
 AdPlacementView 의 loadData() 를 호출하면 전달된 placement_id 에 설정된 값에 따라서 광고를 로딩합니다. 광고 로딩이 완료되면 PlacementEventListener 의 didAdDataLoaded() 가 호출됩니다.
