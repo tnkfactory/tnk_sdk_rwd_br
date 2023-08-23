@@ -746,6 +746,29 @@ Tnk 사이트의 [게시정보]에서 광고 게시 중지를 하게 되면 이�
 | showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 Integer 객체이며 상태코드가 담겨 있습니다. 상태코드 값이 TnkSession.STATE_YES 인 경우(실제 값은 1)는 광고게시상태를 의미합니다. |
 
+##### state code
+| state code | 상태 |
+|------|------|
+|STAT_CD_NO = 0 | 등록전|
+|STAT_CD_YES = 1 | 판매중|
+|STAT_CD_TEST = 2 | 테스트 중|
+|STAT_CD_CHK = 3 | 검증 중|
+|STAT_CD_AUTH = 4 | 검증 완료|
+|STAT_CD_SUS = 8 | 임시로 중지됨|
+|STAT_CD_ERR = 9 | 잔액 부족등 에러로 중지됨|
+|STAT_CD_UNKNOWN = 99| 없는 코드 값|
+    
+```kotlin
+const val STAT_CD_NO = 0 // 등록전
+const val STAT_CD_YES = 1 // 판매중
+const val STAT_CD_TEST = 2 // 테스트 중
+const val STAT_CD_CHK = 3 // 검증 중
+const val STAT_CD_AUTH = 4 // 검증 완료
+const val STAT_CD_SUS = 8 // 임시로 중지됨
+const val STAT_CD_ERR = 9 // 잔액 부족등 에러로 중지됨
+const val STAT_CD_UNKNOWN = 99 // 알수 없는 코드 값
+```
+
 ##### 적용예시
 
 ```java
