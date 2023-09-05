@@ -32,7 +32,16 @@
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
    
 5. [Analytics Report](#4-analytics-report)
-6. [플레이스먼트 뷰](#플레이스먼트-뷰)
+   * [기본 설정](#기본-설정)
+   * [TNK SDK 초기화](#tnk-sdk-초기화)
+     * [Method](#method)
+     * [Parameters](#parameters)
+   * [사용 활동 분석](#사용-활동-분석)
+     * [TnkSession.actionCompleted()](#tnksessionactioncompleted)
+   * [구매 활동 분석](#구매-활동-분석)
+     * [TnkSession.buyCompleted()](#tnksessionbuycompleted)
+   * [사용자 정보 설정](#사용자-정보-설정)
+7. [플레이스먼트 뷰](#플레이스먼트-뷰)
 
 
 ## 1. SDK 설정하기
