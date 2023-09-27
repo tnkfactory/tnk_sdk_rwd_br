@@ -19,6 +19,9 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
+* 2023.09.27
+  * v8.03.08 네트워크 에러시 상세한 메세지를 출력 하도록 수정
+   
 * 2023.09.15
   * v8.03.06 flutter/react native 환경 안정화
   * placementView 약관 처리 추가
