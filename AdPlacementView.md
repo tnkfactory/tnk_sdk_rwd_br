@@ -1,3 +1,20 @@
+
+# Tnkfactory SDK Rwd
+
+## 목차
+
+1. [플레이스먼트뷰](#플레이스먼트뷰)
+
+    * [플레이스먼트뷰 생성하기](#플레이스먼트뷰-생성하기)
+    * [플레이스먼트 광고 표시](#플레이스먼트-광고-표시)
+    * [customData 활용하기](#customData-활용하기)
+    * [AdPlacementView의 UI 커스터마이징](#AdPlacementView의-UI-커스터마이징)
+
+2. [광고정보 조회 기능](#광고정보-조회-기능)
+   * [광고 목록 조회](#광고-목록-조회)
+   * [PlacementView 설정값 조회](#PlacementView-설정값-조회)
+   * [광고 클릭 이벤트 처리](#광고-클릭-이벤트-처리)
+
 # 플레이스먼트뷰
 
 유저들의 오퍼월 진입을 보다 자연스럽게 유도하기 위하여 매체 내에 전면이나 바텀시트 또는 피드 형태로 오퍼월 광고를 제공할 수 있습니다. 
@@ -164,7 +181,7 @@ fun didAdDataLoaded(placementId: String, customData:String?) {
 
 ```
 
-### AdPlacementView 의 UI 커스터마이징
+### AdPlacementView의 UI 커스터마이징
 
 플레이스먼트뷰의 UI 커스터마이징 방법은 기본적으로 오퍼월의 UI 커스터마이징과 동일합니다. 오퍼월의 UI 커스터마이징은 여기를 참고하세요. &rightarrow; [UI 커스터마이징 가이드](./ui_customizing.md)
 
@@ -212,6 +229,11 @@ adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
 
 ```
 
+ 
+--- 
+
+# 광고정보 조회 기능
+광고 목록을 UI를 직접 구현하기 위한 기능 지원 
 
 ## 광고 목록 조회
 
