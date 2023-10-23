@@ -212,6 +212,170 @@ adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
 
 ```
 
+
+## 광고 목록 조회
+
+#### Method
+
+- ArrayList<TnkPlacementAdItem> AdPlacementView.getAdList()
+
+#### Description
+
+PlacementView에 로드된 광고 목록을 반환합니다.
+
+#### Parameters
+
+#### Return : ArrayList<TnkPlacementAdItem>
+```kotlin
+data class TnkPlacementAdItem(
+    val app_id: Long,                // Long 광고 고유 식별값
+    val app_nm: String,              // String 광고 제목
+    val img_url: String,             // String 이미지 url
+    val pnt_amt: Long,               // Long 지급 포인트 (이벤트 진행시 이벤트 배율 적용된 포인트)
+    val org_amt: Long,               // Long 배율 이벤트 진행 시 원래의 포인트(이벤트 기간 아닐경우 0)
+    val pnt_unit: String,            // String 포인트 재화 단위
+    val prd_price: Long,             // Long CPS상품 가격
+    val org_prd_price: Long,         // Long CPS상품 할인 전 가격
+    val sale_dc_rate: Int,           // Int CPS 상품 할인율
+    val multi_yn: Boolean,           // Boolean 멀티 미션 광고 여부
+    val cmpn_type: Int,              // Int 광고 유형코드
+    val cmpn_type_name: String,      // String 광고 유형 이름
+    val like_yn: String              // String 즐겨찾기 상품 여부
+)
+```
+
+## 광고 목록 조회(JSON)
+
+### Method
+
+- ArrayList<TnkPlacementAdItem> AdPlacementView.getAdListJson()
+
+#### Description
+
+광고 목록 정보를 json으로 반환합니다.
+
+## PlacementView 설정값 조회
+
+#### Method
+
+- PlacementPubInfo? AdPlacementView.getPubInfo()
+
+#### Description
+
+PlacementView 설정값을 로드합니다.
+
+#### Parameters
+
+#### Return : ArrayList<TnkPlacementAdItem>
+
+```kotlin
+data class PlacementPubInfo(
+    var ad_type: Int,             // 지면에 설정되어 있는 광고 유형(0 : 보상형, 1 : CPS, 2 : 제휴몰, 3 : 뉴스, 4 : 이벤트)
+    var title: String,            // 지면 타이틀
+    var more_lbl: String,         // 더보기 라벨
+    var cust_data: String,        // 매체 설정값
+    var ctype_surl: String,       // 캠페인타입 정보 URL (해당 URL 호출시 json 반환) {list_count:int, list:[{cmpn_type:int, cmpn_type_nm:string},….]}
+    var pnt_unit: String,         // 매체 포인트 명칭
+    var plcmt_id: String,         // 매체 설정 지면 ID
+)
+```
+
+## PlacementView 설정값 조회(JSON)
+
+#### Method
+
+- PlacementPubInfo? AdPlacementView.getPubInfoJson()
+
+#### Description
+
+PlacementView 설정값을 Json으로 반환합니다.
+
+## 샘플코드 
+
+```kotlin
+
+lateinit var adPlacementView : AdPlacementView
+lateinit var adList : ArrayList<TnkPlacementAdItem>
+lateinit var pubInfo : PlacementPubInfo
+
+fun setupPlacementView() {
+    // placementView를 생성합니다.
+    adPlacementView = tnkOfferwall.getAdPlacementView(this)
+    // placementView를 광고 영역에 추가합니다.
+    placementContainerView.addView(adPlacementView)
+
+    // placementView의 이벤트 리스너를 설정합니다.
+    adPlacementView.placementEventListener = object : PlacementEventListener {
+        override fun didAdDataLoaded(placementId: String, customData: String?) {
+            // 광고 목록을 반환합니다.
+            adList = adPlacementView.getAdList()
+            // PlacementView 설정값을 반환합니다.
+            pubInfo = adPlacementView.getPubInfo()
+        }
+
+        override fun didFailedToLoad(placementId: String) {
+            // 광고 로드 실패시 처리
+            Toast.makeText(this@MainActivity, "광고 로딩 실패", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun didAdItemClicked(appId: String, appName: String) {
+            // 광고 클릭시 처리
+            Log.d("didAdItemClicked", "appId : $appId, appName : $appName")
+        }
+
+        override fun didMoreLinkClicked() {
+            // 더보기 링크 클릭시 여기서 광고 상세 화면으로 가는 처리를 추가합니다.
+            tnkOfferwall.startOfferwallActivity(this@MainActivity)
+        }
+    }
+}
+
+// 광고 목록을 로드합니다.
+fun loadPlacementView() {
+    adPlacementView.loadAdList("open_ad")
+}
+```
+
+
+## 광고 클릭 이벤트 처리
+
+#### Method
+
+- AdPlacementView.onItemClick(appId: Long, onResult: (success: Boolean, errorMessage: String) -> Unit)
+
+#### Description
+
+광고 목록 정보를 가지고 직접 광고 목록을 출력 할 경우 onItemClick 메소드를 통해 광고 클릭 이벤트를 처리합니다.
+광고상세 페이지 랜딩(네이티브), 광고주가 제공한 웹 사이트로 이동 등 각 광고 타입별 액션이 실행됩니다.
+액션 처리가 완료되면 onResult에 이벤트 처리 결과가 반환되며 
+성공시 success가 true 실패시 false가 반환됩니다.
+errorMessaged에는 에러 발생시 해당 에러의 내용이 반환됩니다.
+
+#### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| -------------- | ----------------------------------------------------------- |
+| appId       | 클릭 이벤트를 처리 할 광고의 appId                              |
+| onResult  | 클릭 이벤트 처리 결과와 에러 발생시 메세지 |
+
+```kotlin
+inner class MyHolder(val adItem:TnkPlacementAdItem):ViewHolder {
+    fun onBind(){
+        showLoading()
+        onItemClick(adItem.app_id){ success, errorMessage ->
+            dismissLoading()
+            if (success) {
+                Log.d("getPubInfo", "success")
+            } else {
+                showError(errorMessage)
+                Log.d("getPubInfo", errorMessage)
+            }
+        }
+    }
+}
+```
+
+
 ## 이벤트 기능
 
 매체의 사용자 유입 및 리텐션을 높이기 위하여 플레이스먼트에서는 몇가지 이벤트를 기본제공하고 있습니다.
