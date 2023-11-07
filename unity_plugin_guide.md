@@ -98,7 +98,7 @@
 
 Tnk에서 제공하는 tnkad-rwd.unitypackage 파일을 다운 받습니다.
 
-**[[Unity Plugin Download v7.25.1](./sdk/tnkad_rwd_072502.unitypackage)]**
+**[[Unity Plugin Download v8.04.11](./sdk/tnkadunity_08_04_11.jar)]**
 
 ### Plugin Setting
 
@@ -107,16 +107,20 @@ Tnk에서 제공하는 tnkad-rwd.unitypackage 파일을 다운 받습니다.
 1. 설정에서 build and setting 메뉴를 선택합니다.
 
 ![unity_setting_1](./img/unity_setting_1.png)
+
 2. player settings 메뉴를 선택합니다.
 
 ![unity_setting_2](./img/unity_setting_2.png)
+
 3. other settings 메뉴를 선택 후 min sdk와 target sdk를 설정합니다.
 (구글 정책 준수를 위해 2023년 11월 기준 target sdk 33이상으로 설정 하셔야 합니다. min sdk 권장은 21입니다.)
 
 ![unity_setting_3](./img/unity_setting_3.png)
+
 4. publishing settings 메뉴를 선택 후 다음 이미지의 설정을 참고하여 설정합니다.
 
 ![unity_setting_4](./img/unity_setting_4.png)
+
 5. 적용 할 Unity 프로젝트를 연 상태에서 다음 이미지와 같이 프로젝트의 Packages폴더를 오른 클릭 후 폴더를 열어주세요
 
 ![unity_setting_5](./img/unity_setting_5.png)
