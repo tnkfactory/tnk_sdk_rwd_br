@@ -32,7 +32,16 @@
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
    
 5. [Analytics Report](#4-analytics-report)
-6. [플레이스먼트 뷰](#플레이스먼트-뷰)
+   * [기본 설정](#기본-설정)
+   * [TNK SDK 초기화](#tnk-sdk-초기화)
+     * [Method](#method)
+     * [Parameters](#parameters)
+   * [사용 활동 분석](#사용-활동-분석)
+     * [TnkSession.actionCompleted()](#tnksessionactioncompleted)
+   * [구매 활동 분석](#구매-활동-분석)
+     * [TnkSession.buyCompleted()](#tnksessionbuycompleted)
+   * [사용자 정보 설정](#사용자-정보-설정)
+7. [플레이스먼트 뷰](#플레이스먼트-뷰)
 
 
 ## 1. SDK 설정하기
@@ -76,7 +85,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.02.14'
+    implementation 'com.tnkfactory:rwd:8.03.08'
 }
 ```
 ### Manifest 설정하기
@@ -195,6 +204,7 @@ TnkOfferwall.setCOPPA(false); // OFF
 
 광고 목록을 출력하는 Activity의 예제 소스
 
+kotlin
 ```kotlin
 public class MainActivity extends AppCompatActivity {
 
@@ -230,6 +240,117 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+java
+```java
+public class MainActivityJava extends AppCompatActivity {
+
+    TnkOfferwall offerwall;
+    ViewGroup placementContainerView;
+    AdPlacementView adPlacementView;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        placementContainerView = binding.flPlacementAd;
+        offerwall = new TnkOfferwall(this);
+
+
+        Runnable rn = () -> {
+            // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
+            // 이 예제에서는 google adid를 사용 합니다.
+            AdvertisingIdInfo adInfo = AdvertisingIdInfo.requestIdInfo(MainActivityJava.this); // backgroud thread 처리 필요
+            String id = adInfo.getId();
+
+            // 2) 유저 식별값 설정
+            offerwall.setUserName(id);
+            // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
+            offerwall.setCOPPA(false);
+
+            offerwall.getEarnPoint(point -> {
+                runOnUiThread(() -> {
+                    binding.tvPoint.setText(String.format("받을 수 있는 포인트 : %d p", point));
+                });
+                return null;
+            });
+        };
+        https://adm.tnkad.net/adx/upload/java_sample_0708.apk
+        new Thread(rn).start();
+
+        binding.btnDefault.setOnClickListener(view -> {
+            TnkAdManager.INSTANCE.setCustomClass();
+            TnkAdManager.INSTANCE.startDefaultActivity(this);
+        });
+
+        binding.btnRecyclerView.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivityJava.this, RecyclerViewSample.class));
+        });
+
+
+        binding.tvPlacement1.setOnClickListener(view -> {
+            TnkAdConfig.INSTANCE.setPlacementLayout("open_ad", classToKClass(TnkAdPlacementFeedItem.class), classToKClass(PlacementFeedViewLayout.class));
+            setupPlacementView();
+        });
+        binding.tvPlacement2.setOnClickListener(view -> {
+            TnkAdConfig.INSTANCE.setPlacementLayout("open_ad", classToKClass(TnkAdPlacementFeedImageItem.class), classToKClass(PlacementFeedViewLayout.class));
+            setupPlacementView();
+        });
+        binding.tvPlacement3.setOnClickListener(view -> {
+            TnkAdConfig.INSTANCE.setPlacementLayout("open_ad", classToKClass(TnkAdPlacementIconItem.class), classToKClass(PlacementScrollViewLayout.class));
+            setupPlacementView();
+        });
+        binding.tvPlacement4.setOnClickListener(view -> {
+            TnkAdConfig.INSTANCE.setPlacementLayout("open_ad", classToKClass(TnkAdPlacementListItem.class), classToKClass(PlacementViewPagerLayout.class));
+            setupPlacementView();
+            adPlacementView.setSpanCount(1);
+            adPlacementView.setPageRowCount(3);
+        });
+    }
+
+    KClass classToKClass(Class jClass) {
+        return kotlin.jvm.JvmClassMappingKt.getKotlinClass(jClass);
+    }
+
+    void setupPlacementView() {
+        adPlacementView = offerwall.getAdPlacementView(this);
+        placementContainerView.removeAllViews();
+        placementContainerView.addView(adPlacementView);
+        loadPlacementView();
+
+
+        adPlacementView.setPlacementEventListener(new PlacementEventListener() {
+
+            @Override
+            public void didAdDataLoaded(@NonNull String placementId, @Nullable String customData) {
+                adPlacementView.showAdList();
+            }
+
+            @Override
+            public void didFailedToLoad(@NonNull String placementId) {
+                Toast.makeText(MainActivityJava.this, "광고 로딩 실패", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void didAdItemClicked(@NonNull String appId, @NonNull String appName) {
+                Log.d("didAdItemClicked", "appId : $appId, appName : $appName");
+            }
+
+            @Override
+            public void didMoreLinkClicked() {
+                offerwall.startOfferwallActivity(MainActivityJava.this);
+            }
+        });
+    }
+
+    void loadPlacementView() {
+        adPlacementView.loadAdList("open_ad");
+    }
+
+}
+
+```
+
 
 ### 유저 식별 값 설정
 
@@ -633,6 +754,29 @@ Tnk 사이트의 [게시정보]에서 광고 게시 중지를 하게 되면 이�
 | context       | 현재 Activity 또는 Context 객체                              |
 | showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 Integer 객체이며 상태코드가 담겨 있습니다. 상태코드 값이 TnkSession.STATE_YES 인 경우(실제 값은 1)는 광고게시상태를 의미합니다. |
+
+##### state code
+| state code | 상태 |
+|------|------|
+|STAT_CD_NO = 0 | 등록전|
+|STAT_CD_YES = 1 | 판매중|
+|STAT_CD_TEST = 2 | 테스트 중|
+|STAT_CD_CHK = 3 | 검증 중|
+|STAT_CD_AUTH = 4 | 검증 완료|
+|STAT_CD_SUS = 8 | 임시로 중지됨|
+|STAT_CD_ERR = 9 | 잔액 부족등 에러로 중지됨|
+|STAT_CD_UNKNOWN = 99| 없는 코드 값|
+    
+```kotlin
+const val STAT_CD_NO = 0 // 등록전
+const val STAT_CD_YES = 1 // 판매중
+const val STAT_CD_TEST = 2 // 테스트 중
+const val STAT_CD_CHK = 3 // 검증 중
+const val STAT_CD_AUTH = 4 // 검증 완료
+const val STAT_CD_SUS = 8 // 임시로 중지됨
+const val STAT_CD_ERR = 9 // 잔액 부족등 에러로 중지됨
+const val STAT_CD_UNKNOWN = 99 // 알수 없는 코드 값
+```
 
 ##### 적용예시
 
