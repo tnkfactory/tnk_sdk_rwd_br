@@ -189,9 +189,10 @@ dependencies {
     android:anyDensity="true" />
   
   <!-- permissions for TnkAd -->
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-  <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+   <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+   <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+   <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
   
   <application 
     android:icon="@drawable/app_icon" 
@@ -214,8 +215,10 @@ dependencies {
     </activity>
     
     <!-- TnkAd  Offerwall Activities -->
-    <activity android:name="com.tnkfactory.ad.AdWallActivity" android:screenOrientation="sensor" android:exported="true"/>
-    <activity android:name="com.tnkfactory.ad.AdMediaActivity" android:screenOrientation="landscape" android:exported="true"/>
+     <activity android:name="com.tnkfactory.ad.AdWallActivity"
+             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+             android:exported="true"
+             android:screenOrientation="portrait"/>
     
     <!-- Set your Tnk App_ID here -->
     <meta-data android:name="tnkad_app_id" android:value="your-appid-from-tnk-site" />
@@ -234,7 +237,9 @@ TnkAd SDK 가 필요로 하는 permission을 아래와 같이 설정합니다.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 ```
 
 #### Tnk App ID 설정
@@ -258,8 +263,10 @@ Tnk 사이트에서 앱 등록하면 상단에 App ID 가 나타납니다. 이�
 Offerwall Activity는 보상형 광고목록이 출력되는 Activity입니다. 매체앱으로서 충전소 기능을 탑제하시려면 아래의 <activity/> 설정을 추가하셔야합니다.
 
 ```xml
-<activity android:name="com.tnkfactory.ad.AdWallActivity" android:screenOrientation="sensor" android:exported="true"/>
-<activity android:name="com.tnkfactory.ad.AdMediaActivity" android:screenOrientation="landscape" android:exported="true"/>
+<activity android:name="com.tnkfactory.ad.AdWallActivity"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        android:exported="true"
+        android:screenOrientation="portrait"/>
 ```
 
 #### UnityPlayer 설정
