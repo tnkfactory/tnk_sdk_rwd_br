@@ -126,9 +126,7 @@ class LayoutType {
 
 viewHolder를 구현하는 방법을 설명합니다.
 
-CustomNor, CustomCpsNor, CustomNews는 모두 TnkAdListBasicItem 클래스를 상속받고 있습니다.
-
-다음 항목들을 상속받아 구현 하시기 바랍니다.
+CustomNor, CustomCpsNor, CustomNews는 모두 TnkAdListBasicItem 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
 
 ### 레이아웃 지정
 ```kotlin
@@ -139,7 +137,7 @@ fun getLayout():Int
 ```
 
 
-### onBind 함수 구현
+### onBind 함수 직접 구현
 ```kotlin
 // 해당 아이템의 onBind 시점에 호출되는 UI출력 내용 구성 구현
 fun bind(viewHolder: GroupieViewHolder, position: Int)
