@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.tnkfactory.tnkofferer"
         minSdk 19
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -41,9 +41,7 @@ android {
 
 dependencies {
 
-    implementation project(':custom_1')
-//    implementation project(':custom_2')
-//    implementation project(':custom_3')
+    implementation project(':tnk_rwd')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -57,7 +55,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-    implementation "com.tnkfactory:rwd:8.02.14"
+//    implementation "com.tnkfactory:rwd:8.02.14"
 
 
     testImplementation 'junit:junit:4.13.2'

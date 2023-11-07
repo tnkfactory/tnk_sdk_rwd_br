@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tnk_color_background_dim">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/com_tnk_off_detail_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/com_tnk_offerwall_detail_top_bg">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_my_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/com_tnk_offerwall_close"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_my_menu_multi"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="참여 중 내역"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <View
+            android:id="@+id/com_tnk_off_my_menu_multi_under_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_my_menu_multi"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_my_menu_multi"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_my_menu_multi" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_my_menu_reward"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:checked="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="적립내역"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/com_tnk_off_my_menu_multi" />
+
+        <View
+            android:id="@+id/com_tnk_off_my_menu_reward_underline"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_my_menu_reward"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_my_menu_reward"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_my_menu_reward" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_my_menu_faq"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:checked="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="도움말"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/com_tnk_off_my_menu_reward" />
+
+        <View
+            android:id="@+id/com_tnk_off_my_menu_faq_underline"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_my_menu_faq"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_my_menu_faq"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_my_menu_faq" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_my_menu_help_main"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:checked="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="문의하기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/com_tnk_off_my_menu_faq" />
+
+        <View
+            android:id="@+id/com_tnk_off_my_menu_help_main_underline"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_my_menu_help_main"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_my_menu_help_main"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_my_menu_help_main" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/com_tnk_off_my_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/com_tnk_off_detail_appbar"
+        android:background="@color/tnk_color_divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/com_tnk_off_my_multi_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/com_tnk_off_my_divider"
+        android:background="@color/tnk_color_background"
+        android:clipToPadding="true"
+        android:paddingTop="6dp" />
+
+    <WebView
+        android:id="@+id/com_tnk_off_my_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/com_tnk_off_my_divider" />
+</RelativeLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8a000000"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/com_tnk_off_cps_detail_header"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/com_tnk_offerwall_detail_webview_header_bg"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/com_tnk_off_iv_detail_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/com_tnk_offerwall_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_cps_my_order"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="주문·배송"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <View
+            android:id="@+id/com_tnk_off_cps_my_order_under_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_cps_my_order"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_cps_my_order"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_cps_my_order" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_cps_my_like"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:checked="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="관심상품"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/com_tnk_off_cps_my_order" />
+
+        <View
+            android:id="@+id/com_tnk_off_cps_my_like_underline"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_cps_my_like"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_cps_my_like"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_cps_my_like" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        app:layout_constraintTop_toBottomOf="@id/com_tnk_off_cps_detail_header"
+        android:id="@+id/com_tnk_off_my_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tnk_color_divider" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/tnk_color_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/com_tnk_off_my_divider">
+
+        <WebView
+            android:background="@color/tnk_color_background"
+            android:id="@+id/com_tnk_off_detail_webview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:background="@color/tnk_color_background"
+            android:id="@+id/com_tnk_off_cps_my_like_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/com_tnk_off_cps_like_dialog_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="bottom"
+                android:includeFontPadding="false"
+                android:text="최대 50개, 3개월 이내로 저장이 가능합니다"
+                style="@style/com_tnk_offerwall_message_3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/com_tnk_off_cps_my_rv_like"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/com_tnk_off_network_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/tnk_color_background"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/com_tnk_off_cps_detail_header">
+
+        <include layout="@layout/com_tnk_offerwall_network_error" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

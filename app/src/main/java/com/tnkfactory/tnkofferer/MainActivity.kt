@@ -1,6 +1,7 @@
 package com.tnkfactory.tnkofferer
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
@@ -47,20 +48,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
         binding.btnDefault.setOnClickListener {
             TnkAdConfig.layoutConfig.setListHeader(1)
             offerwall.startOfferwallActivity(this@MainActivity)
         }
 
-
-
         binding.btnAddview.setOnClickListener {
             TnkAdConfig.layoutConfig.setListHeader(0)
             startActivity(Intent(this@MainActivity, EmbedActivity::class.java))
         }
-
 
         binding.btnCustomDefault.setOnClickListener {
             TnkAdManager.setUserInfo(this@MainActivity, false, userName)

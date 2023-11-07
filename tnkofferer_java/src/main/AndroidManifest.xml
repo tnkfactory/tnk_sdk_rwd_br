@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
-                android:name=".MainActivity"
+                android:name=".MainActivityJava"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,13 +25,6 @@
                     android:name="android.app.lib_name"
                     android:value=""/>
         </activity>
-
-        <activity
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                android:name="com.tnkfactory.ad.AdWallActivity"
-                android:screenOrientation="portrait"
-                android:exported="true"
-                android:windowSoftInputMode="adjustResize"/>
 
         <meta-data
                 android:name="tnkad_app_id"
