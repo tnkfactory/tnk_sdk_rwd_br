@@ -46,61 +46,33 @@
 
 
 ## 샘플 프로젝트의 모듈 가져오기
-아래의 링크를 참조하여 샘플 프로젝트의 모듈 3가지중 1가지를 프로젝트로 가져옵니다.
+아래의 링크를 참조하여 샘플 프로젝트의 tnk_rwd 모듈을 가져옵니다.
 https://developer.android.com/studio/projects/add-app-module?hl=ko#ImportAModule
 
-각 샘플 모듈은 아래와 같은 경우 사용 할 수 있습니다.
+## 1. Ui 리소스 수정
 
-## 1. 간단한 테마 컬러 변경
-primarycolor 배경, 텍스트, 등의 색상을 변경 할 경우의 예시 입니다.
+tnk_rwd/res 폴더에 있는 theme, drawable, layout 등의 리소스 파일을 수정 하시기 바랍니다.
 
-샘플코드의 custom_1 모듈을 import하신 후 themes.xml에 있는 컬러값을 변경 하시면 됩니다.
-포인트 아이콘을 사용 할 경우 아이콘 파일을 교체하시기 바랍니다.
+## 2. 레이아웃 기능 수정/추가
 
-## 2. 커스텀 디자인 레이아웃 적용
-
-광고 목록 레이아웃을 직접 수정하여 사용 하실 경우 사용하는 예시 입니다.
-
-샘플코드의 custom_2 모듈을 import하신 후 res->layout 폴더에 있는 레이아웃 파일들을 수정 하시기 바랍니다.
-
-## 3. 커스텀 클래스를 이용한 레이아웃과 클래스 직접 구현
-
-레이아웃 뿐만 아니라 광고 아이템을 출력하는 커스텀 클래스를 사용하는 예제입니다.
-
-**샘플코드의 custom_3 모듈의 TnkAdManager.kt 파일과 /scene/layout 패키지의 클래스 파일들을 참고 하시기 바랍니다.**
+리소스 수정 이외에 다른 기능을 변경 할 필요가 있을 경우 다음과 같이 타입별 클래스를 상속받아 구현 하시기 바랍니다.
 
 샘플 프로젝트에는 각 타입별 클래스 파일과 레이아웃 샘플 파일이 있습니다.
 
-- CustomCpsFavorite
-- CustomCpsMyLike
-- CustomCpsNew
-- CustomCpsNor
-- CustomCpsRecommend
-- CustomCpsSearch
-- CustomJoinMultiItem
-- CustomNew
-- CustomNews
+일반광고
 - CustomNor
-- CustomPopular
-- CustomPromotion
-- CustomReward
-- CustomSuggest
+쇼핑광고 
+- CustomCpsNor
+뉴스광고
+- CustomNews
 
+타입별 샘플 레이아웃
 - com_tnk_off_ad_list_normal.xml
-- com_tnk_off_ad_list_promotion.xml
-- com_tnk_off_ad_list_suggest.xml
-- com_tnk_off_ad_list_new.xml
-- com_tnk_off_ad_list_multi.xml
-- com_tnk_off_ad_list_cps_favorite.xml
-- com_tnk_off_ad_list_cps_new.xml
 - com_tnk_off_ad_list_cps_normal.xml
-- com_tnk_off_ad_list_cps_popular.xml
-- com_tnk_off_ad_list_cps_recommend.xml
-- com_tnk_off_ad_list_cps_reward.xml
-- com_tnk_off_ad_list_cps_search.xml
 - com_tnk_off_ad_list_news.xml
 
-각 타입별 xml파일과 해당 view에 컨텐츠를 출력하는 코드를 수정하여 원하는 레이아웃을 구성 하실 수 있습니다.
+
+해당 클래스를 상속받아 구현하신 후 아래와 같이 TnkAdConfig.setLayoutInfo 함수를 사용하여 등록하시면 됩니다.
 
 ```kotlin
 fun setAdLayoutConfig() {
@@ -150,11 +122,13 @@ class LayoutType {
 ```
 
 
-## 4. TnkAdListBasicItem 클래스 구현
+## 3. TnkAdListBasicItem 클래스 구현
 
 viewHolder를 구현하는 방법을 설명합니다.
 
-TnkAdListBasicItem 또는 TnkAdListCpsBasic 클래스를 상속받으신 후 이하의 함수를 구현 하시면 됩니다.
+CustomNor, CustomCpsNor, CustomNews는 모두 TnkAdListBasicItem 클래스를 상속받고 있습니다.
+
+다음 항목들을 상속받아 구현 하시기 바랍니다.
 
 ### 레이아웃 지정
 ```kotlin
@@ -165,7 +139,7 @@ fun getLayout():Int
 ```
 
 
-### onBind 함수 직접 구현
+### onBind 함수 구현
 ```kotlin
 // 해당 아이템의 onBind 시점에 호출되는 UI출력 내용 구성 구현
 fun bind(viewHolder: GroupieViewHolder, position: Int)
