@@ -98,7 +98,18 @@
 
 Tnk에서 제공하는 tnkad-rwd.unitypackage 파일을 다운 받습니다.
 
-**[[Unity Plugin Download v8.04.11](./sdk/tnkadunity_08_04_11.jar)]**
+**[[Unity Plugin Download v8.04.11](./sdk/tnk_unity_plugin.zip)]**
+
+적용 할 Unity 프로젝트를 연 상태에서 다음 이미지와 같이 프로젝트의 Packages폴더를 오른 클릭 후 폴더를 열어주세요
+
+![unity_setting_5](./img/unity_setting_5.png)
+
+해당 폴더에 다운받은 tnk sdk파일을 복사합니다.
+
+
+![unity_setting_6](./img/unity_setting_6.png)
+
+위 이미지와 같이 
 
 ### Plugin Setting
 
@@ -121,11 +132,7 @@ Tnk에서 제공하는 tnkad-rwd.unitypackage 파일을 다운 받습니다.
 
 ![unity_setting_4](./img/unity_setting_4.png)
 
-5. 적용 할 Unity 프로젝트를 연 상태에서 다음 이미지와 같이 프로젝트의 Packages폴더를 오른 클릭 후 폴더를 열어주세요
 
-![unity_setting_5](./img/unity_setting_5.png)
-
-해당 폴더에 다운받은 tnk sdk파일을 복사합니다.
 
 설정 파일들을 열고 다음과 같은 설정을 추가해주세요.
 
