@@ -923,6 +923,10 @@ Analytics 적용을 위해서는 Tnk 사이트에서 앱 등록 및 프로젝트
 
 [[SDK 설정하기](#1-sdk-설정하기)]의 내용을 우선 확인해주세요.
 
+google anlytics등 매체사에서 사용하고 계신 환경에 맞추어 로깅 하는 방법도 존재합니다.
+자세한 내용은 아래 링크의 내용을 참고 하시기 바랍니다.
+[직접 구현](https://github.com/tnkfactory/tnk_sdk_rwd_br/blob/main/tnk_ad_analytics.md)
+
 ### 기본 설정
 
 AndroidMenifest.xml 파일 내에 Tnk 앱 등록세 발급 받은 App ID를 설정하시고 그 아래에 아래와 같이 tnkad_tracking 값을 true로 설정합니다.
