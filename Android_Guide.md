@@ -31,6 +31,12 @@
    * [TnkSession.enableLogging()](#tnksessionenablelogging)
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
    
+4. [Callback URL](#callback-url)
+   * [호출방식](#호출방식)
+   * [Parameters](#parameters-12)
+   * [리턴값처리](#리턴값-처리)
+   * [Callback URL 구현 예시 (Java)](#callback-url-구현-예시-java)
+   
 5. [Analytics Report](#4-analytics-report)
    * [기본 설정](#기본-설정)
    * [TNK SDK 초기화](#tnk-sdk-초기화)
@@ -65,7 +71,6 @@ dependencyResolutionManagement {
         mavenCentral()
         
         // 경로를 추가해 주시기 바랍니다.
-        maven { url "https://jitpack.io" }
         maven { url "https://repository.tnkad.net:8443/repository/public/" }
     }
 }
@@ -77,7 +82,6 @@ include ':app'
 ```gradle
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
     maven { url "https://repository.tnkad.net:8443/repository/public/" }
 }
 ```
@@ -85,7 +89,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.05.02'
+    implementation 'com.tnkfactory:rwd:8.06.15'
 }
 ```
 ### Manifest 설정하기
@@ -830,7 +834,7 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 
 
-### Callback URL
+## 4. Callback URL
 
 사용자가 광고참여를 통하여 획득한 포인트를 개발사의 서버에서 관리하실 경우 다음과 같이 진행합니다.
 
