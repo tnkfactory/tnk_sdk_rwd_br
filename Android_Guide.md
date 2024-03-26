@@ -16,6 +16,7 @@
    * [유저 식별 값 설정](#유저-식별-값-설정)
    * [광고 목록 띄우기 (Activity)](#광고-목록-띄우기-activity)
    * [디자인 변경하기](#디자인-변경하기)
+   * [포인트 아이콘과 단위 출력하기](#포인트-아이콘과-단위-출력하기)
 
 3. [Publisher API](#3-publisher-api) 
 
@@ -465,7 +466,23 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 광고 리스트 화면(AdListView)는 기본 스타일을 그대로 사용하셔도 충분하지만, 원하시는 경우 매체앱과 통일감 있도록 UI를 변경하실 수 있습니다.
 
-디자인 변경을 원하실 경우 다음 링크를 참고 하시기 바랍니다.
+#### 포인트 아이콘과 단위 출력하기
+
+유저에게 제공하는 리워드 금액 앞에 P아이콘이 출력 되는 것이 기본 설정입니다.
+
+관리자 페이지에서 설정하신 텍스트가 출력되기를 원하실 경우 아래와 같이 설정 하실 수 있습니다.
+
+/**
+ * 포인트 아이콘, 재화 표기 옵션
+ * 1. 모두 출력 ICON_N_UNIT
+ * 2. 출력 안함 NONE
+ * 3. 아이콘 ICON
+ * 4. 재화 단위 텍스트 UNIT
+ */
+TnkAdConfig.pointEffectType = TNK_POINT_EFFECT_TYPE.ICON_N_UNIT
+
+
+그 외 상세한 디자인 변경을 원하실 경우 다음 링크를 참고 하시기 바랍니다.
 
 [디자인 커스텀 가이드](https://github.com/tnkfactory/tnk_sdk_rwd_br/blob/main/ui_customizing.md)
 
