@@ -274,6 +274,8 @@ public class MainActivityJava extends AppCompatActivity {
             offerwall.setUserName(id);
             // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
             offerwall.setCOPPA(false);
+            // 4) 포인트 금액 앞에 아이콘, 뒤에 재화 단위 출력 여부를 설정합니다.
+            TnkAdConfig.INSTANCE.setPointEffectType(TNK_POINT_EFFECT_TYPE.UNIT);
 
             offerwall.getEarnPoint(point -> {
                 runOnUiThread(() -> {
