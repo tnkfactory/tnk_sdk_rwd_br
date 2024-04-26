@@ -277,7 +277,48 @@ data class TnkPlacementAdItem(
 #### Description
 
 광고 목록 정보를 json으로 반환합니다.
+```dart
 
+Future<void> adDataToJson() async {
+  String resCode = jsonObject["res_code"];
+  String resMessage = jsonObject["res_message"];
+  if(resCode == "1") {
+    List<TnkPlacementAdItem> adList =
+      praserJsonToTnkPlacementAdItem(jsonObject["ad_list"]);
+          setState(() {
+            this.adList.addAll(adList);
+            // _tnkResult = placementData ?? "null";
+          });
+  } else {
+    // 광고 로드 실패
+  }
+}
+
+List<TnkPlacementAdItem> praserJsonToTnkPlacementAdItem(
+      List<dynamic> adList) {
+    List<TnkPlacementAdItem> tnkPlacementAdItemList = [];
+    for (var adItem in adList) {
+      TnkPlacementAdItem tnkPlacementAdItem = TnkPlacementAdItem();
+      tnkPlacementAdItem.app_id = adItem["app_id"];
+      tnkPlacementAdItem.app_nm = adItem["app_nm"];
+      tnkPlacementAdItem.img_url = adItem["img_url"];
+      tnkPlacementAdItem.pnt_amt = adItem["pnt_amt"];
+      tnkPlacementAdItem.org_amt = adItem["org_amt"];
+      tnkPlacementAdItem.pnt_unit = adItem["pnt_unit"];
+      tnkPlacementAdItem.prd_price = adItem["prd_price"];
+      tnkPlacementAdItem.org_prd_price = adItem["org_prd_price"];
+      tnkPlacementAdItem.sale_dc_rate = adItem["sale_dc_rate"];
+      tnkPlacementAdItem.multi_yn = adItem["multi_yn"];
+      tnkPlacementAdItem.cmpn_type = adItem["cmpn_type"];
+      tnkPlacementAdItem.cmpn_type_name = adItem["cmpn_type_name"];
+      tnkPlacementAdItem.like_yn = adItem["like_yn"];
+
+      tnkPlacementAdItemList.add(tnkPlacementAdItem);
+    }
+
+    return tnkPlacementAdItemList;
+  }
+```
 ## PlacementView 설정값 조회
 
 #### Method
