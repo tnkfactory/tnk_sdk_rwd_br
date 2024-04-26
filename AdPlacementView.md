@@ -282,8 +282,8 @@ data class TnkPlacementAdItem(
 | -------------- | ----------------------------------------------------------- |
 |res_code| 성공시 "1"
 |res_message| 실패했을 경우 메세지|
-|ad_list| 성공했을때만 반환됩니다.|
-|pub_info| 성공했을때만 반환됩니다.|
+|ad_list| 광고목록 JSONArray 성공했을때만 반환됩니다. 아래의 클래스를 참고 하시기 바랍니다.|
+|pub_info| 매체 정보와 placement Info 성공했을때만 반환됩니다. 아래의 클래스를 참고 하시기 바랍니다.|
 
 ```dart
 class TnkPlacementAdItem {
