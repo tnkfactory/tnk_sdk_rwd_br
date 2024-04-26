@@ -277,6 +277,43 @@ data class TnkPlacementAdItem(
 #### Description
 
 광고 목록 정보를 json으로 반환합니다.
+
+|필드명|설명|
+| -------------- | ----------------------------------------------------------- |
+|res_code| 성공시 "1"
+|res_message| 실패했을 경우 메세지|
+|ad_list| 성공했을때만 반환됩니다.|
+|pub_info| 성공했을때만 반환됩니다.|
+
+```dart
+class TnkPlacementAdItem {
+  int app_id = 0; // Int 광고 고유 식별값
+  String app_nm = ""; // String 광고 제목
+  String img_url = ""; // String 이미지 url
+  int pnt_amt = 0; // Int 지급 포인트 (이벤트 진행시 이벤트 배율 적용된 포인트)
+  int org_amt = 0; // Int 배율 이벤트 진행 시 원래의 포인트(이벤트 기간 아닐경우 0)
+  String pnt_unit = ""; // String 포인트 재화 단위
+  int prd_price = 0; // Int CPS상품 가격
+  int org_prd_price = 0; // Int CPS상품 할인 전 가격
+  int sale_dc_rate = 0; // Int CPS 상품 할인율
+  bool multi_yn = false; // Bool 멀티 미션 광고 여부
+  int cmpn_type = 0; // Int 광고 유형코드
+  String cmpn_type_name = ""; // String 광고 유형 이름
+  String like_yn = ""; // String 즐겨찾기 상품 여부
+}
+class PlacementPubInfo{
+ int ad_type = 0; //	지면에 설정되어 있는 광고 유형(0 : 보상형, 1 : CPS, 2 : 제휴몰, 3 : 뉴스, 4 : 이벤트)
+ String title = ""; //	지면 타이틀
+ String more_lbl = ""; //	더보기 라벨
+ String cust_data = ""; //	매체 설정값
+ String ctype_surl = ""; //	캠페인타입 정보 URL (해당 URL 호출시 json 반환) {list_count:int, list:[{cmpn_type:int, cmpn_type_nm:string},….]}
+ String pnt_unit = ""; //	매체 포인트 명칭
+ String plcmt_id = ""; //	매체 설정 지면 ID
+}
+```
+
+
+json으로 광고 목록 정보를 전달받는 샘플코드 입니다.
 ```dart
 
 Future<void> adDataToJson() async {
