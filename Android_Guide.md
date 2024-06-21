@@ -946,7 +946,7 @@ SDK가 요구하는 permission들을 추가합니다.
     <uses-permission android:name="android.permission.INTERNET" /> 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
 
     <application android:icon="@drawable/ic_launcher" android:label="@string/app_name"> 
