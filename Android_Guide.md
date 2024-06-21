@@ -928,11 +928,14 @@ SDK가 요구하는 permission들을 추가합니다.
 \- 앱의 유입 경로 기능을 사용하기 위해서는 BIND_GET_INSTALL_REFERRER_SERVICE 권한은 필수입니다.
 
 ```xml
+<!-- 인터넷 -->
 <uses-permission android:name="android.permission.INTERNET" />
-
+<!-- 와이파이 상태 -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+<!-- 설치된 앱의 식별값 확인 -->
 <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+<!-- 광고 아이디 획득 -->
+<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 ```
 
 전체적인 AndroidMenifest 파일의 모습은 아래와 같습니다.
