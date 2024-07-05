@@ -826,7 +826,7 @@ HTTP POST
 | pay_dt     | 포인트 지급시각이다. (System milliseconds) 예) 1577343412017 | long |
 | app_nm     | 참여한 광고명 이다.                                          |  string(120) |
 |pay\_amt|정산되는 금액.|long|
-|actn\_id|<p>- 0 : 설치형</p><p>- 1 : 실행형</p><p>- 2 : 액션형</p><p>- 5 : 구매형</p>|int|
+|actn\_id|<p>- 0 : 설치형</p><p>- 1 : 실행형</p><p>- 2 : 액션형</p><p>- 4 : 클릭형</p><p>- 5 : 구매형</p>|int|
 
 ##### 리턴값 처리
 
