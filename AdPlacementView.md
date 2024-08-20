@@ -68,8 +68,9 @@ fun setupPlacementView() {
     }
 }
 
-// 광고 목록을 로드합니다.
+// 광고가 노출될 레이아웃을 설정 후 목록을 로드합니다.
 fun loadPlacementView() {
+    TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementFeedItem::class, PlacementFeedViewLayout::class)
     adPlacementView.loadAdList("open_ad")
 }
 ```
