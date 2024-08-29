@@ -30,6 +30,7 @@
             android:layout_height="1dp"
             android:layout_weight="1"/>
         <TextView
+            android:textColor="@color/tnk_color_accessibility"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"

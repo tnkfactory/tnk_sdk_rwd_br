@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/tnk_color_background_dim">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@color/tnk_color_background_dim">
 
     <RelativeLayout
         android:id="@+id/com_tnk_off_detail_appbar"
@@ -333,7 +333,7 @@
                     app:layout_constraintLeft_toRightOf="@id/com_tnk_off_detail_app_info_icon"
                     app:layout_constraintTop_toTopOf="@id/com_tnk_off_detail_app_info_icon" />
 
-                <androidx.emoji2.widget.EmojiTextView
+                <TextView
                     android:id="@+id/com_tnk_off_detail_app_desc"
                     style="@style/tnk_ad_detail_contents_2"
                     android:layout_width="match_parent"
@@ -345,7 +345,7 @@
                     app:layout_constraintTop_toBottomOf="@id/com_tnk_off_detail_app_info_icon"
                     tools:text="앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문앱 설명문" />
 
-                <androidx.emoji2.widget.EmojiTextView
+                <TextView
                     android:id="@+id/com_tnk_off_detail_app_desc_ellipsize"
                     style="@style/tnk_ad_detail_contents_2"
                     android:layout_width="match_parent"
