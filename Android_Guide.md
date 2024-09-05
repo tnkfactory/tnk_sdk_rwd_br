@@ -666,41 +666,45 @@ Tnk 서버에 적립되어 있는 사용자의 모든 포인트를 차감하고 
 
 - 인출된 포인트 값, 사용자에게 인출할 포인트가 없으면 0이 반환됩니다.
 
-#### TnkSession.getEarnPoints()
+#### TnkOfferwall.getEarnPoints()
 
 Tnk서버에서 사용자가 참여 가능한 모든 광고의 적립 가능한 총 포인트 값을 조회합니다.
-동기 방식을 제공하고 있으며 별도 Thread를 생성하여 호출하셔야 합니다.
-
-##### [동기방식으로 호출하기]
 
 ###### Method
 
-- long TnkSession.getEarnPoints(Context context)
+- fun getEarnPoint(listener: (Long) -> Unit)
+- - suspend fun getEarnPoint()
+- fun getEarnPointSync(): Long
 
 ###### Description
 
 Tnk서버에서 사용자가 참여 가능한 모든 광고의 적립 가능한 총 포인트 값을 조회하여 그 결과를 long 값으로 반환합니다.
 
-###### Parameters
-
-| 파라메터 명칭 | 내용                            |
-| ------------- | ------------------------------- |
-| context       | 현재 Activity 또는 Context 객체 |
-
-###### Return : int
+###### Return : Long
 
 - 참여 가능한 광고의 적립 가능한 총 포인트 값
-
+``` kotlin
+// 방법 1
+lifecycleScope.launch(Dispatchers.IO) {
+    val point = tnkOfferwall.getEarnPoint()
+    tvPoint.text = point.toString()
+}
+// 방법 2
+tnkOfferwall.getEarnPoint { 
+    tvPoint.text = it.toString()
+}
+```
 ```java
-static public void getEarnPoint() {
+public void showEarnPoint() {
 
-    new Thread() {
+    new Thread(() -> {
 
-        public void run() {
-            long points = TnkSession.getEarnPoints(mActivity);
-            showPoint(points); // 결과를 받아서 필요한 로직을 수행한다.
-        }
-    }.start();
+            long point = tnkOfferwall.getEarnPointSync();
+            runOnUiThread(() -> {
+                tvPoint.setText("포인트 : " + point);
+            });
+
+        }).start();
 }
 ```
 
