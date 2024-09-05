@@ -24,7 +24,7 @@
    * [TnkSession.queryPoint()](#tnksessionquerypoint)
    * [TnkSession.purchaseItem()](#tnksessionpurchaseitem)
    * [TnkSession.withdrawPoints()](#tnksessionwithdrawpoints)
-   * [TnkSession.getEarnPoints()](#tnksessiongetearnpoints)
+   * [TnkOfferwall.getEarnPoints()](#tnkofferwallgetearnpoints)
 
    [그밖의 기능들](#그밖의-기능들)
    * [TnkSession.queryPublishState()](#tnksessionquerypublishstate)
@@ -673,7 +673,7 @@ Tnk서버에서 사용자가 참여 가능한 모든 광고의 적립 가능한 
 ###### Method
 
 - fun getEarnPoint(listener: (Long) -> Unit)
-- - suspend fun getEarnPoint()
+- suspend fun getEarnPoint()
 - fun getEarnPointSync(): Long
 
 ###### Description
