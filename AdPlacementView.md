@@ -236,6 +236,8 @@ adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
 
 ### AdPlacementActivity
 
+![placementactivity_001](./img/placement_activity.png)
+
 AdPlacementActivity 를 사용하면 여러개의 플레이스먼트를 한번에 로드하여 보여줄 수 있습니다.
 리스트로 전달한 플레이스먼트 ID에 설정된 레이아웃을 사용하여 광고를 로드하고 보여줍니다.
 ** 마지막 인자로 전달한 플레이스먼트는 아이템의 뷰 타입만 적용되고 레이아웃은 강제로 PlacementListLayout으로 설정됩니다.
