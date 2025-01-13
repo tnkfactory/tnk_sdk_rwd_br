@@ -243,10 +243,10 @@ AdPlacementActivity 를 사용하면 여러개의 플레이스먼트를 한번�
 ** 마지막 인자로 전달한 플레이스먼트는 아이템의 뷰 타입만 적용되고 레이아웃은 강제로 PlacementListLayout으로 설정됩니다.
 
 ```kotlin
-TnkAdConfig.setPlacementLayout("quiz_01",TnkAdListItemFeed::class,PlacementFeedViewLayout::class)
-TnkAdConfig.setPlacementLayout("open_sho",TnkAdPlacementIconItem::class,PlacementScrollViewLayout::class)
-TnkAdConfig.setPlacementLayout("open_ad",TnkAdListItemNormal::class,PlacementFeedViewLayout::class)
-AdPlacementActivity.start(this, arrayListOf("open_ad", "quiz_01", "open_sho"))
+TnkAdConfig.setPlacementLayout("ad_event", TnkAdPlacementFeedImageItem::class, PlacementFeedViewLayout::class)
+TnkAdConfig.setPlacementLayout("ad_sns", TnkAdListSuggest::class, PlacementScrollViewLayout::class)
+TnkAdConfig.setPlacementLayout("ad_normal", TnkAdListItemNormal::class, PlacementFeedViewLayout::class)
+AdPlacementActivity.start(this, arrayListOf("ad_event", "ad_sns", "ad_normal"))
 
 ```
  
