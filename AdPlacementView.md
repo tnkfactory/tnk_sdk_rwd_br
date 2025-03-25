@@ -226,7 +226,7 @@ TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementIconItem::class, Placeme
 ```kotlin
 
 // TnkAdPlacementListItem + PlacementFeedViewLayout
-TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementFeedViewLayout::class)
+TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, PlacementViewPagerLayout::class)
 // 한줄에 1개의 아이템이 3개 노출됩니다.
 adPlacementView.spanCount = 1     // 한줄에 출력 할 아이탬 수
 adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
