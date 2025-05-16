@@ -290,7 +290,7 @@ data class TnkPlacementAdItem(
 
 ### Method
 
-- ArrayList<TnkPlacementAdItem> AdPlacementView.getAdListJson()
+- String AdPlacementView.getAdListJson()
 
 #### Description
 
