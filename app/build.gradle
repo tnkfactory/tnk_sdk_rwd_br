@@ -55,7 +55,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-//    implementation "com.tnkfactory:rwd:8.02.14"
+//    implementation "com.tnkfactory:rwd:8.08.28"
 
 
     testImplementation 'junit:junit:4.13.2'
