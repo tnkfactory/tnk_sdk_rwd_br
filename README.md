@@ -22,7 +22,7 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 ### Update Notice
 
 * 2025.07.24
-  * v8.08.28 업데이트
+  * v8.08.29 업데이트
   * edgetoedge UI 상단 inset적용
     
 * 2025.04.22
