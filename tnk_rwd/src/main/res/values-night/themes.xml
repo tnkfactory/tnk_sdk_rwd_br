@@ -26,15 +26,15 @@
     <color name="tnk_color_text_04">@color/tnk_color_palettes_060</color>
     <color name="tnk_color_text_05">@color/tnk_color_palettes_055</color>
     <color name="tnk_color_text_06">@color/tnk_color_palettes_050</color>
-    <color name="tnk_color_text_07">#FF000000</color>
-    <color name="tnk_color_text_08">#FF000000</color>
-    <color name="tnk_color_text_09">#FF000000</color>
+    <color name="tnk_color_text_07">#FFffffff</color>
+    <color name="tnk_color_text_08">#FFffffff</color>
+    <color name="tnk_color_text_09">#FFffffff</color>
     <color name="tnk_color_text_10">@color/tnk_color_palettes_000</color>
 
 
     <color name="tnk_color_palettes_000">#151515</color>
     <color name="tnk_color_palettes_005">#1e1e1e</color>
-    <color name="tnk_color_palettes_010">#222222</color><!-- 가이드 미 정의 컬러값 -->
+    <color name="tnk_color_palettes_010">#222222</color>
     <color name="tnk_color_palettes_015">#262626</color>
     <color name="tnk_color_palettes_020">#353535</color>
     <color name="tnk_color_palettes_025">#434343</color>
@@ -47,34 +47,55 @@
     <color name="tnk_color_palettes_060">#d3d3d3</color>
     <color name="tnk_color_palettes_065">#e0e0e0</color>
     <color name="tnk_color_palettes_070">#e8e8e8</color>
-    <color name="tnk_color_palettes_075">#ebebeb</color><!-- 가이드 미 정의 컬러값 -->
+    <color name="tnk_color_palettes_075">#ebebeb</color>
     <color name="tnk_color_palettes_080">#f1f1f1</color>
     <color name="tnk_color_palettes_085">#f4f4f4</color>
     <color name="tnk_color_palettes_090">#f8f8f8</color>
     <color name="tnk_color_palettes_095">#ffffff</color>
     <color name="tnk_color_palettes_100">#ffffff</color>
 
-<!--    <style name="tnk_point_icon_1" parent="Theme.AppCompat.DayNight.NoActionBar">-->
-<!--        <item name="android:layout_height">14dp</item>-->
-<!--        <item name="android:layout_width">14dp</item>-->
-<!--        <item name="android:src">@drawable/ic_coin_blue</item>-->
-<!--    </style>-->
+    <style name="tnk_point_icon_1" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:layout_height">14dp</item>
+        <item name="android:layout_width">14dp</item>
+        <item name="android:src">@drawable/com_tnk_offerwall_ico_point_unit</item>
+    </style>
 
-<!--    <style name="tnk_point_icon_2" parent="Theme.AppCompat.DayNight.NoActionBar">-->
-<!--        <item name="android:layout_height">16dp</item>-->
-<!--        <item name="android:layout_width">16dp</item>-->
-<!--        <item name="android:src">@drawable/ic_coin_blue</item>-->
-<!--    </style>-->
+    <style name="tnk_point_icon_2" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:src">@drawable/com_tnk_offerwall_ico_point_unit</item>
+    </style>
 
-<!--    <style name="tnk_point_icon_3" parent="Theme.AppCompat.DayNight.NoActionBar">-->
-<!--        <item name="android:layout_height">18dp</item>-->
-<!--        <item name="android:layout_width">18dp</item>-->
-<!--        <item name="android:src">@drawable/ic_coin_blue</item>-->
-<!--    </style>-->
+    <style name="tnk_point_icon_3" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_width">18dp</item>
+        <item name="android:src">@drawable/com_tnk_offerwall_ico_point_unit</item>
+    </style>
 
-<!--    <style name="tnk_point_icon_3_inverse" parent="Theme.AppCompat.DayNight.NoActionBar">-->
-<!--        <item name="android:layout_height">18dp</item>-->
-<!--        <item name="android:layout_width">18dp</item>-->
-<!--        <item name="android:src">@drawable/ic_coin</item>-->
-<!--    </style>-->
+    <style name="tnk_point_icon_3_inverse" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_width">18dp</item>
+        <item name="android:src">@drawable/com_tnk_offerwall_unit_white</item>
+    </style>
+
+    <style name="tnk_header_tooltip" parent="tnk_rwd_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_multi_join_text_box_left_dark</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+    <style name="tnk_header_tooltip_right" parent="tnk_rwd_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/com_tnk_offerwall_multi_join_text_box_right_dark</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">25dp</item>
+    </style>
 </resources>

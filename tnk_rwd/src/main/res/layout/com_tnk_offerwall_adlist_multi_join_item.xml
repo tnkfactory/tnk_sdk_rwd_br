@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content"
-                                                   android:background="@color/tnk_color_background">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/tnk_color_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ad_item"
@@ -38,91 +39,111 @@
                     android:layout_width="71dp"
                     android:layout_height="71dp"
                     android:background="#ffffffff"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"/>
 
-                <View
-                    android:id="@+id/com_tnk_off_multi_join_progress_bg"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                <FrameLayout
+                    android:id="@+id/com_tnk_off_multi_progress_state_layout"
                     android:layout_gravity="center"
-                    android:background="@drawable/com_tnk_offerwall_adlist_join_item_progress_bg"
-                    android:scaleType="fitXY" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ProgressBar
-                    android:id="@+id/com_tnk_progress_circular"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/com_tnk_offerwall_multi_quest_circular_bg"
-                    android:indeterminateOnly="false"
-                    android:max="100"
-                    android:min="0"
-                    android:progress="50"
-                    android:progressDrawable="@drawable/com_tnk_offerwall_circular_progress"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <View
+                        android:id="@+id/com_tnk_off_multi_join_progress_bg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/com_tnk_offerwall_adlist_join_item_progress_bg"
+                        android:scaleType="fitXY"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="bottom"
-                    android:orientation="vertical">
+                    <ProgressBar
+                        android:id="@+id/com_tnk_progress_circular"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/com_tnk_offerwall_multi_quest_circular_bg"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:min="0"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/com_tnk_offerwall_circular_progress"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:orientation="horizontal">
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/com_tnk_off_multi_join_item_complete_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="3"
+                                android:textColor="@color/color_white"
+                                android:textSize="15dp"/>
+
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/com_tnk_off_multi_join_item_pay_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="3"
+                                android:textColor="@color/color_white"
+                                android:textSize="15dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="/"
+                                android:textColor="@color/color_white"
+                                android:textSize="12dp"/>
+
+                            <TextView
+                                android:id="@+id/com_tnk_off_multi_join_item_size"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="5"
+                                android:textColor="@color/color_white"
+                                android:textSize="12dp"/>
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/com_tnk_off_multi_join_item_complete_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
-                            android:text="3"
+                            android:text="달성"
                             android:textColor="@color/color_white"
-                            android:textSize="15dp" />
-                        <TextView
-                            android:visibility="gone"
-                            android:id="@+id/com_tnk_off_multi_join_item_pay_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:text="3"
-                            android:textColor="@color/color_white"
-                            android:textSize="15dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:text="/"
-                            android:textColor="@color/color_white"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:id="@+id/com_tnk_off_multi_join_item_size"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:text="5"
-                            android:textColor="@color/color_white"
-                            android:textSize="12dp" />
+                            android:textSize="10dp"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="달성"
-                        android:textColor="@color/color_white"
-                        android:textSize="10dp" />
-                </LinearLayout>
+                </FrameLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
+
+        <View
+            android:layout_marginBottom="-6dp"
+            android:layout_marginRight="-6dp"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_multi_join_item_icon_layout"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_multi_join_item_icon_layout"
+            android:background="@drawable/com_tnk_ic_exclamation"
+            android:id="@+id/com_tnk_iv_exclamation"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            />
+
 
         <!-- 멀티미션 참여 시작 날짜 -->
         <TextView
@@ -136,7 +157,17 @@
             android:textColor="@color/tnk_color_text_06"
             android:textSize="12dp"
             app:layout_constraintLeft_toRightOf="@id/com_tnk_off_multi_join_item_icon_layout"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/com_tnk_off_multi_join_hide_button"
+            app:layout_constraintTop_toTopOf="@+id/com_tnk_off_multi_join_item_start_date"
+            app:layout_constraintBottom_toBottomOf="@+id/com_tnk_off_multi_join_item_start_date"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/com_tnk_ic_ellipsis"/>
 
         <TextView
             android:id="@+id/com_tnk_off_multi_join_item_title"
@@ -154,7 +185,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/com_tnk_off_multi_join_item_start_date"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title" />
+            tools:text="Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title Test Title"/>
 
         <LinearLayout
             android:id="@+id/com_tnk_off_detail_ll_reward"
@@ -181,7 +212,7 @@
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:maxLines="1"
-                    tools:text="액션형" />
+                    tools:text="액션형"/>
 
             </LinearLayout>
 
@@ -189,7 +220,7 @@
                 android:id="@+id/com_tnk_off_multi_join_item_unit_icon"
                 style="@style/tnk_point_icon_2"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="6dp" />
+                android:layout_marginLeft="6dp"/>
 
             <TextView
                 android:id="@+id/com_tnk_off_multi_join_item_multi_reward_text"
@@ -197,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="최대" />
+                android:text="최대"/>
 
             <TextView
                 android:id="@+id/com_tnk_off_multi_join_item_point"
@@ -206,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:gravity="center_horizontal"
-                tools:text="7777777" />
+                tools:text="7777777"/>
 
             <TextView
                 android:id="@+id/com_tnk_off_multi_join_item_complete"
@@ -214,7 +245,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                tools:text="7777777" />
+                tools:text="7777777"/>
 
             <TextView
                 android:id="@+id/com_tnk_off_multi_join_item_unit"
@@ -224,7 +255,7 @@
                 android:layout_marginLeft="3dp"
                 android:gravity="center_vertical"
                 android:visibility="gone"
-                tools:text="코인받기" />
+                tools:text="코인받기"/>
         </LinearLayout>
 
         <View
@@ -235,7 +266,7 @@
             app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_multi_join_item_remain_day"
             app:layout_constraintLeft_toLeftOf="@+id/com_tnk_off_multi_join_item_remain_day"
             app:layout_constraintRight_toRightOf="@+id/com_tnk_off_multi_join_item_remain_day"
-            app:layout_constraintTop_toTopOf="@id/com_tnk_off_multi_join_item_remain_day" />
+            app:layout_constraintTop_toTopOf="@id/com_tnk_off_multi_join_item_remain_day"/>
         <!-- 남은 일수 -->
         <TextView
             android:id="@+id/com_tnk_off_multi_join_item_remain_day"
@@ -251,7 +282,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/com_tnk_off_multi_join_item_icon_layout"
             app:layout_constraintTop_toBottomOf="@+id/com_tnk_off_detail_ll_reward"
-            tools:text="진행중 : 30일 남음" />
+            tools:text="진행중 : 30일 남음"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -260,7 +291,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/tnk_color_divider"
-        app:layout_constraintTop_toBottomOf="@id/ad_item" />
+        app:layout_constraintTop_toBottomOf="@id/ad_item"/>
 
 
     <!--    <View-->

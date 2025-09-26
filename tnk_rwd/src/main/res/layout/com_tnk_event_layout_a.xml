@@ -4,13 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/tnk_color_background" xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
     <LinearLayout
+        android:visibility="gone"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:textFontWeight="700"
             android:textStyle="bold"
@@ -27,10 +31,12 @@
             style="@style/com_tnk_offerwall_message_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"/>
+
         <TextView
             android:textColor="@color/tnk_color_accessibility"
             android:layout_marginLeft="20dp"
@@ -44,20 +50,26 @@
             android:layout_alignParentTop="true"
             android:text="더 보기"
             android:layout_marginRight="20dp"
-        />
+            />
     </LinearLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:clipToPadding="false"
-        android:id="@+id/com_tnk_off_vp_popular_list"
+        android:id="@+id/com_tnk_off_vp_event_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
+
     <LinearLayout
         android:id="@+id/com_tnk_off_ll_page_control"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="12dp"/>
+
 </LinearLayout>
+
+
+
+
+
+

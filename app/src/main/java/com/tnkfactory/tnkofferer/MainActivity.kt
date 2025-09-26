@@ -1,18 +1,27 @@
 package com.tnkfactory.tnkofferer
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import com.tnkfactory.ad.PlacementEventListener
 import com.tnkfactory.ad.TnkAdConfig
 import com.tnkfactory.ad.TnkOfferwall
-import com.tnkfactory.ad.basic.*
+import com.tnkfactory.ad.basic.AdPlacementView
+import com.tnkfactory.ad.basic.PlacementFeedViewLayout
+import com.tnkfactory.ad.basic.PlacementScrollViewLayout
+import com.tnkfactory.ad.basic.PlacementViewPagerLayout
+import com.tnkfactory.ad.basic.TnkAdPlacementFeedImageItem
+import com.tnkfactory.ad.basic.TnkAdPlacementFeedItem
+import com.tnkfactory.ad.basic.TnkAdPlacementIconItem
+import com.tnkfactory.ad.basic.TnkAdPlacementListItem
 import com.tnkfactory.ad.rwd.AdvertisingIdInfo
 import com.tnkfactory.offerrer.TnkAdManager
 import com.tnkfactory.tnkofferer.databinding.ActivityMainBinding
@@ -28,7 +37,14 @@ class MainActivity : AppCompatActivity() {
     var userName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        enableEdgeToEdge()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         offerwall = TnkOfferwall(this).apply {
 
@@ -94,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     val placementContainerView: ViewGroup by lazy { binding.flPlacementAd }
 
 
-    lateinit var adPlacementView : AdPlacementView
+    lateinit var adPlacementView: AdPlacementView
     fun setupPlacementView() {
         adPlacementView = offerwall.getAdPlacementView(this)
         placementContainerView.removeAllViews()

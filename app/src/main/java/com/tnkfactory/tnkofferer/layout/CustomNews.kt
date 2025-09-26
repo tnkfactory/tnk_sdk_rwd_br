@@ -1,4 +1,4 @@
-package com.tnkfactory.offerrer.scene.layout
+package com.tnkfactory.tnkofferer.layout
 
 import android.view.View
 import android.widget.LinearLayout

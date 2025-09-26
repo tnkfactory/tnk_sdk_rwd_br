@@ -6,12 +6,11 @@ plugins {
 
 android {
     namespace 'com.tnkfactory.tnkofferer'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.tnkfactory.tnkofferer"
-        minSdk 19
-        targetSdk 33
+        minSdk 25
         versionCode 1
         versionName "1.0"
 
@@ -27,15 +26,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 }
 
@@ -43,17 +41,13 @@ dependencies {
 
     implementation project(':tnk_rwd')
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.core:core-ktx:1.13.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
 
-    implementation "androidx.emoji2:emoji2:1.1.0"
-    implementation "androidx.emoji2:emoji2-views:1.1.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.multidex:multidex:2.0.1"
-
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.android.gms:play-services-auth:21.4.0'
 
 //    implementation "com.tnkfactory:rwd:8.08.28"
 
