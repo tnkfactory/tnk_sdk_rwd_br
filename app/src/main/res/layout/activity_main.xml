@@ -1,173 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:id="@+id/ll_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ff000000"
-        tools:context=".MainActivity">
+        android:layout_height="50dp"
+        android:background="#Ff666666"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/ll_contents"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/ll_header"
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="tnk sample"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="20dp"
+            android:text="point"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_contents"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_header">
+
+        <Button
+            android:id="@+id/btn_default"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:gravity="center"
+            android:text="new activity"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btn_addview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Add View"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btn_custom_default"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="new activity custom"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btn_custom_addview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="add view custom"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:id="@+id/ll_header_placement"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
             android:background="#Ff666666"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/ll_contents"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_title_placement"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="tnk sample"
+                android:text="placement ad"
                 android:textColor="#ffffff"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_point"
+                android:id="@+id/tv_placement1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:paddingRight="20dp"
-                android:text="point"
-                android:textColor="#ffffff"
-                android:textSize="14dp"/>
-        </LinearLayout>
+                android:layout_height="50dp"
+                android:background="#FF6666ff"
+                android:gravity="center"
+                android:text="피드"
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_placement2"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_placement2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="#FF6666ff"
+                android:gravity="center"
+                android:text="피드이미지"
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/tv_placement1"
+                app:layout_constraintRight_toLeftOf="@id/tv_placement3"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/ll_contents"
+            <TextView
+                android:id="@+id/tv_placement3"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="#FF6666ff"
+                android:gravity="center"
+                android:text="아이콘"
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/tv_placement2"
+                app:layout_constraintRight_toLeftOf="@id/tv_placement4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_placement4"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="#FF6666ff"
+                android:gravity="center"
+                android:text="목록"
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/tv_placement3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_placement_ad"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_header">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <Button
-                android:id="@+id/btn_default"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:background="#333"
                 android:gravity="center"
-                android:text="new activity"
-                android:textColor="#000"/>
+                android:minHeight="50dp"
+                android:text="이곳에 광고가 표시됩니다."
+                android:textColor="#fff" />
+        </FrameLayout>
 
-            <Button
-                android:id="@+id/btn_addview"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="Add View"
-                android:textColor="#000"/>
-
-            <Button
-                android:id="@+id/btn_custom_default"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="new activity custom"
-                android:textColor="#000"/>
-            <Button
-                android:id="@+id/btn_custom_addview"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="add view custom"
-                android:textColor="#000"/>
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:id="@+id/ll_header_placement"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#Ff666666"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/ll_contents"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_title_placement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="placement ad"
-                    android:textColor="#ffffff"
-                    android:textSize="14dp"/>
-            </LinearLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/tv_placement1"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:background="#FF6666ff"
-                    android:gravity="center"
-                    android:text="피드"
-                    android:textColor="#FFFFFFFF"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tv_placement2"/>
-                <TextView
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/tv_placement2"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:background="#FF6666ff"
-                    android:gravity="center"
-                    android:text="피드이미지"
-                    android:textColor="#FFFFFFFF"
-                    android:textStyle="bold"
-                    app:layout_constraintRight_toLeftOf="@id/tv_placement3"
-                    app:layout_constraintLeft_toRightOf="@id/tv_placement1"/>
-                <TextView
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/tv_placement3"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:background="#FF6666ff"
-                    android:gravity="center"
-                    android:text="아이콘"
-                    android:textColor="#FFFFFFFF"
-                    android:textStyle="bold"
-                    app:layout_constraintRight_toLeftOf="@id/tv_placement4"
-                    app:layout_constraintLeft_toRightOf="@id/tv_placement2"/>
-                <TextView
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/tv_placement4"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:background="#FF6666ff"
-                    android:gravity="center"
-                    android:text="목록"
-                    android:textColor="#FFFFFFFF"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/tv_placement3"
-                    app:layout_constraintRight_toRightOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <FrameLayout
-                android:id="@+id/fl_placement_ad"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:background="#333"
-                    android:minHeight="50dp"
-                    android:gravity="center"
-                    android:textColor="#fff"
-                    android:text="이곳에 광고가 표시됩니다."
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </FrameLayout>
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

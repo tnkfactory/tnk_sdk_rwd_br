@@ -2,7 +2,6 @@ package com.tnkfactory.tnkofferer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tnkfactory.ad.TnkError
 import com.tnkfactory.ad.TnkOfferwall
@@ -14,7 +13,8 @@ class EmbedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityEmbedBinding = DataBindingUtil.setContentView(this, R.layout.activity_embed)
+        val binding: ActivityEmbedBinding = ActivityEmbedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val offerwall = TnkOfferwall(this)
 

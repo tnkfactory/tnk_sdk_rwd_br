@@ -23,12 +23,10 @@ object TnkAdManager {
     }
 
     fun startEmbedActivity(context: Context) {
-        TnkAdConfig.layoutConfig.setListHeader(0)
         TnkEmbedActivity.start(context)
     }
 
     fun startDefaultActivity(context: Context) {
-        TnkAdConfig.layoutConfig.setListHeader(1)
         TnkOfferwall(context).startOfferwallActivity(context)
     }
 

@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:textFontWeight="700"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/tnk_placement_view_tv_title"
             android:layout_width="wrap_content"

@@ -69,6 +69,28 @@
             app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_cps_my_like"
             app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_cps_my_like"
             app:layout_constraintRight_toRightOf="@id/com_tnk_off_cps_my_like" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/com_tnk_off_cps_my_recent"
+            style="@style/tnk_my_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:checked="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingBottom="12dp"
+            android:text="최근 본 상품"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/com_tnk_off_cps_my_like" />
+        <View
+            android:id="@+id/com_tnk_off_cps_my_recent_under_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/tnk_color_background_inverse"
+            app:layout_constraintBottom_toBottomOf="@id/com_tnk_off_cps_my_recent"
+            app:layout_constraintLeft_toLeftOf="@id/com_tnk_off_cps_my_recent"
+            app:layout_constraintRight_toRightOf="@id/com_tnk_off_cps_my_recent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         app:layout_constraintTop_toBottomOf="@id/com_tnk_off_cps_detail_header"
@@ -113,12 +135,23 @@
                 style="@style/com_tnk_offerwall_message_3" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="15dp"
                 android:id="@+id/com_tnk_off_cps_my_rv_like"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:clickable="true" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/com_tnk_off_cps_my_delete_all"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/tnk_ad_list_title_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="전체삭제"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

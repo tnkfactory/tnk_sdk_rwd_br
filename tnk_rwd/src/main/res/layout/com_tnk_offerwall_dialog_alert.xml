@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@color/tnk_color_background_dim"
-                                                   android:gravity="center"
-                                                   android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tnk_color_background_dim"
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,28 +21,35 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:paddingTop="22dp">
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/com_tnk_tv_title"
+            style="@style/tnk_header_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="asdfasdf\nasdfasdf\nasdfasdf" />
         <TextView
             android:id="@+id/tv_message"
             style="@style/com_tnk_off_dialog_content_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/com_tnk_tv_title"
             tools:text="asdfasdf\nasdfasdf\nasdfasdf" />
 
-        <!--        <LinearLayout-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_message"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginLeft="16dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_marginRight="16dp">-->
 
         <TextView
             android:id="@+id/btn_cancel"
@@ -53,8 +60,6 @@
             android:background="@drawable/com_tnk_offerwall_shape_dialog_cancel_bg"
             android:gravity="center"
             android:maxLines="2"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:text="취소"
             android:textColor="@color/tnk_color_primary"
             android:textSize="14dp"
@@ -73,8 +78,6 @@
             android:background="@drawable/com_tnk_offerwall_shape_dialog_confirm_bg"
             android:gravity="center"
             android:maxLines="2"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:text="확인"
             android:textColor="#ffffffff"
             android:textSize="14dp"
