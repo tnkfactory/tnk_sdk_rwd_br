@@ -52,9 +52,13 @@ https://developer.android.com/studio/projects/add-app-module?hl=ko#ImportAModule
 ## 포인트 이이콘 변경 
 
 오퍼월 화면에 출력되는 아이콘을 변경 하실 경우 두개의 아이콘 파일이 필요합니다.
-// 흰 바탕에 사용하는 아이콘
+
+- 흰 바탕에 사용하는 아이콘
+
 com_tnk_offerwall_ico_point_unit.xml 또는 png 
-// 광고 상세화면의 참여 버튼 등 색이 칠해진 영역에 사용하는 아이콘
+
+- 광고 상세화면의 참여 버튼 등 색이 칠해진 영역에 사용하는 아이콘
+
 com_tnk_offerwall_unit_white.xml 또는 png 
 
 각각 위와 같은 이름으로 된 리소스 파일을 res/drawable 폴더에 추가해 주시기 바랍니다. 
