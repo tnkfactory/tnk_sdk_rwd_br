@@ -24,7 +24,7 @@ TnkAdAnalytics.tnkAdEVentListener = object : TnkAdAnalytics.TnkAdEVentListener {
             TnkAdAnalytics.Event.SEARCH_CPS -> Log.d("cps 검색", "onEvent: $event, $params")            
             // 배너 클릭 - app id, app name(광고명)
             TnkAdAnalytics.Event.CLICK_BANNER -> Log.d("배너 클릭", "onEvent: $event, $params")        
-            // 광고 아이템 클릭 - app id, app name(광고명)
+            // 광고 아이템 클릭 - app id, app name(광고명), **json 광고 데이터(하단의 설명 참조)
             TnkAdAnalytics.Event.CLICK_AD -> Log.d("광고 클릭", "onEvent: $event, $params")            
             // 광고 상세화면에서 참여 클릭 - app id, app name(광고명)
             TnkAdAnalytics.Event.JOIN_AD -> Log.d("광고 상세에서 참여 클릭", "onEvent: $event, $params")  
@@ -36,22 +36,24 @@ TnkAdAnalytics.tnkAdEVentListener = object : TnkAdAnalytics.TnkAdEVentListener {
         }
     }
 }
-TnkAdAnalytics.Event.CLICK_AD 이벤트는 아래와 같은 정보가 전달됩니다.
-// app_id // 광고 아이디
-// app_nm // 광고 이름
-// img_url // 광고 이미지 URL
-// icon_url // 광고 아이콘 URL
-// pnt_amt // 광고 포인트 (실제 적립될 포인트)
-// org_amt // 광고 원래 포인트(2배 이벤트 등으로 포인트가 변경된 경우 원래 포인트를 표시합니다.)
-// pnt_unit // 광고 포인트 단위 (포인트, 코인, 머니 등 관리자 페이지에서 설정한 단위입니다.)
-// prd_price // 광고 상품 가격
-// org_prd_price // 광고 상품 원래 가격
-// sale_dc_rate // 광고 상품 할인율
-// multi_yn // 멀티 퀘스트 구분
-// filter_id // 필터 아이디 (광고 카테고리 필터 아이디 입니다.)
-// cmpn_type // 캠페인 타입 코드
-// cmpn_type_name // 캠페인 타입 이름
-// actn_desc // 광고 액션 설명 (캠페인 타입이 100인 경우에만 사용됩니다.)
-// like_yn // 구매형 상품 찜 여부 (true/false)
 ```
 
+광고 클릭시 발생하는 TnkAdAnalytics.Event.CLICK_AD 이벤트에 전달되는 광고 정보는 아래와 같습니다.
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| app_id | 광고 아이디|
+| app_nm | 광고 이름|
+| img_url | 광고 이미지 URL|
+| icon_url | 광고 아이콘 URL|
+| pnt_amt | 광고 포인트 (실제 적립될 포인트)|
+| org_amt | 광고 원래 포인트(2배 이벤트 등으로 포인트가 변경된 경우 원래 포인트를 표시합니다.)|
+| pnt_unit | 광고 포인트 단위 (포인트, 코인, 머니 등 관리자 페이지에서 설정한 단위입니다.)|
+| prd_price | 광고 상품 가격|
+| org_prd_price | 광고 상품 원래 가격|
+| sale_dc_rate | 광고 상품 할인율|
+| multi_yn | 멀티 퀘스트 구분|
+| filter_id | 필터 아이디 (광고 카테고리 필터 아이디 입니다.)|
+| cmpn_type | 캠페인 타입 코드|
+| cmpn_type_name | 캠페인 타입 이름|
+| actn_desc | 광고 액션 설명 (캠페인 타입이 100인 경우에만 사용됩니다.)|
+| like_yn | 구매형 상품 찜 여부 (true/false)|
