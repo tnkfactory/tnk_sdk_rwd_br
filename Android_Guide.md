@@ -31,6 +31,7 @@
    * [TnkSession.queryAdvertiseCount()](#tnksessionqueryadvertisecount)
    * [TnkSession.enableLogging()](#tnksessionenablelogging)
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
+     
    [광고 상세 호출](#광고-상세화면-호출)
 
 4. [Callback URL](#callback-url)
