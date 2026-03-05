@@ -31,7 +31,8 @@
    * [TnkSession.queryAdvertiseCount()](#tnksessionqueryadvertisecount)
    * [TnkSession.enableLogging()](#tnksessionenablelogging)
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
-   
+   [광고 상세 호출](#광고-상세화면-호출)
+
 4. [Callback URL](#callback-url)
    * [호출방식](#호출방식)
    * [Parameters](#parameters-12)
@@ -803,6 +804,41 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 #### TnkSession.setAgreePrivacy()
 
 개인정보 수집동의 여부를 설정합니다. true 설정시 오퍼월에서 개인정보 수집동의 팝업이 뜨지 않습니다. 다시 해당 팝업창을 띄우고 싶은 경우 false로 설정해주시기 바랍니다.
+
+## 광고 상세화면 호출
+
+##### Method
+- TnkOfferwall.showAdDetailDialog(context:Context, adAppId:Int, callBack:(Boolean, TnkError)->Unit)
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| -------------- | ----------------------------------------------------------- |
+| context       | 현재 Activity 또는 Context 객체                              |
+| adAppId  | 광고마다 가지고 있는 광고의 고유 아이디 입니다. |
+| callback      | 성공 여부와 에러 정보를 전달합니다. |
+
+##### 샘플코드 
+```kotlin
+tnkOfferwall.showAdDetailDialog(this@MainActivity, 123123) { success, error ->
+            if (success) {
+                // 광고 상세 출력 성공
+                FirebaseAnalytics.event(EVENT_ON_SCREEN, "Tnk Ad detail dialog shown successfully")
+            } else {
+                // 이미 참여한 광고 또는 종료된 광고(push받은 후 시간이 지나거나, 광고가 종료된 경우 등)
+                FirebaseAnalytics.event(EVENT_ON_SCREEN, "Tnk Ad show detail error")
+
+                TAlertDialog.show(
+                    context = this@MainActivity,
+                    message = "${error?.code} - ${error?.message}",
+                    onConfirm = {
+                        // 팝업에서 확인 눌렀을 경우 액션
+                        FirebaseAnalytics.event(EVENT_ON_SCREEN, "Tnk Ad show detail error dlg closed")
+                    },
+                    null
+                )
+            }
+        }
+```
 
 
 
