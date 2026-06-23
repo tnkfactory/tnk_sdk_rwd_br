@@ -759,23 +759,31 @@ const val STAT_CD_UNKNOWN = 99 // 알수 없는 코드 값
 
 ##### 적용예시
 
-```java
-final Button button = (Button)findViewById(R.id.main_ad);
+```kotlin
+val button = (Button)findViewById(R.id.main_ad)
 
 // ... 
 
-TnkSession.queryPublishState(this, false, new ServiceCallback() {
+TnkSession.queryPublishState(this, object : ServiceCallback() {
+	override fun onReturn(p0: Context?, p1: Any?) {
+		(p1 as? Int)?.let {
+			when (it) {
+				1 -> {
+					// 정상
+					button.visible = View.VISIBLE
+				}
+				else -> {
+					TAlertDialog.show(this@LotteryActivity, "서버와 연결이 원활하지 않습니다.", { finish() }, null)
+				}
+			}
+		}
+	}
 
-    @Override
-    public void onReturn(Context context, Object result) {
-
-        int state = (Integer)result;
-
-        if (state == TnkSession.STATE_YES) {
-            button.setVisibility(View.VISIBLE);
-        }
-    }
-});
+	override fun onError(p0: Context?, p1: Throwable?) {
+		super.onError(p0, p1)
+		TAlertDialog.show(this@LotteryActivity, "서버와 연결이 원활하지 않습니다.\n" + p1?.message, { finish() }, null)
+	}
+})
 ```
 
 #### TnkSession.queryAdvertiseCount()
