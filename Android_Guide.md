@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             offerwall.setCOPPA(false)
 	    // 4) 포인트 금액 앞에 아이콘, 뒤에 재화 단위 출력 여부를 설정합니다.
             TnkAdConfig.pointEffectType = TNK_POINT_EFFECT_TYPE.UNIT // 금액 뒤에 관리자 페이지에서 설정한 단위 출력
+            TnkAdConfig.topScrollButtonConfig = 2 // 오퍼월 리스트 TOP 이동 아이콘 노출 옵션 (1 -> 일반 , 2 -> 쇼핑에만, 3 -> 모두노출)
 
             offerwall.getEarnPoint() { point ->
                 binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
