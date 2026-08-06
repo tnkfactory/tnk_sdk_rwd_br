@@ -93,7 +93,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.09.07'
+    implementation 'com.tnkfactory:rwd:8.09.30'
 }
 ```
 ### Manifest 설정하기
