@@ -32,7 +32,13 @@
    * [TnkSession.enableLogging()](#tnksessionenablelogging)
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
      
-   [광고 상세 호출](#광고-상세화면-호출)
+   [광고 상세화면 직접 호출](#광고-상세화면-직접-호출)
+   * [TnkOfferwall.showTermsDialog()](#method---showtermsdialog)
+   * [TnkOfferwall.adDetail()](#method---addetail)
+   * [TnkOfferwall.showAdDetailDialog()](#method---showaddetaildialog)
+   * [TnkOfferwall.adJoin()](#method---adjoin)
+   * [TnkOfferwall.adAction()](#method---adaction)
+   * [Push 프로세스 처리 및 샘플 코드](#push-프로세스-처리-및-샘플-코드)
 
 4. [Callback URL](#callback-url)
    * [호출방식](#호출방식)
@@ -815,21 +821,88 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 개인정보 수집동의 여부를 설정합니다. true 설정시 오퍼월에서 개인정보 수집동의 팝업이 뜨지 않습니다. 다시 해당 팝업창을 띄우고 싶은 경우 false로 설정해주시기 바랍니다.
 
-## 광고 상세화면 호출
+## 광고 상세화면 직접 호출
+
+> Push Notification 을 지원하는 매체는 푸시 동작으로 광고 상세화면을 띄우는데 아래 함수들이 사용됩니다.
+> SDK 초기화(Application ID 설정)와 setUserName() 이 완료된 후 광고 ID 를 통해 광고 상세 화면을 직접 호출할 수 있습니다.
+
+아래 함수들은 모두 `TnkOfferwall` 인스턴스의 메소드입니다. 개인정보 수집동의(약관) 팝업을 띄워야 하므로
+`TnkOfferwall` 객체는 **`FragmentActivity` 를 상속받는 Activity** 에서 생성하여야 합니다.
+(`AppCompatActivity` 는 `FragmentActivity` 를 상속하므로 그대로 사용하시면 됩니다.)
+
+```kotlin
+val offerwall = TnkOfferwall(this)   // this : FragmentActivity
+```
+
+공통 파라메터인 `actionId` 는 광고 종류를 구분하는 값입니다.
+**쇼핑형(CPS) 광고인 경우에는 5 로 설정**하여야 하며, 일반 광고인 경우에는 0 이거나 생략할 수 있습니다.
+
+#### Method - showTermsDialog
 
 ##### Method
-- TnkOfferwall.showAdDetailDialog(context:Context, adAppId:Int, callBack:(Boolean, TnkError)->Unit)
+
+- TnkOfferwall.showTermsDialog(context:Context, onCallback:(Boolean)->Unit)
+
+##### Description
+
+개인정보 수집동의 팝업을 노출합니다.
+
+* 이미 수집동의를 수락한 경우 onCallback 으로 true 를 바로 반환합니다.
+* 동의되지 않은 경우에는 수집동의 여부를 묻는 팝업을 노출합니다. 확인 / 취소 여부에 따라 onCallback 결과를 반환합니다.
+* `TnkOfferwall` 을 `FragmentActivity` 가 아닌 Context 로 생성한 경우에는 팝업을 띄울 수 없으므로 false 를 반환합니다.
+
 ##### Parameters
 
 | 파라메터 명칭 | 내용                                                         |
-| -------------- | ----------------------------------------------------------- |
+| ------------- | ------------------------------------------------------------ |
 | context       | 현재 Activity 또는 Context 객체                              |
-| adAppId  | 광고마다 가지고 있는 광고의 고유 아이디 입니다. |
-| callback      | 성공 여부와 에러 정보를 전달합니다. |
+| onCallback    | 개인정보 수집동의 결과 (true : 동의됨 / false : 취소 또는 팝업 표시 불가) |
+
+#### Method - adDetail
+
+##### Method
+
+- TnkOfferwall.adDetail(context:Context, appId:Long, actionId:Int = 0, onCallback:(Boolean, TnkError?)->Unit)
+
+##### Description
+
+광고 ID(appId)를 입력받아 직접 상세 화면을 호출합니다.
+개인정보 수집동의가 되어있지 않은 경우 **약관 동의 팝업을 먼저 노출**하고, 동의한 경우에만 상세 화면을 띄웁니다.
+사용자가 약관 동의를 취소하면 `TnkError` 코드 1001 (`USER_CANCELED`), `FragmentActivity` 가 아니어서 팝업을 띄울 수 없는 경우에는 1002 (`NO_TNK_CONTEXT`) 가 전달됩니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| context       | 현재 Activity 또는 Context 객체                              |
+| appId         | 광고마다 가지고 있는 광고의 고유 아이디 입니다.              |
+| actionId      | 쇼핑형(CPS) 광고인 경우 5 로 설정합니다. (일반 광고인 경우 생략 가능) |
+| onCallback    | 광고 호출 성공 여부와 에러 정보를 전달합니다.                |
+
+#### Method - showAdDetailDialog
+
+##### Method
+
+- TnkOfferwall.showAdDetailDialog(context:Context, appId:Long, actionId:Int = 0, onCallback:(Boolean, TnkError?)->Unit)
+
+##### Description
+
+**약관 동의 확인 절차 없이** 광고 상세 화면을 바로 호출합니다.
+이미 개인정보 수집동의를 받은 것이 확실한 경우에 사용하시고, 그렇지 않은 경우에는 `showTermsDialog()` 로 동의를 먼저 확인하거나 `adDetail()` 을 사용하시기 바랍니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| context       | 현재 Activity 또는 Context 객체                              |
+| appId         | 광고마다 가지고 있는 광고의 고유 아이디 입니다.              |
+| actionId      | 쇼핑형(CPS) 광고인 경우 5 로 설정합니다. (일반 광고인 경우 생략 가능) |
+| onCallback    | 광고 호출 성공 여부와 에러 정보를 전달합니다.                |
 
 ##### 샘플코드 
+
 ```kotlin
-tnkOfferwall.showAdDetailDialog(this@MainActivity, 123123) { success, error ->
+offerwall.showAdDetailDialog(this@MainActivity, 123123) { success, error ->
             if (success) {
                 // 광고 상세 출력 성공
                 FirebaseAnalytics.event(EVENT_ON_SCREEN, "Tnk Ad detail dialog shown successfully")
@@ -848,6 +921,81 @@ tnkOfferwall.showAdDetailDialog(this@MainActivity, 123123) { success, error ->
                 )
             }
         }
+```
+
+#### Method - adJoin
+
+##### Method
+
+- TnkOfferwall.adJoin(context:Context, appId:Long, actionId:Int = 0, onCallback:(Boolean, TnkError?)->Unit)
+
+##### Description
+
+광고 ID(appId)를 입력받아 상세 화면 없이 해당 광고의 참여 액션을 바로 수행합니다. (설치 조회, 광고 참여 웹페이지 이동 등)
+`adDetail()` 과 마찬가지로 개인정보 수집동의가 되어있지 않은 경우 약관 동의 팝업을 먼저 노출합니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| context       | 현재 Activity 또는 Context 객체                              |
+| appId         | 광고마다 가지고 있는 광고의 고유 아이디 입니다.              |
+| actionId      | 쇼핑형(CPS) 광고인 경우 5 로 설정합니다. (일반 광고인 경우 생략 가능) |
+| onCallback    | 광고 참여 성공 여부와 에러 정보를 전달합니다.                |
+
+#### Method - adAction
+
+##### Method
+
+- TnkOfferwall.adAction(context:Context, appId:Long, actionId:Int = 0, onCallback:(Boolean, TnkError?)->Unit)
+
+##### Description
+
+광고의 상세화면 노출 여부 설정값에 따라 **상세 화면 호출 또는 즉시 참여로 자동 분기**합니다.
+상세 화면이 없는 광고는 `adJoin()` 과 동일하게 바로 참여 처리되고, 그 외에는 `adDetail()` 과 동일하게 상세 화면이 노출됩니다.
+푸시에서 전달받은 광고를 광고 종류에 상관없이 하나의 호출로 처리하고 싶은 경우에 사용하시기 바랍니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| context       | 현재 Activity 또는 Context 객체                              |
+| appId         | 광고마다 가지고 있는 광고의 고유 아이디 입니다.              |
+| actionId      | 쇼핑형(CPS) 광고인 경우 5 로 설정합니다. (일반 광고인 경우 생략 가능) |
+| onCallback    | 광고 호출 성공 여부와 에러 정보를 전달합니다.                |
+
+### Push 프로세스 처리 및 샘플 코드
+
+1) 푸시에서 수신한 데이터에서 CPS 여부, 광고 ID 2가지를 발췌합니다.
+2) 개인정보 수집 여부를 체크합니다.
+3) 개인정보 수집에 동의한 경우 발췌한 데이터에 따라 상세 화면을 호출합니다.
+
+```kotlin
+// TnkOfferwall 은 FragmentActivity 를 상속받는 Activity 에서 생성합니다.
+val offerwall = TnkOfferwall(this@MainActivity)
+
+// 약관 동의 상태 체크 함수
+offerwall.showTermsDialog(this@MainActivity) { agreed ->
+    if (agreed) {
+        // 약관 동의한 상태 or 팝업에서 약관 동의 한 경우
+        // 푸시 수신시 광고아이템 종류(AD or CPS)
+        // 광고 아이디
+        val adAppId = 12345L
+        val isCps = false
+        // CPS일경우에는 actionId를 5, 그외에는 0으로 설정해야합니다.
+        val actionId = if (isCps) 5 else 0
+
+        offerwall.showAdDetailDialog(this@MainActivity, adAppId, actionId) { success, error ->
+            if (!success) {
+                // 이미 참여한 광고 또는 종료된 광고
+                Log.d("TNK", "${error?.code} - ${error?.message}")
+            }
+        }
+    } else {
+        // 동의 취소를 한 경우
+        // Do nothing
+    }
+}
 ```
 
 
