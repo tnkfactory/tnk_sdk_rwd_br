@@ -40,6 +40,10 @@
    * [TnkOfferwall.adAction()](#method---adaction)
    * [Push 프로세스 처리 및 샘플 코드](#push-프로세스-처리-및-샘플-코드)
 
+   [이벤트 웹뷰 호출](#이벤트-웹뷰-호출)
+   * [TnkOfferwall.openEventWebView()](#method---openeventwebview)
+   * [TnkOfferwall.getEventLink()](#method---geteventlink)
+
 4. [Callback URL](#callback-url)
    * [호출방식](#호출방식)
    * [Parameters](#parameters-12)
@@ -998,6 +1002,110 @@ offerwall.showTermsDialog(this@MainActivity) { agreed ->
 }
 ```
 
+
+
+## 이벤트 웹뷰 호출
+
+이벤트 아이디를 알고 있는 경우 오퍼월을 거치지 않고 이벤트 페이지를 직접 띄울 수 있습니다.
+푸시나 배너에서 특정 이벤트로 바로 랜딩시킬 때 사용합니다.
+
+#### Method - openEventWebView
+
+##### Method
+
+- TnkOfferwall.openEventWebView(context:Context, eventId:Long, useFullScreen:Boolean? = null, onResult:(Boolean, String)->Unit)
+
+##### Description
+
+이벤트 아이디로 이벤트 페이지를 엽니다.
+서버에서 내려주는 이벤트 설정에 따라 아래 세 가지 중 하나로 자동 분기합니다.
+
+| 서버 설정 | 노출 방식 |
+| --------- | --------- |
+| 전용 웹뷰 지정 | 제휴사 전용 웹뷰 |
+| 인앱 웹뷰 사용 | 광고 상세 인앱 웹뷰 |
+| 그 외 | 외부 브라우저 |
+
+`useFullScreen` 은 **인앱 웹뷰로 분기한 경우에만** 적용됩니다.
+전용 웹뷰나 외부 브라우저로 분기하면 값에 관계없이 무시됩니다.
+
+인앱 웹뷰로 분기하는 경우 `context` 는 `FragmentActivity` 를 상속받는 Activity 여야 합니다.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| context       | 현재 Activity 객체. 인앱 웹뷰로 분기하는 경우 `FragmentActivity` 를 상속받아야 합니다. |
+| eventId       | 이벤트마다 가지고 있는 고유 아이디 입니다.                   |
+| useFullScreen | 인앱 웹뷰의 전체화면 여부입니다. 생략하거나 `null` 이면 서버 설정을 따르고, `true` / `false` 를 주면 그 값으로 강제합니다. |
+| onResult      | 성공 여부와 실패 시 에러 메시지를 전달합니다.                |
+
+##### 샘플코드
+
+```kotlin
+val offerwall = TnkOfferwall(this)   // this : FragmentActivity
+
+// 서버 설정을 따릅니다.
+offerwall.openEventWebView(this@MainActivity, 782047L) { success, message ->
+    if (!success) {
+        Log.d("TNK", "openEventWebView failed : $message")
+    }
+}
+
+// 전체화면으로 강제합니다.
+offerwall.openEventWebView(this@MainActivity, 782047L, useFullScreen = true) { success, message ->
+    if (!success) {
+        Log.d("TNK", "openEventWebView failed : $message")
+    }
+}
+```
+
+Java 에서 사용하시는 경우 `useFullScreen` 을 생략한 형태도 그대로 호출하실 수 있습니다.
+(`import kotlin.Unit;` 이 필요합니다.)
+
+```java
+offerwall.openEventWebView(MainActivity.this, 782047L, (success, message) -> {
+    if (!success) {
+        Log.d("TNK", "openEventWebView failed : " + message);
+    }
+    return Unit.INSTANCE;
+});
+```
+
+#### Method - getEventLink
+
+##### Method
+
+- TnkOfferwall.getEventLink(eventId:Long, onResult:(TnkOffRepository.EventLinkVo?)->Unit)
+
+##### Description
+
+이벤트 페이지를 직접 띄우지 않고 **랜딩 정보만** 조회합니다.
+화면 전환을 매체앱에서 직접 처리하려는 경우에 사용하시기 바랍니다.
+조회에 실패하면 `null` 이 전달됩니다.
+
+콜백으로 전달되는 `TnkOffRepository.EventLinkVo` 의 `mkt_app_id` 에 랜딩 URL 이 들어 있습니다.
+(`import com.tnkfactory.ad.off.TnkOffRepository` 가 필요합니다.)
+
+##### Parameters
+
+| 파라메터 명칭 | 내용                                                         |
+| ------------- | ------------------------------------------------------------ |
+| eventId       | 이벤트마다 가지고 있는 고유 아이디 입니다.                   |
+| onResult      | 이벤트 랜딩 정보를 전달합니다. 실패 시 `null` 입니다.        |
+
+##### 샘플코드
+
+```kotlin
+offerwall.getEventLink(782047L) { eventLink ->
+    if (eventLink == null) {
+        Log.d("TNK", "getEventLink failed")
+        return@getEventLink
+    }
+    val landingUrl = eventLink.mkt_app_id
+    // 매체앱에서 직접 화면 전환 처리
+}
+```
 
 
 ## 4. Callback URL
