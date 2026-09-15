@@ -9,7 +9,6 @@
     * [플레이스먼트 광고 표시](#플레이스먼트-광고-표시)
     * [customData 활용하기](#customData-활용하기)
     * [AdPlacementView의 UI 커스터마이징](#AdPlacementView의-UI-커스터마이징)
-    * [AdPlacementActivity](#AdPlacementActivity)
 
 2. [광고정보 조회 기능](#광고정보-조회-기능)
    * [광고 목록 조회](#광고-목록-조회)
@@ -230,23 +229,6 @@ TnkAdConfig.setPlacementLayout("open_ad", TnkAdPlacementListItem::class, Placeme
 // 한줄에 1개의 아이템이 3개 노출됩니다.
 adPlacementView.spanCount = 1     // 한줄에 출력 할 아이탬 수
 adPlacementView.pageRowCount = 3  // 페이지당 출력 할 아이템 수
-
-```
-
-
-### AdPlacementActivity
-
-![placementactivity_001](./img/placement_activity.png)
-
-AdPlacementActivity 를 사용하면 여러개의 플레이스먼트를 한번에 로드하여 보여줄 수 있습니다.
-리스트로 전달한 플레이스먼트 ID에 설정된 레이아웃을 사용하여 광고를 로드하고 보여줍니다.
-** 마지막 인자로 전달한 플레이스먼트는 아이템의 뷰 타입만 적용되고 레이아웃은 강제로 PlacementListLayout으로 설정됩니다.
-
-```kotlin
-TnkAdConfig.setPlacementLayout("ad_event", TnkAdPlacementFeedImageItem::class, PlacementFeedViewLayout::class)
-TnkAdConfig.setPlacementLayout("ad_sns", TnkAdListSuggest::class, PlacementScrollViewLayout::class)
-TnkAdConfig.setPlacementLayout("ad_normal", TnkAdListItemNormal::class, PlacementFeedViewLayout::class)
-AdPlacementActivity.start(this, arrayListOf("ad_event", "ad_sns", "ad_normal"))
 
 ```
  
