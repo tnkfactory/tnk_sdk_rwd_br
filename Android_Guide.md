@@ -24,7 +24,7 @@
    * [TnkSession.queryPoint()](#tnksessionquerypoint)
    * [TnkSession.purchaseItem()](#tnksessionpurchaseitem)
    * [TnkSession.withdrawPoints()](#tnksessionwithdrawpoints)
-   * [TnkOfferwall.getEarnPoints()](#tnkofferwallgetearnpoints)
+   * [TnkOfferwall.getEarnPoint()](#tnkofferwallgetearnpoint)
 
    [그밖의 기능들](#그밖의-기능들)
    * [TnkSession.queryPublishState()](#tnksessionquerypublishstate)
@@ -200,9 +200,10 @@ Proguard를 사용하실 경우 Proguard 설정내에 아래 내용을 반드시
 
 COPPA는 [미국 어린이 온라인 개인정보 보호법](https://www.ftc.gov/tips-advice/business-center/privacy-and-security/children's-privacy) 및 관련 법규입니다. 구글 에서는 앱이 13세 미만의 아동을 대상으로 서비스한다면 관련 법률을 준수하도록 하고 있습니다. 연령에 맞는 광고가 보일 수 있도록 아래의 옵션을 설정하시기 바랍니다.
 
-```java
-TnkOfferwall.setCOPPA(true); // ON - 13세 미만 아동을 대상으로 한 서비스 일경우 사용
-TnkOfferwall.setCOPPA(false); // OFF
+```kotlin
+val offerwall = TnkOfferwall(this)
+offerwall.setCOPPA(true) // ON - 13세 미만 아동을 대상으로 한 서비스 일경우 사용
+offerwall.setCOPPA(false) // OFF
 ```
 
 ## 2. 광고 목록 띄우기
@@ -225,99 +226,45 @@ TnkOfferwall.setCOPPA(false); // OFF
 
 광고 목록을 출력하는 Activity의 예제 소스
 
-kotlin
 ```kotlin
-public class MainActivity extends AppCompatActivity {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var offerwall: TnkOfferwall
-    
+    private lateinit var offerwall: TnkOfferwall
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+
+        val tvPoint = findViewById<TextView>(R.id.tv_point)
+        val btnOfferwall = findViewById<Button>(R.id.btn_offerwall)
 
         // 1) TNK SDK 초기화
         offerwall = TnkOfferwall(this)
-        
+
         lifecycleScope.launch(Dispatchers.IO) {
-                // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
-                // 이 예제에서는 google adid를 사용 합니다.
-            val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity) // backgroud thread 처리 필요
+            // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
+            // 이 예제에서는 google adid를 사용 합니다.
+            val adid = AdvertisingIdInfo.requestIdInfo(this@MainActivity) // background thread 처리 필요
 
             // 2) 유저 식별값 설정
             offerwall.setUserName(adid.id)
             // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
             offerwall.setCOPPA(false)
-	    // 4) 포인트 금액 앞에 아이콘, 뒤에 재화 단위 출력 여부를 설정합니다.
+            // 4) 포인트 금액 앞에 아이콘, 뒤에 재화 단위 출력 여부를 설정합니다.
             TnkAdConfig.pointEffectType = TNK_POINT_EFFECT_TYPE.UNIT // 금액 뒤에 관리자 페이지에서 설정한 단위 출력
 
-            offerwall.getEarnPoint() { point ->
-                binding.tvPoint.text = "받을 수 있는 포인트 : $point p"
+            // 결과는 Main UI Thread 로 전달됩니다.
+            offerwall.getEarnPoint { point ->
+                tvPoint.text = "받을 수 있는 포인트 : $point p"
             }
-
         }
 
-        // 오퍼월 액티비티를 출력합니다.
-        binding.btnOfferwall.setOnClickListener {
+        // 5) 오퍼월 액티비티를 출력합니다.
+        btnOfferwall.setOnClickListener {
             offerwall.startOfferwallActivity(this@MainActivity)
         }
     }
 }
-```
-java
-```java
-
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import com.tnkfactory.ad.TNK_POINT_EFFECT_TYPE;
-import com.tnkfactory.ad.TnkAdConfig;
-import com.tnkfactory.ad.TnkOfferwall;
-import com.tnkfactory.ad.rwd.AdvertisingIdInfo;
-
-public class MainActivity extends AppCompatActivity {
-
-    TnkOfferwall offerwall;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button btn = findViewById(R.id.tv_test);
-
-        offerwall = new TnkOfferwall(this);
-
-        Runnable rn = () -> {
-            // 고유 아이디는 매체사에서 유저 식별을 위한 고유값을 사용하셔야 하며
-            // 이 예제에서는 google adid를 사용 합니다.
-            AdvertisingIdInfo adInfo = AdvertisingIdInfo.requestIdInfo(MainActivity.this); // backgroud thread 처리 필요
-            String id = adInfo.getId();
-
-            // 2) 유저 식별값 설정
-            offerwall.setUserName(id);
-            // 3) COPPA 설정 (https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy)
-            offerwall.setCOPPA(false);
-            // 4) 포인트 금액 앞에 아이콘, 뒤에 재화 단위 출력 여부를 설정합니다.
-            TnkAdConfig.INSTANCE.setPointEffectType(TNK_POINT_EFFECT_TYPE.UNIT);
-
-            offerwall.getEarnPoint(point -> {
-                runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, String.format("받을 수 있는 포인트 : %d p", point), Toast.LENGTH_SHORT).show();
-                });
-                return null;
-            });
-        };
-        new Thread(rn).start();
-
-        btn.setOnClickListener(v -> {
-            // 5) 오퍼월 오픈
-            offerwall.startOfferwallActivity(this);
-        });
-    }
-}
-
 ```
 
 
@@ -333,13 +280,12 @@ public class MainActivity extends AppCompatActivity {
 
 ##### Method
 
-- void TnkOfferwall.setUserName(Context context, String userName)
+- void TnkOfferwall.setUserName(String userName)
 
 ##### Parameters
 
 | 파라메터 명칭 | 내용                                                         |
 | ------------- | ------------------------------------------------------------ |
-| context       | 현재 Activity 또는 Context 객체                              |
 | userName      | 앱에서 사용자를 식별하기 위하여 사용하는 고유 ID 값 (로그인 ID 등)  길이는 256 bytes 이하입니다. |
 
 ### 광고 목록 띄우기 (Activity)
@@ -469,7 +415,7 @@ Tnk서버에 적립되어 있는 사용자 포인트 값을 조회합니다.
 
 ###### Method
 
-- void TnkSession.queryPoint(Context context, boolean showProgress, ServiceCallback callback)
+- void TnkSession.queryPoint(Context context, ServiceCallback callback)
 
 ###### Description
 
@@ -481,29 +427,26 @@ ServiceCallback의 사용법은 아래 적용예시를 참고해주세요.
 | 파라메터 명칭 | 내용                                                         |
 | -------------- | ----------------------------------------------------------- |
 | context       | 현재 Activity 또는 Context 객체                              |
-| showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 Integer 객체이며 사용자 포인트가 담겨 있습니다. |
 
 ###### 적용예시
 
-```java
-@Override
-public void onCreate(Bundle savedInstanceState) {
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
     // ...
 
-    final TextView pointView = (TextView)findViewById(R.id.main_point);
+    val pointView = findViewById<TextView>(R.id.main_point)
 
-    TnkSession.queryPoint(this, true, new ServiceCallback() {
-
-        @Override
-        public void onReturn(Context context, Object result) {
-            Integer point = (Integer)result;
-            pointView.setText(String.valueOf(point));
+    TnkSession.queryPoint(this, object : ServiceCallback() {
+        override fun onReturn(context: Context?, result: Any?) {
+            val point = result as Int
+            pointView.text = point.toString()
         }
-	});
+    })
 
-	// ...
+    // ...
 }
 ```
 
@@ -529,16 +472,14 @@ Tnk 서버에 적립되어 있는 사용자 포인트 값을 조회하여 그 �
 
 ###### 적용예시
 
-```java
-static public void getPoint() {
+```kotlin
+// import kotlin.concurrent.thread
 
-    new Thread() {
-
-        public void run() {
-            int point = TnkSession.queryPoint(mActivity);
-            showPoint(point); // 결과를 받아서 필요한 로직을 수행한다.
-        }
-    }.start();
+fun getPoint() {
+    thread {
+        val point = TnkSession.queryPoint(this@MainActivity)
+        showPoint(point) // 결과를 받아서 필요한 로직을 수행한다. (별도 Thread 에서 실행됩니다)
+    }
 }
 ```
 
@@ -551,7 +492,7 @@ TnK 서버에서는 별도로 아이템 목록을 관리하는 기능을 제공�
 
 ###### Method
 
-- void TnkSession.purchaseItem(Context context, int pointCost, String itemId, boolean showProgress, ServiceCallback callback)
+- void TnkSession.purchaseItem(Context context, int pointCost, String itemId, ServiceCallback callback)
 
 ###### Description
 
@@ -564,32 +505,24 @@ Tnk 서버에 적립되어 있는 사용자 포인트를 차감합니다. 차감
 | context       | 현재 Activity 또는 Context 객체                              |
 | pointCost     | 차감할 포인트                                                |
 | itemId        | 구매할 아이템의 고유 ID (게시앱에서 정하여 부여한 ID) Tnk 사이트의 보고서 페이지에서 함께 보여줍니다. |
-| showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 long[] 객체이며 long[0] 값은 차감 후 남은 포인트 값이며, long[1] 값은 고유한 거래 ID 값이 담겨 있습니다. long[1] 값이 음수 인경우에는 포인트 부족 등으로 오류가 발생한 경우입니다. |
 
 ###### 적용예시
 
-```java
-@Override
-public void onClick(View v) {
+```kotlin
+button.setOnClickListener {
+    TnkSession.purchaseItem(this@MainActivity, 30, "item.00001", object : ServiceCallback() {
+        override fun onReturn(context: Context?, result: Any?) {
+            val ret = result as LongArray
 
-    TnkSession.purchaseItem(MainActivity.this, 30, "item.00001", true,
-
-        new ServiceCallback() {
-
-            @Override
-            public void onReturn(Context context, Object result) {
-
-                long[] ret = (long[])result;
-
-                if (ret[1] < 0) {
-                     // error
-                } else {
-                     Log.d("tnkad", "current point = " + ret[0] + ", transaction id = " + ret[1]);
-                     pointView.setText(String.valueOf(ret[0]));
-                }
+            if (ret[1] < 0) {
+                // error
+            } else {
+                Log.d("tnkad", "current point = ${ret[0]}, transaction id = ${ret[1]}")
+                pointView.text = ret[0].toString()
             }
-    	});
+        }
+    })
 }
 ```
 
@@ -624,7 +557,7 @@ Tnk 서버에서 관리되는 사용자 포인트 전체를 한번에 인출하�
 
 ###### Method
 
-- void TnkSession.withdrawPoints(Context context, String desc, boolean showProgress, ServiceCallback callback)
+- void TnkSession.withdrawPoints(Context context, String desc, ServiceCallback callback)
 
 ###### Description
 
@@ -636,28 +569,20 @@ Tnk 서버에 적립되어 있는 사용자의 모든 포인트를 차감합니�
 | -------------- | ----------------------------------------------------------- |
 | context       | 현재 Activity 또는 Context 객체                              |
 | desc          | 인출과 관련된 설명 등을 넣어줍니다. Tnk 사이트의 보고서 페이지에서 함께 보여줍니다. |
-| showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 Integer 객체이며 인출된 포인트 값입니다. 해당 사용자에게 충전된 포인트가 없는 경우에는 0이 반환됩니다. |
 
 ###### 적용예시
 
-```java
-@Override
-public void onClick(View v) {
+```kotlin
+button.setOnClickListener {
+    TnkSession.withdrawPoints(this@MainActivity, "user_delete", object : ServiceCallback() {
+        override fun onReturn(context: Context?, result: Any?) {
+            val point = result as Int
+            Log.d("tnkad", "withdraw point = $point")
 
-    TnkSession.withdrawPoints(MainActivity.this, "user_delete", true,
-
-        new ServiceCallback() {
-
-            @Override
-            public void onReturn(Context context, Object result) {
-
-                int point = (Integer)result;
-                Log.d("tnkad", "withdraw point = " + point);
-                
-                pointView.setText(String.valueOf(point));
-            }
-        });
+            pointView.text = point.toString()
+        }
+    })
 }
 ```
 
@@ -682,7 +607,7 @@ Tnk 서버에 적립되어 있는 사용자의 모든 포인트를 차감하고 
 
 - 인출된 포인트 값, 사용자에게 인출할 포인트가 없으면 0이 반환됩니다.
 
-#### TnkOfferwall.getEarnPoints()
+#### TnkOfferwall.getEarnPoint()
 
 Tnk서버에서 사용자가 참여 가능한 모든 광고의 적립 가능한 총 포인트 값을 조회합니다.
 
@@ -699,28 +624,24 @@ Tnk서버에서 사용자가 참여 가능한 모든 광고의 적립 가능한 
 ###### Return : Long
 
 - 참여 가능한 광고의 적립 가능한 총 포인트 값
-``` kotlin
-// 방법 1
-lifecycleScope.launch(Dispatchers.IO) {
-    val point = tnkOfferwall.getEarnPoint()
+```kotlin
+// 방법 1 : suspend 함수 (내부에서 IO Thread 로 전환하므로 Main 에서 launch 하면 됩니다)
+lifecycleScope.launch {
+    val point = tnkOfferwall.getEarnPoint()
     tvPoint.text = point.toString()
 }
-// 방법 2
-tnkOfferwall.getEarnPoint { 
+
+// 방법 2 : 콜백 (결과는 Main UI Thread 로 전달됩니다)
+tnkOfferwall.getEarnPoint {
     tvPoint.text = it.toString()
 }
-```
-```java
-public void showEarnPoint() {
 
-    new Thread(() -> {
-
-            long point = tnkOfferwall.getEarnPointSync();
-            runOnUiThread(() -> {
-                tvPoint.setText("포인트 : " + point);
-            });
-
-        }).start();
+// 방법 3 : 동기 호출 (Main UI Thread 에서 호출하면 안 됩니다)
+thread {
+    val point = tnkOfferwall.getEarnPointSync()
+    runOnUiThread {
+        tvPoint.text = "포인트 : $point"
+    }
 }
 ```
 
@@ -734,43 +655,42 @@ Tnk 사이트의 [게시정보]에서 광고 게시 중지를 하게 되면 이�
 
 ##### Method
 
-- void TnkSession.queryPublishState(Context context, boolean showProgress, ServiceCallback callback)
+- void TnkSession.queryPublishState(Context context, ServiceCallback callback)
 
 ##### Parameters
 
 | 파라메터 명칭 | 내용                                                         |
 | -------------- | ----------------------------------------------------------- |
 | context       | 현재 Activity 또는 Context 객체                              |
-| showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 Integer 객체이며 상태코드가 담겨 있습니다. 상태코드 값이 TnkSession.STATE_YES 인 경우(실제 값은 1)는 광고게시상태를 의미합니다. |
 
 ##### state code
 | state code | 상태 |
 |------|------|
-|STAT_CD_NO = 0 | 등록전|
-|STAT_CD_YES = 1 | 판매중|
-|STAT_CD_TEST = 2 | 테스트 중|
-|STAT_CD_CHK = 3 | 검증 중|
-|STAT_CD_AUTH = 4 | 검증 완료|
-|STAT_CD_SUS = 8 | 임시로 중지됨|
-|STAT_CD_ERR = 9 | 잔액 부족등 에러로 중지됨|
-|STAT_CD_UNKNOWN = 99| 없는 코드 값|
+|`TnkSession.STATE_NO` = 0 | 등록전|
+|`TnkSession.STATE_YES` = 1 | 판매중|
+|`TnkSession.STATE_TEST` = 2 | 테스트 중|
+|`TnkSession.STATE_CHECK` = 3 | 검증 중|
+|`TnkSession.STATE_PASSED` = 4 | 검증 완료|
+|`TnkSession.STATE_STOP` = 8 | 임시로 중지됨|
+|`TnkSession.STATE_ERROR` = 9 | 잔액 부족등 에러로 중지됨|
+|`TnkSession.STATE_UNKNOWN` = 99| 없는 코드 값|
     
 ```kotlin
-const val STAT_CD_NO = 0 // 등록전
-const val STAT_CD_YES = 1 // 판매중
-const val STAT_CD_TEST = 2 // 테스트 중
-const val STAT_CD_CHK = 3 // 검증 중
-const val STAT_CD_AUTH = 4 // 검증 완료
-const val STAT_CD_SUS = 8 // 임시로 중지됨
-const val STAT_CD_ERR = 9 // 잔액 부족등 에러로 중지됨
-const val STAT_CD_UNKNOWN = 99 // 알수 없는 코드 값
+TnkSession.STATE_NO       // 0  등록전
+TnkSession.STATE_YES      // 1  판매중
+TnkSession.STATE_TEST     // 2  테스트 중
+TnkSession.STATE_CHECK    // 3  검증 중
+TnkSession.STATE_PASSED   // 4  검증 완료
+TnkSession.STATE_STOP     // 8  임시로 중지됨
+TnkSession.STATE_ERROR    // 9  잔액 부족등 에러로 중지됨
+TnkSession.STATE_UNKNOWN  // 99 알수 없는 코드 값
 ```
 
 ##### 적용예시
 
 ```kotlin
-val button = (Button)findViewById(R.id.main_ad)
+val button = findViewById<Button>(R.id.main_ad)
 
 // ... 
 
@@ -780,7 +700,7 @@ TnkSession.queryPublishState(this, object : ServiceCallback() {
 			when (it) {
 				1 -> {
 					// 정상
-					button.visible = View.VISIBLE
+					button.visibility = View.VISIBLE
 				}
 				else -> {
 					TAlertDialog.show(this@LotteryActivity, "서버와 연결이 원활하지 않습니다.", { finish() }, null)
@@ -803,14 +723,13 @@ TnkSession.queryPublishState(this, object : ServiceCallback() {
 
 ##### Method
 
-- void TnkSession.queryAdvertiseCount(Context context, boolean showProgress, ServiceCallback callback)
+- void TnkSession.queryAdvertiseCount(Context context, ServiceCallback callback)
 
 ##### Parameters
 
 | 파라메터 명칭 | 내용                                                         |
 | -------------- | ----------------------------------------------------------- |
 | context       | 현재 Activity 또는 Context 객체                              |
-| showProgress  | 서버에서 결과가 올때까지 화면에 progress dialog를 띄울지 여부를 지정 |
 | callback      | 서버에서 결과가 오면 callback 객체의 OnReturn(Context context, Object result) 메소드가 호출됩니다. 메소드 호출은 Main UI Thread 상에서 이루어 집니다. 전달된 result 객체는 int[] 객체이며 int[0]는 광고 건수, int[1] 에는 적립가능한 포인트 합계가 담겨 있습니다. 만약 현재 광고 게시상태가 아니라면 int[0]에는 0이 담겨있습니다. |
 
 #### TnkSession.enableLogging()
@@ -819,11 +738,16 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 ##### Method
 
-- void TnkSession.queryPoint(Context context, boolean isAgree)
+- void TnkSession.enableLogging(boolean enable)
 
 #### TnkSession.setAgreePrivacy()
 
 개인정보 수집동의 여부를 설정합니다. true 설정시 오퍼월에서 개인정보 수집동의 팝업이 뜨지 않습니다. 다시 해당 팝업창을 띄우고 싶은 경우 false로 설정해주시기 바랍니다.
+
+##### Method
+
+- void TnkSession.setAgreePrivacy(Activity activity, boolean isAgree)
+- boolean TnkSession.getAgreePrivacy(Activity activity)
 
 ## 광고 상세화면 직접 호출
 
@@ -1060,18 +984,6 @@ offerwall.openEventWebView(this@MainActivity, 782047L, useFullScreen = true) { s
 }
 ```
 
-Java 에서 사용하시는 경우 `useFullScreen` 을 생략한 형태도 그대로 호출하실 수 있습니다.
-(`import kotlin.Unit;` 이 필요합니다.)
-
-```java
-offerwall.openEventWebView(MainActivity.this, 782047L, (success, message) -> {
-    if (!success) {
-        Log.d("TNK", "openEventWebView failed : " + message);
-    }
-    return Unit.INSTANCE;
-});
-```
-
 #### Method - getEventLink
 
 ##### Method
@@ -1161,7 +1073,7 @@ String seqId = request.getParameter("seq_id");
 
 String checkCode = request.getParameter("md_chk");
 
-// 게시앱에서 사용자 구분을 위하여 사용하는 값(전화번호나 로그인 ID 등)을 앱에서 TnkSession.setUserName()으로 설정한 후 받도록한다.
+// 게시앱에서 사용자 구분을 위하여 사용하는 값(전화번호나 로그인 ID 등)을 앱에서 TnkOfferwall.setUserName()으로 설정한 후 받도록한다.
 
 String mdUserName = request.getParameter("md_user_nm");
 
@@ -1295,7 +1207,7 @@ SDK가 요구하는 permission들을 추가합니다.
 
 ##### 적용 예시
 
-```java
+```kotlin
 TnkSession.applicationStarted(context)
 ```
 
@@ -1326,18 +1238,18 @@ TnkSession.applicationStarted(context)
 
 ##### 적용예시
 
-```java
-// 추가 데이터 다운로드 완료시 
-TnkSession.actionCompleted(this, "resource_loaded");
+```kotlin
+// 추가 데이터 다운로드 완료시
+TnkSession.actionCompleted(this, "resource_loaded")
 
-// 회원 가입 완료시 
-TnkSession.actionCompleted(this, "signup_completed");
+// 회원 가입 완료시
+TnkSession.actionCompleted(this, "signup_completed")
 
-// 프로필 작성 완료시 
-TnkSession.actionCompleted(this, "profile_entered");
+// 프로필 작성 완료시
+TnkSession.actionCompleted(this, "profile_entered")
 
-// 친구 추천시 
-TnkSession.actionCompleted(this, "friend_invite"); 
+// 친구 추천시
+TnkSession.actionCompleted(this, "friend_invite")
 ```
 
 ### 구매 활동 분석
@@ -1365,27 +1277,29 @@ TnkSession.actionCompleted(this, "friend_invite");
 
 ##### 적용예시
 
-```java
-// item_01 구매 완료시 
-TnkSession.buyCompleted(this, "item_01");
+```kotlin
+// item_01 구매 완료시
+TnkSession.buyCompleted(this, "item_01")
 
-//item_02 구매 완료시
-TnkSession.buyCompleted(this, "item_02");
+// item_02 구매 완료시
+TnkSession.buyCompleted(this, "item_02")
 ```
 
 ### 사용자 정보 설정
 
 사용자의 성별 및 나이 정보를 설정하시면 보고서에서 해당 내용이 반영되어 추가적인 데이터를 확인하실 수 있습니다.
 
-```java
-// 나이 설정 
-TnkSession.setUserAge(this,23);
+```kotlin
+val offerwall = TnkOfferwall(this)
 
-// 성별 설정 (남) 
-TnkSession.setUserGender(this,TnkCode.MALE);
+// 나이 설정
+offerwall.setUserAge(this, 23)
 
-// 성별 설정 (여) 
-TnkSession.setUserGender(this,TnkCode.FEMALE); 
+// 성별 설정 (남)
+offerwall.setUserGender(this, "M")
+
+// 성별 설정 (여)
+offerwall.setUserGender(this, "F")
 ```
 
 ## 6. 플레이스먼트 뷰
@@ -1397,8 +1311,9 @@ TnkSession.setUserGender(this,TnkCode.FEMALE);
 
 | 코드 | 내용                       | 메세지 |
 |------|--------------------------|--|
-| 1    | 정상                       | | 
-| 2    | 존재하지 않거나 광고중이 아닌 광고앱     | 포인트를 받을 수 있는 매체앱이 아닙니다 |
+| 0    | 정상                       | | 
+| 1    | 존재하지 않거나 게시중이 아닌 매체앱     | 포인트를 받을 수 있는 매체앱이 아닙니다 |
+| 2    | 존재하지 않거나 광고중이 아닌 광고앱     | 종료되었거나 적립이 완료된 광고입니다 |
 | 3    | 잘못되었거나 발생할 수 없는 상태, 잘못된 액션 | 종료되었거나 적립이 완료된 광고입니다 |
 | 4    | 이미 지급되었음                 | 이미 지급된 항목입니다. 다른 곳에서 적립받은 경우 또는 이미 실행하신 이력이 있을 수 있습니다. |
 | 5    | 참여이력 없음                  | 참여하지 않은 광고입니다. 처음부터 다시 진행해주세요. |
@@ -1409,5 +1324,9 @@ TnkSession.setUserGender(this,TnkCode.FEMALE);
 | 12   | 일일 구매 제한 초과              | 오늘 구매 가능 횟수가 초과됐습니다. 내일 다시 구매가 가능합니다 |
 | 17   | 잘못된 placement id         |  잘못된 placement id 입니다. |
 | 99   | 네트워크 단절, 시스템 오동작 등       | 시스템 또는 네트워크 오류입니다. 잠시후 다시 시도해주세요. |
+| 1001 | 사용자 취소 (약관 동의 팝업에서 취소 등) | |
+| 1002 | `FragmentActivity` 가 아니어서 팝업을 띄울 수 없음 | |
+| 1003 | 광고를 찾을 수 없음 | |
+| 1004 | 중복 호출 | |
 
 <br/>
