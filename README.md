@@ -24,6 +24,14 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
+* 2026.09.14
+  * v8.09.33 업데이트
+  * 이벤트 인앱 웹뷰 조회 중 앱을 백그라운드로 전환하면 앱이 종료되던 문제 수정 (openEventWebView)
+  * 전체화면 웹뷰에서 새 창 링크(target="_blank", window.open, intent://)를 누르면 앱이 종료되거나 반응이 없던 문제 수정
+    * 전체화면 웹뷰에서 새 창 https 링크가 외부 브라우저가 아닌 웹뷰 안에서 열립니다 (전체화면이 아닌 웹뷰와 동일)
+  * getEventLink 를 Main UI Thread 에서 호출하면 항상 실패하던 문제 수정, 실패 사유(TnkError)를 받는 형태 추가
+
+
 * 2026.08.24
   * v8.09.32 업데이트
   * 이벤트 웹뷰 전체화면 옵션 추가 (openEventWebView)

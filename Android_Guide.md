@@ -103,7 +103,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.09.32'
+    implementation 'com.tnkfactory:rwd:8.09.33'
 }
 ```
 ### Manifest 설정하기
@@ -955,6 +955,18 @@ offerwall.showTermsDialog(this@MainActivity) { agreed ->
 
 인앱 웹뷰로 분기하는 경우 `context` 는 `FragmentActivity` 를 상속받는 Activity 여야 합니다.
 
+호출 스레드는 가리지 않으며, `onResult` 는 Main UI Thread 에서 호출됩니다.
+인앱 웹뷰로 분기한 경우 호출 시점의 화면 상태에 따라 아래와 같이 동작합니다. (8.09.33 부터)
+
+| 상황 | 동작 | onResult |
+| ---- | ---- | -------- |
+| 화면이 떠 있음 | 즉시 표시 | `true` |
+| 이벤트 조회 중 앱이 백그라운드로 전환됨 | 표시를 보류했다가 앱 복귀 시 표시 | `true` |
+| 이벤트 조회 중 화면이 종료됨 | 표시하지 않음 | `false` |
+| `context` 가 `FragmentActivity` 가 아님 | 표시하지 않음 | `false` |
+
+`onResult` 의 `true` 는 "표시했거나, 복귀 시 표시가 예약되었다"는 뜻입니다.
+
 ##### Parameters
 
 | 파라메터 명칭 | 내용                                                         |
@@ -989,12 +1001,16 @@ offerwall.openEventWebView(this@MainActivity, 782047L, useFullScreen = true) { s
 ##### Method
 
 - TnkOfferwall.getEventLink(eventId:Long, onResult:(TnkOffRepository.EventLinkVo?)->Unit)
+- TnkOfferwall.getEventLink(eventId:Long, onResult:(TnkOffRepository.EventLinkVo?, TnkError?)->Unit)  (8.09.33 부터)
 
 ##### Description
 
 이벤트 페이지를 직접 띄우지 않고 **랜딩 정보만** 조회합니다.
 화면 전환을 매체앱에서 직접 처리하려는 경우에 사용하시기 바랍니다.
-조회에 실패하면 `null` 이 전달됩니다.
+조회에 실패하면 `null` 이 전달됩니다. 실패 사유가 필요한 경우 `TnkError` 를 함께 받는 형태를 사용하시기 바랍니다.
+
+조회는 SDK 내부에서 IO Thread 로 처리하고 `onResult` 는 Main UI Thread 에서 호출되므로, 호출 스레드를 가리지 않습니다.
+(8.09.32 이하에서는 Main UI Thread 에서 호출하면 항상 `null` 이 전달되었습니다.)
 
 콜백으로 전달되는 `TnkOffRepository.EventLinkVo` 의 `mkt_app_id` 에 랜딩 URL 이 들어 있습니다.
 (`import com.tnkfactory.ad.off.TnkOffRepository` 가 필요합니다.)
@@ -1004,7 +1020,7 @@ offerwall.openEventWebView(this@MainActivity, 782047L, useFullScreen = true) { s
 | 파라메터 명칭 | 내용                                                         |
 | ------------- | ------------------------------------------------------------ |
 | eventId       | 이벤트마다 가지고 있는 고유 아이디 입니다.                   |
-| onResult      | 이벤트 랜딩 정보를 전달합니다. 실패 시 `null` 입니다.        |
+| onResult      | 이벤트 랜딩 정보를 전달합니다. 실패 시 `null` 입니다. `TnkError` 를 받는 형태는 성공 시 `error` 가 `null` 입니다. |
 
 ##### 샘플코드
 
@@ -1015,6 +1031,16 @@ offerwall.getEventLink(782047L) { eventLink ->
         return@getEventLink
     }
     val landingUrl = eventLink.mkt_app_id
+    // 매체앱에서 직접 화면 전환 처리
+}
+
+// 실패 사유가 필요한 경우 (8.09.33 부터)
+offerwall.getEventLink(782047L) { eventLink, error ->
+    if (error != null) {
+        Log.w("TNK", "getEventLink failed : ${error.code} ${error.message}")
+        return@getEventLink
+    }
+    val landingUrl = eventLink?.mkt_app_id
     // 매체앱에서 직접 화면 전환 처리
 }
 ```
