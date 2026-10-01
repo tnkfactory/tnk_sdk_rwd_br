@@ -17,6 +17,7 @@
    * [광고 목록 띄우기 (Activity)](#광고-목록-띄우기-activity)
    * [디자인 변경하기](#디자인-변경하기)
    * [포인트 아이콘과 단위 출력하기](#포인트-아이콘과-단위-출력하기)
+   * [오퍼월 테마 지정하기 (다크모드)](#오퍼월-테마-지정하기-다크모드)
 
 3. [Publisher API](#3-publisher-api) 
 
@@ -31,6 +32,7 @@
    * [TnkSession.queryAdvertiseCount()](#tnksessionqueryadvertisecount)
    * [TnkSession.enableLogging()](#tnksessionenablelogging)
    * [TnkSession.setAgreePrivacy()](#tnksessionsetagreeprivacy)
+   * [TnkSession.setPrivacyAgreementListener()](#tnksessionsetprivacyagreementlistener)
      
    [광고 상세화면 직접 호출](#광고-상세화면-직접-호출)
    * [TnkOfferwall.showTermsDialog()](#method---showtermsdialog)
@@ -103,7 +105,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.09.33'
+    implementation 'com.tnkfactory:rwd:8.09.35'
 }
 ```
 ### Manifest 설정하기
@@ -143,6 +145,24 @@ Tnk 사이트에서 앱 등록하면 상단에 App ID 가 나타납니다. 이�
 ```xml
 <activity android:name="com.tnkfactory.ad.AdWallActivity" android:exported="true" android:screenOrientation="portrait"/>
 ```
+
+> ### ⚠️ 오퍼월 테마를 `SYSTEM` 으로 쓰는 매체는 `uiMode` 를 반드시 추가하세요 (8.09.35 부터)
+>
+> [오퍼월 테마 지정하기](#오퍼월-테마-지정하기-다크모드) 에서 `TnkOfferwallTheme.SYSTEM` (단말 다크모드 설정을 따름) 을 사용한다면,
+> 위 `AdWallActivity` 선언의 `android:configChanges` 에 **`uiMode`** 를 넣어야 합니다.
+>
+> ```xml
+> <activity
+>     android:name="com.tnkfactory.ad.AdWallActivity"
+>     android:exported="true"
+>     android:screenOrientation="portrait"
+>     android:configChanges="screenSize|smallestScreenSize|orientation|screenLayout|keyboardHidden|uiMode" />
+> ```
+>
+> `AdWallActivity` 는 매체 앱의 AndroidManifest.xml 에 직접 선언하는 Activity 라서 SDK 가 대신 넣어 드릴 수 없습니다.
+> 빠뜨리면 사용자가 오퍼월을 보는 중에 단말의 다크모드를 바꿀 때 Activity 가 다시 만들어져 **오퍼월이 처음 화면으로 돌아갑니다.**
+>
+> `LIGHT`, `DARK`, `UNSPECIFIED`(기본값) 를 쓰는 경우에는 추가하지 않으셔도 됩니다.
 
 AndroidManifest.xml의 내용 예시 
 ```xml
@@ -393,6 +413,75 @@ TnkAdConfig.pointEffectType = TNK_POINT_EFFECT_TYPE.ICON_N_UNIT
 그 외 상세한 디자인 변경을 원하실 경우 다음 링크를 참고 하시기 바랍니다.
 
 [디자인 커스텀 가이드](https://github.com/tnkfactory/tnk_sdk_rwd_br/blob/main/ui_customizing.md)
+
+#### 오퍼월 테마 지정하기 (다크모드)
+
+(8.09.35 부터) 오퍼월 화면의 테마를 라이트 또는 다크로 고정하거나, 단말의 다크모드 설정을 따르도록 지정할 수 있습니다.
+`Application.onCreate()` 또는 SDK 초기화 직후에 **한 번만** 설정하세요.
+
+```kotlin
+TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.DARK)
+```
+
+```java
+// Java
+TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.DARK);
+```
+
+| 값 | 동작 |
+| --- | --- |
+| `LIGHT` | 단말 설정과 무관하게 라이트 테마로 고정합니다. |
+| `DARK` | 단말 설정과 무관하게 다크 테마로 고정합니다. |
+| `SYSTEM` | 단말의 다크모드 설정을 따릅니다. **AndroidManifest.xml 에 `uiMode` 추가가 필요합니다. ([아래 참고](#system-을-쓰면-uimode-를-추가해야-합니다))** |
+| `UNSPECIFIED` | SDK 가 테마에 관여하지 않습니다. **기본값**이며, 이 API 를 호출하지 않았을 때와 동작이 같습니다. |
+
+##### Method
+
+- void TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme theme) : 테마를 설정합니다.
+- TnkOfferwallTheme TnkAdConfig.getOfferwallTheme() : 현재 설정된 테마를 반환합니다. 설정하지 않았다면 `UNSPECIFIED` 입니다.
+- TnkOfferwallTheme TnkOfferwallTheme.from(String value) : `"light"`, `"dark"`, `"system"`, `"unspecified"` 문자열에서 값을 복원합니다. 알 수 없는 문자열이면 `UNSPECIFIED` 를 반환합니다.
+
+##### 적용 범위
+
+- 오퍼월 목록 화면 (`AdWallActivity`)
+- 이벤트·컨텐츠 웹뷰 화면
+- `adJoin()`, `adAction()` 이나 오퍼월에서 띄우는 광고 상세·쇼핑 웹뷰 다이얼로그
+
+다이얼로그는 **매체 앱 화면의 테마를 따르지 않고 이 설정을 따릅니다.** 예를 들어 매체 앱이 라이트 테마로 고정되어 있더라도
+`DARK` 를 지정하면 `adJoin()` 으로 여는 상세 화면은 다크로 열립니다.
+
+웹 페이지 내부의 색상은 웹이 결정합니다. SDK 는 웹뷰에 설정한 테마에 맞춰 `prefers-color-scheme` 값을 전달하므로,
+다크 스타일을 갖춘 페이지는 그에 따라 바뀌고 다크 스타일이 없는 페이지는 그대로 표시됩니다.
+
+테마는 위 화면에만 적용되며 매체 앱의 다른 화면에는 영향을 주지 않습니다.
+
+##### `SYSTEM` 을 쓰면 `uiMode` 를 추가해야 합니다
+
+`SYSTEM` 을 사용하는 매체는 AndroidManifest.xml 의 `AdWallActivity` 에 `configChanges` 로 `uiMode` 를 추가하세요.
+
+```xml
+<activity
+    android:name="com.tnkfactory.ad.AdWallActivity"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:configChanges="screenSize|smallestScreenSize|orientation|screenLayout|keyboardHidden|uiMode" />
+```
+
+`AdWallActivity` 는 매체가 직접 선언하는 Activity 이므로 SDK 가 대신 넣을 수 없습니다.
+빠뜨리면 사용자가 오퍼월을 보는 중에 단말 다크모드를 바꿀 때 Activity 가 재생성되어 오퍼월이 처음 화면으로 돌아갑니다.
+`LIGHT`, `DARK`, `UNSPECIFIED` 는 해당하지 않습니다.
+
+##### 적용예시
+
+```kotlin
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        // 앱을 라이트로 고정해 두었더라도 오퍼월은 다크로 보여줍니다.
+        TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.DARK)
+    }
+}
+```
 
 
 ## 3. Publisher API
@@ -748,6 +837,55 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 - void TnkSession.setAgreePrivacy(Activity activity, boolean isAgree)
 - boolean TnkSession.getAgreePrivacy(Activity activity)
+
+사용자가 수집동의를 철회했을 때 매체 앱에서 알림을 받고 싶다면 [TnkSession.setPrivacyAgreementListener()](#tnksessionsetprivacyagreementlistener) 를 사용하세요.
+
+#### TnkSession.setPrivacyAgreementListener()
+
+(8.09.35 부터) 사용자가 개인정보 수집동의를 **해제(철회)** 했을 때 매체 앱이 통보받는 리스너를 등록합니다.
+오퍼월의 "내 정보" 화면에서 사용자가 수집동의를 철회하는 경우가 대표적입니다.
+
+##### Method
+
+- void TnkSession.setPrivacyAgreementListener(TnkPrivacyAgreementListener listener)
+
+##### Description
+
+수집동의가 해제되면 `listener` 의 `onPrivacyAgreementRevoked()` 가 **Main UI Thread** 에서 호출됩니다.
+`null` 을 넣으면 등록을 해제합니다.
+
+- 수집동의 상태에서 해제 상태로 **바뀌는 순간에만 한 번** 호출됩니다. 이미 해제된 상태에서 다시 해제 처리가 일어나도 호출되지 않습니다.
+- 사용자가 "내 정보" 화면에서 철회한 경우와, 매체 앱이 `TnkSession.setAgreePrivacy(activity, false)` 를 직접 호출해 해제한 경우 모두 호출됩니다.
+- **"재동의" 콜백은 없습니다.** 철회한 직후 오퍼월이 수집동의 창을 다시 띄우므로, 사용자가 그 창에서 다시 동의하면 해제 상태는 되돌아갑니다.
+  이때는 별도의 알림이 없으니 최신 상태가 필요하면 `TnkSession.getAgreePrivacy(activity)` 로 확인하세요.
+- 등록한 리스너는 SDK 가 계속 보관합니다. 리스너 안에서 Activity 를 직접 참조하면 Activity 가 해제되지 않으니, `Application` 에서 등록하거나 `applicationContext` 만 사용하세요.
+
+##### Parameters
+
+| 파라메터 명칭 | 내용 |
+| ------------- | ---- |
+| listener      | `TnkPrivacyAgreementListener` 객체. `onPrivacyAgreementRevoked()` 하나만 가진 인터페이스라서 Kotlin 에서는 람다로 쓸 수 있습니다. `null` 이면 등록을 해제합니다. |
+
+##### 적용예시
+
+```kotlin
+TnkSession.setPrivacyAgreementListener {
+    // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
+}
+
+// 등록 해제
+TnkSession.setPrivacyAgreementListener(null)
+```
+
+```java
+// Java
+TnkSession.INSTANCE.setPrivacyAgreementListener(() -> {
+    // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
+});
+
+// 등록 해제
+TnkSession.INSTANCE.setPrivacyAgreementListener(null);
+```
 
 ## 광고 상세화면 직접 호출
 

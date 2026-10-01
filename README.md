@@ -24,6 +24,13 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
+* 2026.10.01
+  * v8.09.35 업데이트
+  * 오퍼월 테마 지정 기능 추가 (TnkAdConfig.setOfferwallTheme) : 라이트 / 다크 / 시스템 설정
+    * `SYSTEM` 을 사용하는 경우 AndroidManifest.xml 의 AdWallActivity 에 `configChanges` 로 `uiMode` 를 추가해야 합니다. ([안내](./Android_Guide.md#manifest-설정하기))
+  * 개인정보 수집동의 해제 콜백 추가 (TnkSession.setPrivacyAgreementListener)
+
+
 * 2026.09.14
   * v8.09.33 업데이트
   * 이벤트 인앱 웹뷰 조회 중 앱을 백그라운드로 전환하면 앱이 종료되던 문제 수정 (openEventWebView)
