@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.tnkfactory.ad.PlacementEventListener
 import com.tnkfactory.ad.TnkAdConfig
 import com.tnkfactory.ad.TnkOfferwall
+import com.tnkfactory.ad.TnkOfferwallTheme
+import com.tnkfactory.ad.TnkSession
 import com.tnkfactory.ad.basic.AdPlacementView
 import com.tnkfactory.ad.basic.PlacementFeedViewLayout
 import com.tnkfactory.ad.basic.PlacementScrollViewLayout
@@ -44,6 +46,19 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        // 오퍼월 테마 지정 (8.09.35 부터). 라이트/다크 고정은 LIGHT / DARK, 단말 설정을 따르려면 SYSTEM.
+        // 실제 앱에서는 Application.onCreate() 에서 한 번만 설정하는 것을 권장합니다.
+        // SYSTEM 을 쓰려면 AndroidManifest.xml 의 AdWallActivity 에 configChanges 로 uiMode 가 필요합니다.
+        TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.SYSTEM)
+
+        // 개인정보 수집동의 해제 통보 (8.09.35 부터). 리스너는 SDK 가 계속 보관하므로
+        // Activity 를 참조하지 않도록 applicationContext 만 사용합니다.
+        val appContext = applicationContext
+        TnkSession.setPrivacyAgreementListener {
+            Log.d("TNK", "개인정보 수집동의가 해제되었습니다.")
+            Toast.makeText(appContext, "개인정보 수집동의가 해제되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
         offerwall = TnkOfferwall(this).apply {
