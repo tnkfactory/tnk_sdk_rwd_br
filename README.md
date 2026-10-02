@@ -24,10 +24,22 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
+* 배포일 기입
+  * v8.09.36 업데이트
+  * 오퍼월 테마(다크모드) 적용 범위 보완
+    * 임베드 오퍼월(TnkEmbedAdList, TnkEmbedNewList)에서 내 정보·수집동의 팝업 등 SDK 다이얼로그에 테마가 적용되지 않던 문제 수정
+    * 호출 단위로 테마를 지정한 경우 다이얼로그와 하위 화면에 테마가 적용되지 않거나 서로 다르게 보이던 문제 수정
+    * 테마를 지정하면 매체 앱이 고정한 글자 크기·언어가 SDK 다이얼로그에서 풀리던 문제 수정
+  * 내 정보 화면을 연 채 단말 다크모드 전환·폴드 전환으로 화면이 다시 만들어질 때 수집동의 팝업이 어긋나게 뜨던 문제 수정
+  * 임베드 오퍼월의 피드 더보기 팝업이 떠 있는 동안 화면이 다시 만들어지면 앱이 종료되던 문제 수정
+  * 서버로 전달되는 SDK 버전 정보가 실제 버전과 다르던 문제 수정
+  * 안내: `SYSTEM` 테마는 오퍼월을 보는 중에 단말 다크모드를 바꾸면 오퍼월을 다시 열 때 반영됩니다. 광고 상세 화면 등 일부 화면은 아직 테마가 적용되지 않습니다. ([안내](./Android_Guide.md#오퍼월-테마-지정하기-다크모드))
+
+
 * 2026.10.01
   * v8.09.35 업데이트
   * 오퍼월 테마 지정 기능 추가 (TnkAdConfig.setOfferwallTheme) : 라이트 / 다크 / 시스템 설정
-    * `SYSTEM` 을 사용하는 경우 AndroidManifest.xml 의 AdWallActivity 에 `configChanges` 로 `uiMode` 를 추가해야 합니다. ([안내](./Android_Guide.md#manifest-설정하기))
+    * AndroidManifest.xml 의 AdWallActivity 에 `configChanges` 로 `uiMode` 를 추가하는 것을 권장합니다. ([안내](./Android_Guide.md#activity-tag-추가하기))
   * 개인정보 수집동의 해제 콜백 추가 (TnkSession.setPrivacyAgreementListener)
 
 
