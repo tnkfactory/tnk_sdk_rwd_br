@@ -422,8 +422,8 @@ TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.DARK);
 | --- | --- |
 | `LIGHT` | 단말 설정과 무관하게 라이트 테마로 고정합니다. |
 | `DARK` | 단말 설정과 무관하게 다크 테마로 고정합니다. |
-| `SYSTEM` | 단말의 다크모드 설정을 따릅니다. 오퍼월을 보는 중에 단말 다크모드를 바꾼 경우의 동작은 [아래](#system-사용-시-단말-다크모드를-바꾸면)를 참고하세요. |
-| `UNSPECIFIED` | SDK 가 테마에 관여하지 않습니다. **기본값**이며, 이 API 를 호출하지 않았을 때와 동작이 같습니다. |
+| `SYSTEM` | 단말의 다크모드 설정을 따릅니다. 오퍼월을 보는 중에 단말 다크모드를 바꾼 경우의 동작은 [아래](#단말-다크모드를-바꾸면-system-unspecified)를 참고하세요. |
+| `UNSPECIFIED` | SDK 가 테마를 지정하지 않고 매체 앱의 테마를 그대로 따릅니다. **기본값**이며, 이 API 를 호출하지 않았을 때와 동작이 같습니다. 매체 앱이 `AppCompatDelegate.setDefaultNightMode` 등으로 라이트·다크를 고정하지 않았다면 `SYSTEM` 과 마찬가지로 단말 다크모드를 바꿀 때 [화면이 바뀝니다](#단말-다크모드를-바꾸면-system-unspecified). |
 
 ##### Method
 
@@ -454,11 +454,13 @@ TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.DARK);
 
 테마는 위 화면에만 적용되며 매체 앱의 다른 화면에는 영향을 주지 않습니다.
 
-##### `SYSTEM` 사용 시 단말 다크모드를 바꾸면
+##### 단말 다크모드를 바꾸면 (`SYSTEM`, `UNSPECIFIED`)
 
-`SYSTEM` 은 오퍼월을 열 때의 단말 다크모드 설정을 따릅니다.
-사용자가 오퍼월을 보는 중에 단말의 다크모드를 바꾸면, 바꾼 설정은 **오퍼월을 닫았다가 다시 열 때 반영됩니다.**
-([Activity tag 추가하기](#activity-tag-추가하기) 의 `uiMode` 선언을 권장대로 넣은 경우 기준입니다.)
+[Activity tag 추가하기](#activity-tag-추가하기) 의 권장 `configChanges`(`uiMode` 포함)를 선언한 경우, 사용자가 오퍼월을 보는 중에 단말의 다크모드를 바꾸면 오퍼월 화면이 바로 바뀝니다.
+`SYSTEM` 과 `UNSPECIFIED`(매체 앱이 `AppCompatDelegate.setDefaultNightMode` 등으로 라이트·다크를 고정하지 않은 경우) 모두 해당하며, 보던 카테고리·필터·스크롤 위치는 그대로 유지됩니다.
+`LIGHT` 와 `DARK` 는 단말 설정과 무관하게 고정되므로 바뀌지 않습니다.
+
+- 전환하는 순간에 이미 열려 있던 내 정보 같은 SDK 화면은 바로 바뀌지 않습니다. 닫고 다시 열면 새 설정으로 표시됩니다.
 
 ##### 적용예시
 
