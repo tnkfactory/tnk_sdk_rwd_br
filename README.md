@@ -24,7 +24,7 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
-* 배포일 기입
+* 2026.10.02
   * v8.09.36 업데이트
   * 오퍼월 테마(다크모드) 적용 범위 보완
     * 임베드 오퍼월(TnkEmbedAdList, TnkEmbedNewList)에서 내 정보·수집동의 팝업 등 SDK 다이얼로그에 테마가 적용되지 않던 문제 수정
