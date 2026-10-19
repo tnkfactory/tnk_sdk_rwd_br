@@ -105,7 +105,7 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.09.38'
+    implementation 'com.tnkfactory:rwd:8.09.40'
 }
 ```
 ### Manifest 설정하기
@@ -833,12 +833,14 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 - void TnkSession.setAgreePrivacy(Activity activity, boolean isAgree)
 - boolean TnkSession.getAgreePrivacy(Activity activity)
 
-사용자가 수집동의를 철회했을 때 매체 앱에서 알림을 받고 싶다면 [TnkSession.setPrivacyAgreementListener()](#tnksessionsetprivacyagreementlistener) 를 사용하세요.
+사용자가 수집동의를 철회하거나 동의했을 때 매체 앱에서 알림을 받고 싶다면 [TnkSession.setPrivacyAgreementListener()](#tnksessionsetprivacyagreementlistener) 를 사용하세요.
 
 #### TnkSession.setPrivacyAgreementListener()
 
-(8.09.35 부터) 사용자가 개인정보 수집동의를 **해제(철회)** 했을 때 매체 앱이 통보받는 리스너를 등록합니다.
-오퍼월의 "내 정보" 화면에서 사용자가 수집동의를 철회하는 경우가 대표적입니다.
+사용자가 개인정보 수집동의를 **해제(철회)** 하거나 **동의** 했을 때 매체 앱이 통보받는 리스너를 등록합니다.
+
+- 해제 통보 `onPrivacyAgreementRevoked()` : 8.09.35 부터
+- 동의 통보 `onPrivacyAgreementAgreed()` : 8.09.40 부터
 
 ##### Method
 
@@ -846,36 +848,66 @@ Tnk의 SDK에서 생성하는 로그를 출력할지 여부를 결정합니다. 
 
 ##### Description
 
-수집동의가 해제되면 `listener` 의 `onPrivacyAgreementRevoked()` 가 **Main UI Thread** 에서 호출됩니다.
-`null` 을 넣으면 등록을 해제합니다.
+`null` 을 넣으면 등록을 해제합니다. 두 콜백 모두 **Main UI Thread** 에서 호출됩니다.
 
-- 수집동의 상태에서 해제 상태로 **바뀌는 순간에만 한 번** 호출됩니다. 이미 해제된 상태에서 다시 해제 처리가 일어나도 호출되지 않습니다.
-- 사용자가 "내 정보" 화면에서 철회한 경우와, 매체 앱이 `TnkSession.setAgreePrivacy(activity, false)` 를 직접 호출해 해제한 경우 모두 호출됩니다.
-- **"재동의" 콜백은 없습니다.** 철회한 직후 오퍼월이 수집동의 창을 다시 띄우므로, 사용자가 그 창에서 다시 동의하면 해제 상태는 되돌아갑니다.
-  이때는 별도의 알림이 없으니 최신 상태가 필요하면 `TnkSession.getAgreePrivacy(activity)` 로 확인하세요.
-- 등록한 리스너는 SDK 가 계속 보관합니다. 리스너 안에서 Activity 를 직접 참조하면 Activity 가 해제되지 않으니, `Application` 에서 등록하거나 `applicationContext` 만 사용하세요.
+| 콜백 | 호출 시점 |
+| ---- | --------- |
+| `onPrivacyAgreementRevoked()` | 저장된 값이 동의 → 해제로 **바뀌는 순간에만 한 번**. 오퍼월의 "내 정보" 화면에서 철회하는 경우, 매체 앱이 `TnkSession.setAgreePrivacy(activity, false)` 를 직접 호출한 경우 |
+| `onPrivacyAgreementAgreed()` (8.09.40 부터) | 저장된 값이 해제(또는 미저장) → 동의로 **바뀌는 순간에만 한 번**. 오퍼월의 개인정보 수집동의 팝업, 개인정보 동의 알림창에서 '동의' 를 누른 경우, 매체 앱이 `TnkSession.setAgreePrivacy(activity, true)` 를 직접 호출한 경우 |
+
+- 이미 해제된 상태에서 다시 해제 처리가 일어나거나, 이미 동의한 상태에서 다시 동의 처리가 일어나면 호출되지 않습니다.
+- 철회한 직후에는 오퍼월이 수집동의 창을 다시 띄웁니다. 사용자가 그 창에서 다시 동의하면 8.09.40 부터는 `onPrivacyAgreementAgreed()` 가 호출됩니다. 8.09.39 이하에는 동의 콜백이 없으므로 최신 상태가 필요하면 `TnkSession.getAgreePrivacy(activity)` 로 확인하세요.
+- `onPrivacyAgreementAgreed()` 는 구현하지 않아도 됩니다(Java `default` 메서드, 기본 동작은 아무 일도 하지 않음). 해제 통보만 쓰던 기존 코드(Kotlin 람다, Java 람다, 익명 클래스)는 수정 없이 그대로 동작합니다. 동의 통보까지 받으려면 `object : TnkPrivacyAgreementListener` 또는 익명 클래스로 두 메서드를 구현하세요.
+- 등록한 리스너는 SDK 가 정적 필드에 계속 보관합니다. 리스너 안에서 Activity 를 직접 참조하면 Activity 가 해제되지 않으니, `Application` 에서 등록하거나 `applicationContext` 만 사용하세요. 화면 단위로 등록했다면 `onDestroy()` 에서 `null` 로 등록 해제하세요.
 
 ##### Parameters
 
 | 파라메터 명칭 | 내용 |
 | ------------- | ---- |
-| listener      | `TnkPrivacyAgreementListener` 객체. `onPrivacyAgreementRevoked()` 하나만 가진 인터페이스라서 Kotlin 에서는 람다로 쓸 수 있습니다. `null` 이면 등록을 해제합니다. |
+| listener      | `TnkPrivacyAgreementListener` 객체. 해제 통보 `onPrivacyAgreementRevoked()` 만 필수이고 `onPrivacyAgreementAgreed()` 는 선택입니다. 해제 통보만 필요하면 Kotlin 에서는 람다로 쓸 수 있습니다. `null` 이면 등록을 해제합니다. |
 
 ##### 적용예시
 
 ```kotlin
+// 해제 통보만 받는 경우 (람다)
 TnkSession.setPrivacyAgreementListener {
     // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
 }
+
+// 해제·동의 통보를 모두 받는 경우 (8.09.40 부터)
+TnkSession.setPrivacyAgreementListener(object : TnkPrivacyAgreementListener {
+    override fun onPrivacyAgreementRevoked() {
+        // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
+    }
+
+    // 선택 구현입니다. 구현하지 않아도 됩니다.
+    override fun onPrivacyAgreementAgreed() {
+        // 수집동의가 완료되었습니다. 매체 앱의 상태를 갱신하세요.
+    }
+})
 
 // 등록 해제
 TnkSession.setPrivacyAgreementListener(null)
 ```
 
 ```java
-// Java
+// Java : 해제 통보만 받는 경우 (람다)
 TnkSession.INSTANCE.setPrivacyAgreementListener(() -> {
     // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
+});
+
+// Java : 해제·동의 통보를 모두 받는 경우 (8.09.40 부터)
+TnkSession.INSTANCE.setPrivacyAgreementListener(new TnkPrivacyAgreementListener() {
+    @Override
+    public void onPrivacyAgreementRevoked() {
+        // 수집동의가 해제되었습니다. 매체 앱의 상태를 갱신하세요.
+    }
+
+    // 선택 구현입니다. 구현하지 않아도 됩니다.
+    @Override
+    public void onPrivacyAgreementAgreed() {
+        // 수집동의가 완료되었습니다. 매체 앱의 상태를 갱신하세요.
+    }
 });
 
 // 등록 해제

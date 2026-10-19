@@ -15,6 +15,7 @@ import com.tnkfactory.ad.PlacementEventListener
 import com.tnkfactory.ad.TnkAdConfig
 import com.tnkfactory.ad.TnkOfferwall
 import com.tnkfactory.ad.TnkOfferwallTheme
+import com.tnkfactory.ad.TnkPrivacyAgreementListener
 import com.tnkfactory.ad.TnkSession
 import com.tnkfactory.ad.basic.AdPlacementView
 import com.tnkfactory.ad.basic.PlacementFeedViewLayout
@@ -53,13 +54,21 @@ class MainActivity : AppCompatActivity() {
         // AndroidManifest.xml 의 AdWallActivity 에는 configChanges 로 uiMode 를 함께 선언하는 것을 권장합니다.
         TnkAdConfig.setOfferwallTheme(TnkOfferwallTheme.SYSTEM)
 
-        // 개인정보 수집동의 해제 통보 (8.09.35 부터). 리스너는 SDK 가 계속 보관하므로
-        // Activity 를 참조하지 않도록 applicationContext 만 사용합니다.
+        // 개인정보 수집동의 해제(8.09.35 부터) · 동의(8.09.40 부터) 통보.
+        // onPrivacyAgreementAgreed() 는 선택 구현입니다. 해제 통보만 필요하면 구현하지 않아도 됩니다.
+        // 리스너는 SDK 가 계속 보관하므로 Activity 를 참조하지 않도록 applicationContext 만 사용합니다.
         val appContext = applicationContext
-        TnkSession.setPrivacyAgreementListener {
-            Log.d("TNK", "개인정보 수집동의가 해제되었습니다.")
-            Toast.makeText(appContext, "개인정보 수집동의가 해제되었습니다.", Toast.LENGTH_SHORT).show()
-        }
+        TnkSession.setPrivacyAgreementListener(object : TnkPrivacyAgreementListener {
+            override fun onPrivacyAgreementRevoked() {
+                Log.d("TNK", "개인정보 수집동의가 해제되었습니다.")
+                Toast.makeText(appContext, "개인정보 수집동의가 해제되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onPrivacyAgreementAgreed() {
+                Log.d("TNK", "개인정보 수집동의가 완료되었습니다.")
+                Toast.makeText(appContext, "개인정보 수집동의가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         offerwall = TnkOfferwall(this).apply {
 

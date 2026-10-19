@@ -24,6 +24,12 @@ TnkAd SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱을 
 
 ### Update Notice
 
+* 2026.10.19
+  * v8.09.40 업데이트
+  * 개인정보 수집동의 '동의' 콜백 추가 (TnkPrivacyAgreementListener.onPrivacyAgreementAgreed, 선택 구현)
+  * 오퍼월 추천 팝업 레이아웃을 덮어쓴 매체에서 '닫기' · '오늘 하루 그만보기' 가 동작하지 않던 문제 수정
+
+
 * 2026.10.02
   * v8.09.38 업데이트
   * 오퍼월 테마 지정 기능 추가
