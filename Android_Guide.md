@@ -200,11 +200,21 @@ AndroidManifest.xml의 내용 예시
 
 ### Proguard 사용
 
-Proguard를 사용하실 경우 Proguard 설정내에 아래 내용을 반드시 넣어주세요.
+SDK 에 필요한 R8/ProGuard 규칙은 SDK(AAR) 안에 들어 있습니다. **앱에 따로 추가할 규칙은 없습니다.**
+
+이전 가이드대로 아래 줄을 넣어 두셨다면 지워 주세요.
+이 줄이 있으면 앱의 R8 이 TNK SDK 코드를 줄이거나 난독화하지 못합니다.
 
 ```
 -keep class com.tnkfactory.** { *;}
 ```
+
+UI 를 직접 만든 클래스는 SDK 가 리플렉션으로 생성합니다.
+(`TnkAdConfig.setLayoutInfo` · `TnkAdConfig.setPlacementLayout` · `TnkAdConfig.layoutConfig.adListToolbar` / `adListHeader` 에 등록하는 클래스)
+
+- 인자 없는 public 생성자가 있어야 합니다.
+- 플레이스먼트 레이아웃(`PlacementViewLayout` 상속)은 `Activity` 하나를 받는 public 생성자가 있어야 합니다.
+- 이 생성자들은 SDK 규칙이 지켜 주므로 앱에 keep 규칙을 추가하지 않아도 됩니다.
 
 ### COPPA 설정
 
