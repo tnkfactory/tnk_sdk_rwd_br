@@ -105,9 +105,13 @@ repositories {
 tnk 라이브러리를 사용하기 위해 아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
 ```gradle
 dependencies {
-    implementation 'com.tnkfactory:rwd:8.09.40'
+    implementation 'com.tnkfactory:rwd:8.09.44'
 }
 ```
+
+Kotlin 으로 SDK 를 호출하는 앱은 Kotlin 2.1 이상이 필요합니다. (8.09.41 부터, Java 로만 호출하는 앱은 영향 없음)
+
+버전별 변경 사항은 [릴리즈 노트](./RELEASE_NOTES.md) 를 참고하세요.
 ### Manifest 설정하기
 
 #### 권한 설정
