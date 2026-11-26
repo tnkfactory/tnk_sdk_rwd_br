@@ -1,5 +1,6 @@
 package com.tnkfactory.tnkofferer;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,9 +9,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,6 +62,17 @@ public class RecyclerViewSample extends AppCompatActivity {
         // view binding 객체를 얻습니다.
         ActivityRecyclerViewSampleBinding binding = ActivityRecyclerViewSampleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // targetSdk 35 이상이면 Android 15+ 에서 edge-to-edge 가 강제됩니다.
+        // 시스템 바(상태바·내비게이션 바) 영역만큼 padding 을 줘 화면이 가려지지 않게 합니다.
+        // 이 화면은 배경이 흰색으로 고정이라, 단말 다크모드와 관계없이 시스템 바 아이콘을 어둡게 그립니다.
+        EdgeToEdge.enable(this,
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT));
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // 1) 오퍼월 초기화
         offerwall = new TnkOfferwall(this);
