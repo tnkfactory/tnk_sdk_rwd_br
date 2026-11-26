@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,8 +53,9 @@ public class RecyclerViewSample extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // data binding객체를 얻습니다.
-        ActivityRecyclerViewSampleBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_recycler_view_sample);
+        // view binding 객체를 얻습니다.
+        ActivityRecyclerViewSampleBinding binding = ActivityRecyclerViewSampleBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // 1) 오퍼월 초기화
         offerwall = new TnkOfferwall(this);

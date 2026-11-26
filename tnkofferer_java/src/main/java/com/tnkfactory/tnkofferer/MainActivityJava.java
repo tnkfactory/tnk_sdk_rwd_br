@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import com.tnkfactory.ad.PlacementEventListener;
 import com.tnkfactory.ad.TnkAdConfig;
@@ -41,7 +40,8 @@ public class MainActivityJava extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         placementContainerView = binding.flPlacementAd;
 
         // 오퍼월 테마 지정 (8.09.35 부터). 라이트/다크 고정은 LIGHT / DARK, 단말 설정을 따르려면 SYSTEM.
