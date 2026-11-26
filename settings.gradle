@@ -10,8 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
-        maven { url 'https://repository.tnkad.net/repository/public/' }
+        maven { url = "https://jitpack.io" }
+        maven { url = 'https://repository.tnkad.net/repository/public/' }
     }
 }
 rootProject.name = "tnkofferer"

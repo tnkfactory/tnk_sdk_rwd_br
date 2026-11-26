@@ -1,12 +1,11 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
 //    id 'project-report'
 }
 
 android {
-    namespace 'com.tnkfactory.tnkofferer'
-    compileSdk 35
+    namespace = 'com.tnkfactory.tnkofferer'
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.tnkfactory.tnkofferer"
@@ -15,7 +14,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled = true
 
     }
 
@@ -29,11 +28,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
     buildFeatures {
-        viewBinding true
+        viewBinding = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 

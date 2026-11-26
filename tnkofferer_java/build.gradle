@@ -1,14 +1,10 @@
 plugins {
     id 'com.android.application'
-    //kapt
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-
 }
 
 android {
-    namespace 'com.tnkfactory.tnkofferer'
-    compileSdk 35
+    namespace = 'com.tnkfactory.tnkofferer'
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.tnkfactory.tnkofferer"
@@ -31,7 +27,7 @@ android {
     }
 
     buildFeatures{
-        viewBinding true
+        viewBinding = true
     }
 }
 
